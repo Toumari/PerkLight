@@ -57,10 +57,6 @@ class _PerkPageState extends State<PerkPage> {
             Expanded(
                 child: Image.asset('images/$topRight.png')
             ),
-          ],
-        ),
-        Row(
-          children: <Widget>[
             Expanded(
                 child: Image.asset('images/$bottomLeft.png')
             ),
