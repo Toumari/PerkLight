@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 
-
 void main() {
-  return runApp(
-    MaterialApp(
-      home: Scaffold(
+  return runApp(MaterialApp(
+    home: Scaffold(
+      backgroundColor: Colors.red.shade900,
+      appBar: AppBar(
+        title: Text('PerkLight'),
         backgroundColor: Colors.red.shade900,
-        appBar: AppBar(
-          title: Text('PerkLight'),
-          backgroundColor: Colors.red.shade900,
-        ),
-        body: PerkPage(),
       ),
-    )
-  );
+      body: PerkPage(),
+    ),
+  ));
 }
 
 class PerkPage extends StatefulWidget {
@@ -23,8 +20,6 @@ class PerkPage extends StatefulWidget {
 }
 
 class _PerkPageState extends State<PerkPage> {
-
-
   int topLeft = 1;
   int topRight = 1;
   int bottomLeft = 3;
@@ -42,27 +37,65 @@ class _PerkPageState extends State<PerkPage> {
     print(list);
   }
 
-  var perkDesc = ['Adrenaline','Hope','Decisive Strike'];
+  var perkDesc = [
+    'Adrenaline',
+    'Hope',
+    'Decisive Strike',
+    'Adrenaline',
+    'Hope',
+    'Decisive Strike',
+    'Adrenaline',
+    'Hope',
+    'Decisive Strike'
+  ];
 
   @override
   Widget build(BuildContext context) {
-
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Row(
           children: <Widget>[
             Expanded(
-                child: Image.asset('images/$topLeft.png')
-            ),
+                child: Column(
+              children: <Widget>[
+                Text(
+                  "Adrenaline",
+                  style: TextStyle(color: Colors.white),
+                ),
+                Image.asset('images/$topLeft.png'),
+              ],
+            )),
             Expanded(
-                child: Image.asset('images/$topRight.png')
-            ),
+                child: Column(
+              children: <Widget>[
+                Text(
+                  "Adrenaline",
+                  style: TextStyle(color: Colors.white),
+                ),
+                Image.asset('images/$topRight.png'),
+              ],
+            )),
             Expanded(
-                child: Image.asset('images/$bottomLeft.png')
-            ),
+                child: Column(
+              children: <Widget>[
+                Text(
+                  perkDesc[bottomLeft],
+                  style: TextStyle(color: Colors.white),
+                ),
+                Image.asset('images/$bottomLeft.png'),
+              ],
+            )),
             Expanded(
-                child: Image.asset('images/$bottomRight.png')
-            ),
+                child: Column(
+              children: <Widget>[
+                Text(
+                  "Adrenaline",
+                  style: TextStyle(color: Colors.white),
+                ),
+                Image.asset('images/$bottomRight.png'),
+              ],
+            )),
           ],
         ),
         FlatButton(
@@ -70,15 +103,12 @@ class _PerkPageState extends State<PerkPage> {
             setState(() {
               checkNumbers();
             });
-
           },
           child: Text('Press to randomize'),
           color: Colors.white,
-
         ),
         FlatButton(
-          onPressed: () {
-          },
+          onPressed: () {},
           child: Text('Switch to Killer'),
           color: Colors.white,
         )
@@ -86,4 +116,3 @@ class _PerkPageState extends State<PerkPage> {
     );
   }
 }
-
