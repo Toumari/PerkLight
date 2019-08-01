@@ -20,33 +20,86 @@ class PerkPage extends StatefulWidget {
 }
 
 class _PerkPageState extends State<PerkPage> {
-  int topLeft = 1;
-  int topRight = 1;
-  int bottomLeft = 3;
-  int bottomRight = 4;
+  int farLeft = 1;
+  int left = 1;
+  int right = 3;
+  int farRight = 4;
 
-  var list = new List<int>.generate(7, (int index) => index);
+
 
   void checkNumbers() {
-    list.remove(0);
-    list.shuffle();
-    topLeft = list[0];
-    topRight = list[1];
-    bottomLeft = list[2];
-    bottomRight = list[3];
-    print(list);
+    farLeft = Random().nextInt(65) + 1;
+    left = Random().nextInt(65) +1 ;
+    right = Random().nextInt(65) +1 ;
+    farRight = Random().nextInt(65)+1;
   }
 
   var perkDesc = [
+    'Ace in the Hole',
     'Adrenaline',
-    'Hope',
+    'Aftercare',
+    'Alert',
+    'Autodidact',
+    'Balanced Landing',
+    'Boil Over',
+    'Bond',
+    'Borrowed Time',
+    'Botany Knowledge',
+    'Breakdown',
+    'Buckle Up',
+    'Calm Spirit',
+    'Dance With Me',
+    'Dark Sense',
+    'Dead Hard',
     'Decisive Strike',
-    'Adrenaline',
+    'Déja Vu',
+    'Deliverance',
+    "detective's Hunch",
+    'Distortion',
+    'Diversion',
+    'Empathy',
+    'Flip-Flop',
+    'Head On',
     'Hope',
-    'Decisive Strike',
-    'Adrenaline',
-    'Hope',
-    'Decisive Strike'
+    'Iron Will',
+    'Kindred',
+    'Leader',
+    'Left Behind',
+    'Lightweight',
+    'Lithe',
+    'Mettle of Man',
+    'No Mither',
+    'No One Left Behind',
+    'Object of Obsession',
+    'Open-Handed',
+    'Pharmacy',
+    "Plunderer's Instinct",
+    'Poised',
+    'Premonition',
+    'Prove Thyself',
+    'Quick & Quiet',
+    'Resilience',
+    'Saboteur',
+    'Self-Care',
+    'Slippery Meat',
+    'Small Game',
+    'Sole Survivor',
+    'Solidarity',
+    'Spine Chill',
+    'Sprint Burst',
+    'Stake Out',
+    'Streetwise',
+    'This Is Not Happening',
+    'Technician',
+    'Tenacity',
+    'Up the Ante',
+    'Unbreakable',
+    'Urban Evasion',
+    'Vigil',
+    'Wake Up!',
+    "We'll Make It",
+    "We're Gonna Live Forever",
+    'Windows of Opportunity'
   ];
 
   @override
@@ -60,42 +113,42 @@ class _PerkPageState extends State<PerkPage> {
                 child: Column(
               children: <Widget>[
                 Text(
-                  "Adrenaline",
+                  (perkDesc[farLeft -1]),
                   style: TextStyle(color: Colors.white),
                 ),
-                Image.asset('images/$topLeft.png'),
+                Image.asset('images/$farLeft.png'),
               ],
             )),
             Expanded(
                 child: Column(
-              children: <Widget>[
-                Text(
-                  "Adrenaline",
-                  style: TextStyle(color: Colors.white),
-                ),
-                Image.asset('images/$topRight.png'),
-              ],
-            )),
+                  children: <Widget>[
+                    Text(
+                      (perkDesc[left -1]),
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    Image.asset('images/$left.png'),
+                  ],
+                )),
             Expanded(
                 child: Column(
-              children: <Widget>[
-                Text(
-                  perkDesc[bottomLeft],
-                  style: TextStyle(color: Colors.white),
-                ),
-                Image.asset('images/$bottomLeft.png'),
-              ],
-            )),
+                  children: <Widget>[
+                    Text(
+                      (perkDesc[right -1]),
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    Image.asset('images/$right.png'),
+                  ],
+                )),
             Expanded(
                 child: Column(
-              children: <Widget>[
-                Text(
-                  "Adrenaline",
-                  style: TextStyle(color: Colors.white),
-                ),
-                Image.asset('images/$bottomRight.png'),
-              ],
-            )),
+                  children: <Widget>[
+                    Text(
+                      (perkDesc[farRight -1]),
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    Image.asset('images/$farRight.png'),
+                  ],
+                )),
           ],
         ),
         FlatButton(
