@@ -4,10 +4,10 @@ import 'dart:math';
 void main() {
   return runApp(MaterialApp(
     home: Scaffold(
-      backgroundColor: Colors.red.shade900,
+      backgroundColor: Colors.blueGrey,
       appBar: AppBar(
         title: Text('PerkLight'),
-        backgroundColor: Colors.red.shade900,
+        backgroundColor: Colors.blueGrey,
       ),
       body: PerkPage(),
     ),
@@ -32,6 +32,14 @@ class _PerkPageState extends State<PerkPage> {
     left = Random().nextInt(65) +1 ;
     right = Random().nextInt(65) +1 ;
     farRight = Random().nextInt(65)+1;
+
+    if(farLeft == farRight || left == right || farLeft == left || farRight == right ) {
+      print("matched");
+      farLeft = Random().nextInt(65) + 1;
+      left = Random().nextInt(65) +1 ;
+      right = Random().nextInt(65) +1 ;
+      farRight = Random().nextInt(65)+1;
+    }
   }
 
   var perkDesc = [
@@ -107,26 +115,43 @@ class _PerkPageState extends State<PerkPage> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
+        Container(
+          alignment: Alignment(0, 0),
+          child: Row(
+            children: <Widget>[
+              Expanded(
+                  child: Column(
+                children: <Widget>[
+                  Text(
+                    (perkDesc[farLeft -1]),
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  Image.asset('images/$farLeft.png'),
+                ],
+              )),
+              Expanded(
+                  child: Column(
+                    children: <Widget>[
+                      Text(
+                        (perkDesc[left -1]),
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      Image.asset('images/$left.png'),
+                    ],
+                  )),
+            ],
+          ),
+        ),
         Row(
           children: <Widget>[
             Expanded(
                 child: Column(
-              children: <Widget>[
-                Text(
-                  (perkDesc[farLeft -1]),
-                  style: TextStyle(color: Colors.white),
-                ),
-                Image.asset('images/$farLeft.png'),
-              ],
-            )),
-            Expanded(
-                child: Column(
                   children: <Widget>[
                     Text(
-                      (perkDesc[left -1]),
+                      (perkDesc[farRight -1]),
                       style: TextStyle(color: Colors.white),
                     ),
-                    Image.asset('images/$left.png'),
+                    Image.asset('images/$farRight.png'),
                   ],
                 )),
             Expanded(
@@ -139,32 +164,20 @@ class _PerkPageState extends State<PerkPage> {
                     Image.asset('images/$right.png'),
                   ],
                 )),
-            Expanded(
-                child: Column(
-                  children: <Widget>[
-                    Text(
-                      (perkDesc[farRight -1]),
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    Image.asset('images/$farRight.png'),
-                  ],
-                )),
           ],
         ),
-        FlatButton(
-          onPressed: () {
-            setState(() {
-              checkNumbers();
-            });
-          },
-          child: Text('Press to randomize'),
-          color: Colors.white,
-        ),
-        FlatButton(
-          onPressed: () {},
-          child: Text('Switch to Killer'),
-          color: Colors.white,
-        )
+        Container(
+            alignment: Alignment(0, 0.8),
+            child: FlatButton(
+              onPressed: () {
+                setState(() {
+                  checkNumbers();
+                });
+              },
+              child: Text('Press to generate a build'),
+              color: Colors.white,
+            ),
+          ),
       ],
     );
   }
