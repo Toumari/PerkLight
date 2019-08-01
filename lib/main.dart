@@ -7,7 +7,7 @@ void main() {
       backgroundColor: Colors.blueGrey,
       appBar: AppBar(
         title: Text('PerkLight'),
-        backgroundColor: Colors.blueGrey,
+        backgroundColor: Colors.blueGrey.shade600,
       ),
       body: PerkPage(),
     ),
@@ -25,20 +25,23 @@ class _PerkPageState extends State<PerkPage> {
   int right = 3;
   int farRight = 4;
 
-
+  var isSwitched = true;
 
   void checkNumbers() {
     farLeft = Random().nextInt(65) + 1;
-    left = Random().nextInt(65) +1 ;
-    right = Random().nextInt(65) +1 ;
-    farRight = Random().nextInt(65)+1;
+    left = Random().nextInt(65) + 1;
+    right = Random().nextInt(65) + 1;
+    farRight = Random().nextInt(65) + 1;
 
-    if(farLeft == farRight || left == right || farLeft == left || farRight == right ) {
+    if (farLeft == farRight ||
+        left == right ||
+        farLeft == left ||
+        farRight == right) {
       print("matched");
       farLeft = Random().nextInt(65) + 1;
-      left = Random().nextInt(65) +1 ;
-      right = Random().nextInt(65) +1 ;
-      farRight = Random().nextInt(65)+1;
+      left = Random().nextInt(65) + 1;
+      right = Random().nextInt(65) + 1;
+      farRight = Random().nextInt(65) + 1;
     }
   }
 
@@ -112,73 +115,143 @@ class _PerkPageState extends State<PerkPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Container(
-          alignment: Alignment(0, 0),
-          child: Row(
+    return SafeArea(
+      bottom: false,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
+          Container(
+            height: 50,
+          ),
+          Container(
+            alignment: Alignment(0, 0),
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                    child: Column(
+                  children: <Widget>[
+                    Text(
+                      (perkDesc[farLeft - 1]),
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    Image.asset(
+                      'images/$farLeft.png',
+                      height: 150,
+                      width: 150,
+                      fit: BoxFit.fill,
+                    ),
+                  ],
+                )),
+                Expanded(
+                    child: Column(
+                  children: <Widget>[
+                    Text(
+                      (perkDesc[left - 1]),
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    Image.asset(
+                      'images/$left.png',
+                      height: 150,
+                      width: 150,
+                      fit: BoxFit.fill,
+                    ),
+                  ],
+                )),
+              ],
+            ),
+          ),
+          Container(
+            height: 50,
+          ),
+          Row(
             children: <Widget>[
               Expanded(
                   child: Column(
                 children: <Widget>[
                   Text(
-                    (perkDesc[farLeft -1]),
+                    (perkDesc[farRight - 1]),
                     style: TextStyle(color: Colors.white),
                   ),
-                  Image.asset('images/$farLeft.png'),
+                  Image.asset(
+                    'images/$farRight.png',
+                    height: 150,
+                    width: 150,
+                    fit: BoxFit.fill,
+                  ),
                 ],
               )),
               Expanded(
                   child: Column(
-                    children: <Widget>[
-                      Text(
-                        (perkDesc[left -1]),
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      Image.asset('images/$left.png'),
-                    ],
-                  )),
+                children: <Widget>[
+                  Text(
+                    (perkDesc[right - 1]),
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  Image.asset(
+                    'images/$right.png',
+                    height: 150,
+                    width: 150,
+                    fit: BoxFit.fill,
+                  ),
+                ],
+              )),
             ],
           ),
-        ),
-        Row(
-          children: <Widget>[
-            Expanded(
-                child: Column(
-                  children: <Widget>[
-                    Text(
-                      (perkDesc[farRight -1]),
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    Image.asset('images/$farRight.png'),
-                  ],
-                )),
-            Expanded(
-                child: Column(
-                  children: <Widget>[
-                    Text(
-                      (perkDesc[right -1]),
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    Image.asset('images/$right.png'),
-                  ],
-                )),
-          ],
-        ),
-        Container(
-            alignment: Alignment(0, 0.8),
-            child: FlatButton(
-              onPressed: () {
-                setState(() {
-                  checkNumbers();
-                });
-              },
-              child: Text('Press to generate a build'),
-              color: Colors.white,
+          SizedBox(
+            height: 50,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              Text(
+                'Survivor',
+                style: TextStyle(fontSize: 22.0),
+              ),
+              Transform.scale(
+                scale: 1.5,
+                child: Switch(
+                  value: isSwitched,
+                  onChanged: (value) {
+                    setState(() {
+                      isSwitched = value;
+
+                      print(value);
+                    });
+                  },
+                  activeTrackColor: Colors.redAccent,
+                  activeColor: Colors.black,
+                ),
+              ),
+              Text(
+                'Killer',
+                style: TextStyle(fontSize: 22.0),
+              )
+            ],
+          ),
+          Expanded(
+            child: Container(
+              alignment: Alignment(0, 1),
+              child: SizedBox(
+                width: double.infinity,
+                height: 100,
+                child: FlatButton(
+                  onPressed: () {
+                    setState(() {
+                      checkNumbers();
+                    });
+                  },
+                  child: Text(
+                    'Press to generate a build',
+                    style: TextStyle(fontSize: 22.0),
+                  ),
+                  color: Colors.redAccent,
+                  textColor: Colors.white,
+                ),
+              ),
             ),
           ),
-      ],
+        ],
+      ),
     );
   }
 }
