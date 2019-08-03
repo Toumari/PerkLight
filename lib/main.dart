@@ -4,10 +4,10 @@ import 'dart:math';
 void main() {
   return runApp(MaterialApp(
     home: Scaffold(
-      backgroundColor: Colors.blueGrey,
+      backgroundColor: Color(0xff21213b),
       appBar: AppBar(
         title: Text('PerkLight'),
-        backgroundColor: Colors.blueGrey.shade600,
+        backgroundColor: Color(0xff21213b),
       ),
       body: PerkPage(),
     ),
@@ -205,7 +205,7 @@ class _PerkPageState extends State<PerkPage> {
             children: <Widget>[
               Text(
                 'Survivor',
-                style: TextStyle(fontSize: 22.0),
+                style: TextStyle(fontSize: 22.0, color: Colors.white),
               ),
               Transform.scale(
                 scale: 1.5,
@@ -224,7 +224,7 @@ class _PerkPageState extends State<PerkPage> {
               ),
               Text(
                 'Killer',
-                style: TextStyle(fontSize: 22.0),
+                style: TextStyle(fontSize: 22.0, color: Colors.white),
               )
             ],
           ),
