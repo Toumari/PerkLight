@@ -8,8 +8,10 @@ class BuildConfiguration extends StatefulWidget {
 class _BuildConfigurationState extends State<BuildConfiguration> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text('Hello')
+    return Scaffold(
+      body: Center(
+        child: Text('Testing'),
+      ),
     );
   }
 }
