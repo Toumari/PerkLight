@@ -46,11 +46,20 @@ class _PerkPageState extends State<PerkPage> {
         left == right ||
         farLeft == left ||
         farRight == right) {
-      print("matched");
+      if(selectedType == 'survivor/') {
+        print("matched Survivor");
         farLeft = Random().nextInt(65) + 1;
         left = Random().nextInt(65) + 1;
         right = Random().nextInt(65) + 1;
         farRight = Random().nextInt(65) + 1;
+      }
+      else {
+        print("matched Killer");
+        farLeft = Random().nextInt(60) + 1;
+        left = Random().nextInt(60) + 1;
+        right = Random().nextInt(60) + 1;
+        farRight = Random().nextInt(60) + 1;
+      }
     }
   }
 
@@ -138,8 +147,51 @@ class _PerkPageState extends State<PerkPage> {
     'Deerstalker',
     'Discordance',
     'Distressing',
-    ''
-
+    'Dying Light',
+    'Enduring',
+    'Fire Up',
+    "Franklin's Demise",
+    'Furtive Chase',
+    "Hangman's Trick",
+    'Hex: Devour Hope',
+    'Hex: Haunted Grounds',
+    'Hex: Huntress Lullaby',
+    'Hex: No One Escapes Death',
+    'Hex: Ruin',
+    'Hex: The Third Seal',
+    'Hex: Thrill of the Hunt',
+    "I'm All Ears",
+    'Infectious Fright',
+    'Insidious',
+    'Iron Grasp',
+    'Iron Maiden',
+    'Knock Out',
+    'Lightborn',
+    'Mad Grit',
+    'Make Your Choice',
+    'Monitor & Abuse',
+    'Monstrous Shrine',
+    'Overcharge',
+    'Overwhelming Presence',
+    'Play With Your Food',
+    'Pop Goes the Weasel',
+    'Predator',
+    'Rancor',
+    'Remember Me',
+    'Save the Best for Last',
+    'Shadowborn',
+    'Sloppy Butcher',
+    'Spies from the Shadows',
+    'Spirit Fury',
+    'Stridor',
+    'Surveillance',
+    'Territorial Imperative',
+    'Tinkerer',
+    'Thanataphobia',
+    'Thrilling Tremors',
+    'Unnerving Presence',
+    'Unrelenting',
+    'Whispers'
   ];
 
   @override
@@ -160,7 +212,6 @@ class _PerkPageState extends State<PerkPage> {
                     child: Column(
                   children: <Widget>[
                     Text(
-
                       (perkDesc[farLeft - 1]),
                       style: TextStyle(color: Colors.white),
                     ),
@@ -269,11 +320,140 @@ class _PerkPageState extends State<PerkPage> {
                       setState(() {
                         checkNumbers();
                         selectedType = 'survivor/';
+                        perkDesc = [
+                          'Ace in the Hole',
+                          'Adrenaline',
+                          'Aftercare',
+                          'Alert',
+                          'Autodidact',
+                          'Balanced Landing',
+                          'Boil Over',
+                          'Bond',
+                          'Borrowed Time',
+                          'Botany Knowledge',
+                          'Breakdown',
+                          'Buckle Up',
+                          'Calm Spirit',
+                          'Dance With Me',
+                          'Dark Sense',
+                          'Dead Hard',
+                          'Decisive Strike',
+                          'Déja Vu',
+                          'Deliverance',
+                          "detective's Hunch",
+                          'Distortion',
+                          'Diversion',
+                          'Empathy',
+                          'Flip-Flop',
+                          'Head On',
+                          'Hope',
+                          'Iron Will',
+                          'Kindred',
+                          'Leader',
+                          'Left Behind',
+                          'Lightweight',
+                          'Lithe',
+                          'Mettle of Man',
+                          'No Mither',
+                          'No One Left Behind',
+                          'Object of Obsession',
+                          'Open-Handed',
+                          'Pharmacy',
+                          "Plunderer's Instinct",
+                          'Poised',
+                          'Premonition',
+                          'Prove Thyself',
+                          'Quick & Quiet',
+                          'Resilience',
+                          'Saboteur',
+                          'Self-Care',
+                          'Slippery Meat',
+                          'Small Game',
+                          'Sole Survivor',
+                          'Solidarity',
+                          'Spine Chill',
+                          'Sprint Burst',
+                          'Stake Out',
+                          'Streetwise',
+                          'This Is Not Happening',
+                          'Technician',
+                          'Tenacity',
+                          'Up the Ante',
+                          'Unbreakable',
+                          'Urban Evasion',
+                          'Vigil',
+                          'Wake Up!',
+                          "We'll Make It",
+                          "We're Gonna Live Forever",
+                          'Windows of Opportunity'
+                        ];
                       });
                     }
                     else {
                       setState(() {
                         selectedType = 'killer/';
+                        perkDesc = [
+                          "A Nurse's Calling",
+                          'Agitation',
+                          'Bamboozle',
+                          'Barbecue & Chilli',
+                          'Beast of Prey',
+                          'Bitter Murmur',
+                          'Bloodhound',
+                          'Blood Warden',
+                          'Brutal Strength',
+                          'Corrupt Intervention',
+                          'Coulrophobia',
+                          'Dark Devotion',
+                          'Deerstalker',
+                          'Discordance',
+                          'Distressing',
+                          'Dying Light',
+                          'Enduring',
+                          'Fire Up',
+                          "Franklin's Demise",
+                          'Furtive Chase',
+                          "Hangman's Trick",
+                          'Hex: Devour Hope',
+                          'Hex: Haunted Grounds',
+                          'Hex: Huntress Lullaby',
+                          'Hex: No One Escapes Death',
+                          'Hex: Ruin',
+                          'Hex: The Third Seal',
+                          'Hex: Thrill of the Hunt',
+                          "I'm All Ears",
+                          'Infectious Fright',
+                          'Insidious',
+                          'Iron Grasp',
+                          'Iron Maiden',
+                          'Knock Out',
+                          'Lightborn',
+                          'Mad Grit',
+                          'Make Your Choice',
+                          'Monitor & Abuse',
+                          'Monstrous Shrine',
+                          'Overcharge',
+                          'Overwhelming Presence',
+                          'Play With Your Food',
+                          'Pop Goes the Weasel',
+                          'Predator',
+                          'Rancor',
+                          'Remember Me',
+                          'Save the Best for Last',
+                          'Shadowborn',
+                          'Sloppy Butcher',
+                          'Spies from the Shadows',
+                          'Spirit Fury',
+                          'Stridor',
+                          'Surveillance',
+                          'Territorial Imperative',
+                          'Tinkerer',
+                          'Thanataphobia',
+                          'Thrilling Tremors',
+                          'Unnerving Presence',
+                          'Unrelenting',
+                          'Whispers'
+                        ];
                         checkNumbers();
                       });
                     }
