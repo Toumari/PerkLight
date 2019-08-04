@@ -24,28 +24,37 @@ class _PerkPageState extends State<PerkPage> {
   int left = 1;
   int right = 3;
   int farRight = 4;
-
-  var isSwitched = true;
+  String selectedType = 'survivor/';
+  bool isSwitched = false;
+  bool perkArraySelector = true;
 
   void checkNumbers() {
-    farLeft = Random().nextInt(65) + 1;
-    left = Random().nextInt(65) + 1;
-    right = Random().nextInt(65) + 1;
-    farRight = Random().nextInt(65) + 1;
+    if(selectedType == 'survivor') {
+      farLeft = Random().nextInt(65) + 1;
+      left = Random().nextInt(65) + 1;
+      right = Random().nextInt(65) + 1;
+      farRight = Random().nextInt(65) + 1;
+    }
+    else {
+      farLeft = Random().nextInt(60) + 1;
+      left = Random().nextInt(60) + 1;
+      right = Random().nextInt(60) + 1;
+      farRight = Random().nextInt(60) + 1;
+    }
 
     if (farLeft == farRight ||
         left == right ||
         farLeft == left ||
         farRight == right) {
       print("matched");
-      farLeft = Random().nextInt(65) + 1;
-      left = Random().nextInt(65) + 1;
-      right = Random().nextInt(65) + 1;
-      farRight = Random().nextInt(65) + 1;
+        farLeft = Random().nextInt(65) + 1;
+        left = Random().nextInt(65) + 1;
+        right = Random().nextInt(65) + 1;
+        farRight = Random().nextInt(65) + 1;
     }
   }
 
-  var perkDesc = [
+  List<String> perkDesc = [
     'Ace in the Hole',
     'Adrenaline',
     'Aftercare',
@@ -113,6 +122,26 @@ class _PerkPageState extends State<PerkPage> {
     'Windows of Opportunity'
   ];
 
+  List<String> perkDescKiller = [
+    "A Nurse's Calling",
+    'Agitation',
+    'Bamboozle',
+    'Barbecue & Chilli',
+    'Beast of Prey',
+    'Bitter Murmur',
+    'Bloodhound',
+    'Blood Warden',
+    'Brutal Strength',
+    'Corrupt Intervention',
+    'Coulrophobia',
+    'Dark Devotion',
+    'Deerstalker',
+    'Discordance',
+    'Distressing',
+    ''
+
+  ];
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -131,11 +160,12 @@ class _PerkPageState extends State<PerkPage> {
                     child: Column(
                   children: <Widget>[
                     Text(
+
                       (perkDesc[farLeft - 1]),
                       style: TextStyle(color: Colors.white),
                     ),
                     Image.asset(
-                      'images/$farLeft.png',
+                      'images/$selectedType$farLeft.png',
                       height: 150,
                       width: 150,
                       fit: BoxFit.fill,
@@ -150,7 +180,7 @@ class _PerkPageState extends State<PerkPage> {
                       style: TextStyle(color: Colors.white),
                     ),
                     Image.asset(
-                      'images/$left.png',
+                      'images/$selectedType$left.png',
                       height: 150,
                       width: 150,
                       fit: BoxFit.fill,
@@ -173,7 +203,7 @@ class _PerkPageState extends State<PerkPage> {
                     style: TextStyle(color: Colors.white),
                   ),
                   Image.asset(
-                    'images/$farRight.png',
+                    'images/$selectedType$farRight.png',
                     height: 150,
                     width: 150,
                     fit: BoxFit.fill,
@@ -188,7 +218,7 @@ class _PerkPageState extends State<PerkPage> {
                     style: TextStyle(color: Colors.white),
                   ),
                   Image.asset(
-                    'images/$right.png',
+                    'images/$selectedType$right.png',
                     height: 150,
                     width: 150,
                     fit: BoxFit.fill,
@@ -212,11 +242,10 @@ class _PerkPageState extends State<PerkPage> {
                 child: Switch(
                   value: isSwitched,
                   onChanged: (value) {
-                    setState(() {
-                      isSwitched = value;
-
-                      print(value);
-                    });
+                      setState(() {
+                        isSwitched = value;
+                        print(value);
+                      });
                   },
                   activeTrackColor: Colors.redAccent,
                   activeColor: Colors.black,
@@ -236,9 +265,18 @@ class _PerkPageState extends State<PerkPage> {
                 height: 100,
                 child: FlatButton(
                   onPressed: () {
-                    setState(() {
-                      checkNumbers();
-                    });
+                    if(!isSwitched) {
+                      setState(() {
+                        checkNumbers();
+                        selectedType = 'survivor/';
+                      });
+                    }
+                    else {
+                      setState(() {
+                        selectedType = 'killer/';
+                        checkNumbers();
+                      });
+                    }
                   },
                   child: Text(
                     'Press to generate a build',
