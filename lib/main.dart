@@ -65,15 +65,35 @@ class _PerkPageState extends State<PerkPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: Drawer(
-        child: ListView(
-          children: <Widget>[
-            ListTile(
-              title: Text('Navigate'),
-              onTap: () {
-                Navigator.push(context,MaterialPageRoute(builder: (context) => BuildConfiguration()));
-              },
-            )
-          ],
+        child: Container(
+          color: Color(0xff21213b),
+          child: ListView(
+            children: <Widget>[
+              Container(
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(width: 1.0,color: Colors.white)
+                  )
+                ),
+                child: DrawerHeader(
+                  child: Center(child: Text('PerkLight',style: TextStyle(fontSize: 40.0,fontWeight: FontWeight.bold,color: Colors.white),)),
+                  decoration: BoxDecoration(
+                    color: Color(0xff21213b)
+                  ),
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.all(24.0),
+                color: Color(0xff21213b),
+                child: ListTile(
+                  title: Center(child: Text('Saved Builds',style: TextStyle(fontWeight: FontWeight.w700, fontSize: 22.0,color: Colors.white, decoration: TextDecoration.underline),)),
+                  onTap: () {
+                    Navigator.push(context,MaterialPageRoute(builder: (context) => BuildConfiguration()));
+                  },
+                ),
+              )
+            ],
+          ),
         ),
       ),
     backgroundColor: Color(0xff21213b),

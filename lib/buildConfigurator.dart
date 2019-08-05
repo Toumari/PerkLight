@@ -15,7 +15,12 @@ class _BuildConfigurationState extends State<BuildConfiguration> {
         title: Text('Build Configuration'),
       ),
       body: Center(
-        child: Text('Testing'),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text('Testing',style: TextStyle(color: Colors.white),)
+          ],
+        ),
       ),
     );
   }
