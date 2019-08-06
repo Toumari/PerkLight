@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'buildConfigurator.dart';
+import 'package:flutter/services.dart';
 
 
 
@@ -63,6 +64,10 @@ class _PerkPageState extends State<PerkPage> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return Scaffold(
       drawer: Drawer(
         child: Container(
