@@ -18,7 +18,7 @@ class _BuildConfigurationState extends State<BuildConfiguration> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text('Testing',style: TextStyle(color: Colors.white),)
+            Text('COMING SOON',style: TextStyle(color: Colors.white),)
           ],
         ),
       ),
