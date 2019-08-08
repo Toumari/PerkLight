@@ -16,6 +16,7 @@ class _BuildConfigurationState extends State<BuildConfiguration> {
 
   @override
   Widget build(BuildContext context) {
+    widget.perks.sort();
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
@@ -24,7 +25,7 @@ class _BuildConfigurationState extends State<BuildConfiguration> {
       backgroundColor: Color(0xff21213b),
       appBar: AppBar(
         backgroundColor: Color(0xff21213b),
-        title: Text('Build Configuration'),
+        title: Text('Perk List'),
       ),
       body: SafeArea(
         child: ListView(

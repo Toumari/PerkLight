@@ -12,7 +12,7 @@ class PerkPage extends StatefulWidget {
 
 class _PerkPageState extends State<PerkPage> {
   int farLeft = 1;
-  int left = 1;
+  int left = 2;
   int right = 3;
   int farRight = 4;
   String selectedType = 'survivor/';
@@ -84,7 +84,7 @@ class _PerkPageState extends State<PerkPage> {
                 padding: EdgeInsets.all(24.0),
                 color: Color(0xff21213b),
                 child: ListTile(
-                  title: Center(child: Text('Build Configuration(Coming Soon)',style: TextStyle(fontWeight: FontWeight.w700, fontSize: 22.0,color: Colors.white, decoration: TextDecoration.underline),)),
+                  title: Center(child: Text('Perk List',style: TextStyle(fontWeight: FontWeight.w700, fontSize: 22.0,color: Colors.white, decoration: TextDecoration.underline),)),
                   onTap: () {
                     Navigator.push(context,MaterialPageRoute(builder: (context) => BuildConfiguration(perks: fullList,)));
                   },
