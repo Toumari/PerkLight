@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'widgets/perk.dart';
 
 
 class BuildConfiguration extends StatefulWidget {
@@ -16,7 +17,11 @@ class _BuildConfigurationState extends State<BuildConfiguration> {
 
   @override
   Widget build(BuildContext context) {
+
     widget.perks.sort();
+
+    var list = returnAll();
+
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
@@ -25,20 +30,23 @@ class _BuildConfigurationState extends State<BuildConfiguration> {
       backgroundColor: Color(0xff21213b),
       appBar: AppBar(
         backgroundColor: Color(0xff21213b),
-        title: Text('Perk List'),
+        title: Text('Perk List',style: TextStyle(color: Colors.white),),
       ),
       body: SafeArea(
         child: ListView(
           children: <Widget>[
-            for(var item in widget.perks)
-            ListTile(
-              leading: Icon(Icons.map, color: Colors.white,),
-              title: Text(item, style: TextStyle(color: Colors.white),),
-              onTap: () {print('tapped');},
-            ),
+            for(var item in list)
+              Text(item.perkName)
           ],
         ),
         ),
     );
   }
 }
+
+
+//ListTile(
+//leading: Icon(Icons.map, color: Colors.white,),
+//title: Text(item, style: TextStyle(color: Colors.white),),
+//onTap: () {print('tapped');},
+//),
