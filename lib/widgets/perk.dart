@@ -43,7 +43,7 @@ List<Perk> returnAll() {
 
 List<Perk> returnKiller() {
   List<Perk> killerPerks = List<Perk>();
-  for(var i=0;i<killerPerks.length;i++) {
+  for(var i=0;i<killerList.length;i++) {
     killerPerks.add(Perk(killerList[i],true,i));
   }
   return killerPerks;

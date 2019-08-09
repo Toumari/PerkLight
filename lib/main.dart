@@ -9,6 +9,7 @@ import 'widgets/perk.dart';
 class PerkPage extends StatefulWidget {
 
 
+
   @override
   _PerkPageState createState() => _PerkPageState();
 }
@@ -22,9 +23,7 @@ class _PerkPageState extends State<PerkPage> {
   String selectedType = 'survivor/';
   bool isSwitched = false;
   bool perkArraySelector = true;
-  List fullList = ['Ace in the Hole', 'Adrenaline', 'Aftercare', 'Alert', 'Autodidact', 'Balanced Landing', 'Boil Over', 'Bond', 'Borrowed Time', 'Botany Knowledge', 'Breakdown', 'Buckle Up', 'Calm Spirit', 'Dance With Me', 'Dark Sense', 'Dead Hard', 'Decisive Strike', 'Déja Vu', 'Deliverance', "Detective's Hunch", 'Distortion', 'Diversion', 'Empathy', 'Flip-Flop', 'Head On', 'Hope', 'Iron Will', 'Kindred', 'Leader', 'Left Behind', 'Lightweight', 'Lithe', 'Mettle of Man', 'No Mither', 'No One Left Behind', 'Object of Obsession', 'Open-Handed', 'Pharmacy', "Plunderer's Instinct", 'Poised', 'Premonition', 'Prove Thyself', 'Quick & Quiet', 'Resilience', 'Saboteur', 'Self-Care', 'Slippery Meat', 'Small Game', 'Sole Survivor', 'Solidarity', 'Spine Chill', 'Sprint Burst', 'Stake Out', 'Streetwise', 'This Is Not Happening', 'Technician', 'Tenacity', 'Up the Ante', 'Unbreakable', 'Urban Evasion', 'Vigil', 'Wake Up!', "We'll Make It", "We're Gonna Live Forever", 'Windows of Opportunity',
-    "A Nurse's Calling", 'Agitation', 'Bamboozle', 'Barbecue & Chilli', 'Beast of Prey', 'Bitter Murmur', 'Bloodhound', 'Blood Warden', 'Brutal Strength', 'Corrupt Intervention', 'Coulrophobia', 'Dark Devotion', 'Deerstalker', 'Discordance', 'Distressing', 'Dying Light', 'Enduring', 'Fire Up', "Franklin's Demise", 'Furtive Chase', "Hangman's Trick", 'Hex: Devour Hope', 'Hex: Haunted Grounds', 'Hex: Huntress Lullaby', 'Hex: No One Escapes Death', 'Hex: Ruin', 'Hex: The Third Seal', 'Hex: Thrill of the Hunt', "I'm All Ears", 'Infectious Fright', 'Insidious', 'Iron Grasp', 'Iron Maiden', 'Knock Out', 'Lightborn', 'Mad Grit', 'Make Your Choice', 'Monitor & Abuse', 'Monstrous Shrine', 'Overcharge', 'Overwhelming Presence', 'Play With Your Food', 'Pop Goes the Weasel', 'Predator', 'Rancor', 'Remember Me', 'Save the Best for Last', 'Shadowborn', 'Sloppy Butcher', 'Spies from the Shadows', 'Spirit Fury', 'Stridor', 'Surveillance', 'Territorial Imperative', 'Tinkerer', 'Thanataphobia', 'Thrilling Tremors', 'Unnerving Presence', 'Unrelenting', 'Whispers'
-  ];
+
 
 
   void checkNumbers() {
@@ -36,7 +35,6 @@ class _PerkPageState extends State<PerkPage> {
         left == right ||
         farLeft == left ||
         farRight == right) {
-          print("matched Survivor");
           farLeft = Random().nextInt(filterAmount) + 1;
           left = Random().nextInt(filterAmount) + 1;
           right = Random().nextInt(filterAmount) + 1;
@@ -44,17 +42,10 @@ class _PerkPageState extends State<PerkPage> {
         }
   }
 
-  List<Perk> perkDesc = returnSurvivor();
-
+  List<Perk>perkDesc = returnSurvivor();
 
   @override
   Widget build(BuildContext context) {
-
-
-    for(var i=0;i<perkDesc.length;i++){
-      print(perkDesc[i].perkName);
-    }
-
 
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
@@ -85,7 +76,7 @@ class _PerkPageState extends State<PerkPage> {
                 child: ListTile(
                   title: Center(child: Text('Perk List',style: TextStyle(fontWeight: FontWeight.w700, fontSize: 22.0,color: Colors.white, decoration: TextDecoration.underline),)),
                   onTap: () {
-                    Navigator.push(context,MaterialPageRoute(builder: (context) => BuildConfiguration(perks: fullList,)));
+                    Navigator.push(context,MaterialPageRoute(builder: (context) => BuildConfiguration(perks: returnAll(),)));
                   },
                 ),
               )
@@ -212,6 +203,7 @@ class _PerkPageState extends State<PerkPage> {
                         setState(() {
                           checkNumbers();
                           selectedType = 'survivor/';
+                          filterAmount = 65;
                           perkDesc = returnSurvivor();
                         });
                       }
@@ -237,6 +229,7 @@ class _PerkPageState extends State<PerkPage> {
                     if(!isSwitched) {
                       setState(() {
                         selectedType = 'survivor/';
+                        filterAmount=65;
                         perkDesc = returnSurvivor();
                         checkNumbers();
                       });

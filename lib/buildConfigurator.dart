@@ -5,7 +5,7 @@ import 'widgets/perk.dart';
 
 class BuildConfiguration extends StatefulWidget {
 
-  final List perks;
+  final List<Perk> perks;
 
   BuildConfiguration({Key key, @required this.perks}) : super(key: key);
 
@@ -18,7 +18,6 @@ class _BuildConfigurationState extends State<BuildConfiguration> {
   @override
   Widget build(BuildContext context) {
 
-    widget.perks.sort();
 
     var list = returnAll();
 
@@ -36,7 +35,10 @@ class _BuildConfigurationState extends State<BuildConfiguration> {
         child: ListView(
           children: <Widget>[
             for(var item in list)
-              Text(item.perkName)
+              ListTile(
+          title: Text(item.perkName, style: TextStyle(color: Colors.white),) ,
+      )
+
           ],
         ),
         ),
