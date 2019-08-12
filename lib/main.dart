@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'buildConfigurator.dart';
 import 'package:flutter/services.dart';
 import 'widgets/perk.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 
 
@@ -46,6 +50,7 @@ class _PerkPageState extends State<PerkPage> {
 
   @override
   Widget build(BuildContext context) {
+
 
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
@@ -227,11 +232,13 @@ class _PerkPageState extends State<PerkPage> {
                 child: FlatButton(
                   onPressed: () {
                     if(!isSwitched) {
-                      setState(() {
+                      setState((){
                         selectedType = 'survivor/';
                         filterAmount=65;
                         perkDesc = returnSurvivor();
                         checkNumbers();
+                        convertAndSave(perkDesc,'test');
+                        decodeJson(perkDesc, 'test');
                       });
                     }
                     else {
@@ -260,8 +267,26 @@ class _PerkPageState extends State<PerkPage> {
   }
 }
 
+
+void convertAndSave(chosenList, perkKeyValue) async {
+  List<Perk>chosenList = [];
+  final String perkKey = perkKeyValue;
+  SharedPreferences sp = await SharedPreferences.getInstance();
+  sp.setString(perkKey,json.encode(chosenList));
+}
+
+void decodeJson(chosenList, value) async {
+  List<Perk> chosenList = [];
+  SharedPreferences sp = await SharedPreferences.getInstance();
+  json
+  .decode(sp.getString(value))
+  .forEach((map) => chosenList.add(new Perk.fromJson(map)));
+  print(chosenList[0]);
+}
+
+
 void main() {
   return runApp(MaterialApp(
-    home: PerkPage()
-  ));
+    home: PerkPage(
+  )));
 }

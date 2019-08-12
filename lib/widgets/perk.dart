@@ -7,6 +7,12 @@ class Perk {
 
   Perk(this.perkName, this.isEnabled,this.id);
 
+  Perk.fromJson(Map<String, dynamic> m) {
+    perkName = m['index'];
+    isEnabled = m['name'];
+    id = m['id'];
+  }
+
 }
 
 
