@@ -13,6 +13,26 @@ class Perk {
     id = m['id'];
   }
 
+  Map<String,dynamic> toJson(){
+    return {
+      "perkName": this.perkName,
+      "isEnabled": this.isEnabled,
+      "id": this.id
+    };
+  }
+
+  static List encodeToJson(List<Perk>list){
+    List jsonList = List();
+    list.map((item)=>
+        jsonList.add(item.toJson())
+    ).toList();
+    return jsonList;
+  }
+
+
+
+
+
 }
 
 

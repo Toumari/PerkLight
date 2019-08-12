@@ -237,8 +237,8 @@ class _PerkPageState extends State<PerkPage> {
                         filterAmount=65;
                         perkDesc = returnSurvivor();
                         checkNumbers();
-                        convertAndSave(perkDesc,'test');
-                        decodeJson(perkDesc, 'test');
+                        encodeList(perkDesc);
+
                       });
                     }
                     else {
@@ -268,21 +268,22 @@ class _PerkPageState extends State<PerkPage> {
 }
 
 
-void convertAndSave(chosenList, perkKeyValue) async {
-  List<Perk>chosenList = [];
-  final String perkKey = perkKeyValue;
-  SharedPreferences sp = await SharedPreferences.getInstance();
-  sp.setString(perkKey,json.encode(chosenList));
+void encodeList(chosen) async {
+  List jsonList = Perk.encodeToJson(chosen);
+  print("jsonList: $jsonList");
+  final prefs = await SharedPreferences.getInstance();
+  final key = 'perk_list';
+  final value = jsonList.toString();
+  prefs.setString(key, value);
+  print('saved');
 }
 
-void decodeJson(chosenList, value) async {
-  List<Perk> chosenList = [];
-  SharedPreferences sp = await SharedPreferences.getInstance();
-  json
-  .decode(sp.getString(value))
-  .forEach((map) => chosenList.add(new Perk.fromJson(map)));
-  print(chosenList[0]);
-}
+//List<Perk> loadList()async {
+//  final prefs = await SharedPreferences.getInstance();
+//  var loadedList = prefs.getString('perk_list');
+//  return loadedList;
+//}
+
 
 
 void main() {
