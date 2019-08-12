@@ -76,7 +76,7 @@ class _PerkPageState extends State<PerkPage> {
                 child: ListTile(
                   title: Center(child: Text('Perk List',style: TextStyle(fontWeight: FontWeight.w700, fontSize: 22.0,color: Colors.white, decoration: TextDecoration.underline),)),
                   onTap: () {
-                    Navigator.push(context,MaterialPageRoute(builder: (context) => BuildConfiguration(perks: returnAll(),)));
+                    Navigator.push(context,MaterialPageRoute(builder: (context) => BuildConfiguration(killerPerks: returnKiller(),survivorPerks: returnSurvivor(),)));
                   },
                 ),
               )

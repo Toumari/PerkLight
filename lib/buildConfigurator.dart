@@ -5,9 +5,10 @@ import 'widgets/perk.dart';
 
 class BuildConfiguration extends StatefulWidget {
 
-  final List<Perk> perks;
+  final List<Perk> killerPerks;
+  final List<Perk> survivorPerks;
 
-  BuildConfiguration({Key key, @required this.perks}) : super(key: key);
+  BuildConfiguration({Key key, @required this.killerPerks, @required this.survivorPerks}) : super(key: key);
 
   @override
   _BuildConfigurationState createState() => _BuildConfigurationState();
@@ -18,8 +19,6 @@ class _BuildConfigurationState extends State<BuildConfiguration> {
   @override
   Widget build(BuildContext context) {
 
-
-    var list = returnAll();
 
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
@@ -34,11 +33,16 @@ class _BuildConfigurationState extends State<BuildConfiguration> {
       body: SafeArea(
         child: ListView(
           children: <Widget>[
-            for(var item in list)
-              ListTile(
-          title: Text(item.perkName, style: TextStyle(color: Colors.white),) ,
-      )
-
+            for(var item in widget.killerPerks)
+              CheckboxListTile(
+          title: Text(item.perkName, style: TextStyle(color: Colors.white),),
+                value: item.isEnabled,
+                onChanged: (bool value) {
+                    setState(() {
+                      widget.killerPerks[item.id].isEnabled = value;
+                    });
+                },
+      ),
           ],
         ),
         ),
