@@ -8,26 +8,20 @@ class Perk {
   Perk(this.perkName, this.isEnabled,this.id);
 
   Perk.fromJson(Map<String, dynamic> m) {
-    perkName = m['index'];
-    isEnabled = m['name'];
+    perkName = m['perkName'];
+    isEnabled = m['isEnabled'];
     id = m['id'];
   }
 
-  Map<String,dynamic> toJson(){
-    return {
-      "perkName": this.perkName,
-      "isEnabled": this.isEnabled,
-      "id": this.id
-    };
-  }
+  String get _perkName => perkName;
+  bool get _isEnabled => isEnabled;
+  int get _id => id;
 
-  static List encodeToJson(List<Perk>list){
-    List jsonList = List();
-    list.map((item)=>
-        jsonList.add(item.toJson())
-    ).toList();
-    return jsonList;
-  }
+  Map<String, dynamic> toJson() => {
+    'perkName': _perkName,
+    'isEnabled': _isEnabled,
+    'id': _id
+  };
 
 
 

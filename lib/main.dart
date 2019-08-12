@@ -1,11 +1,11 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'buildConfigurator.dart';
 import 'package:flutter/services.dart';
 import 'widgets/perk.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 
 
 
@@ -238,7 +238,7 @@ class _PerkPageState extends State<PerkPage> {
                         perkDesc = returnSurvivor();
                         checkNumbers();
                         encodeList(perkDesc);
-
+                        getList(perkDesc);
                       });
                     }
                     else {
@@ -268,15 +268,28 @@ class _PerkPageState extends State<PerkPage> {
 }
 
 
+
 void encodeList(chosen) async {
-  List jsonList = Perk.encodeToJson(chosen);
-  print("jsonList: $jsonList");
-  final prefs = await SharedPreferences.getInstance();
-  final key = 'perk_list';
-  final value = jsonList.toString();
-  prefs.setString(key, value);
-  print('saved');
+  List<Perk> perks = chosen;
+  final String perkKey = 'unique';
+  SharedPreferences sp = await SharedPreferences.getInstance();
+  sp.setString(perkKey, json.encode(perks));
+  print('Econded and saved');
 }
+
+void getList(chosen)async {
+  SharedPreferences sp = await SharedPreferences.getInstance();
+  var perks = chosen;
+  json
+      .decode(sp.getString('unique'))
+      .forEach((map) => perks.add(new Perk.fromJson(map)));
+  print(perks[0].perkName);
+  print('got list');
+//      .forEach(map) => perks.add(new Perk.fromJson(map));
+
+}
+
+
 
 //List<Perk> loadList()async {
 //  final prefs = await SharedPreferences.getInstance();
