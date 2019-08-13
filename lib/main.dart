@@ -47,7 +47,6 @@ class _PerkPageState extends State<PerkPage> {
   @override
   Widget build(BuildContext context) {
 
-
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
@@ -78,10 +77,20 @@ class _PerkPageState extends State<PerkPage> {
                   title: Center(child: Text('Perk List',style: TextStyle(fontWeight: FontWeight.w700, fontSize: 22.0,color: Colors.white, decoration: TextDecoration.underline),)),
                   onTap: () async {
                     final returnedList = await Navigator.push(context,MaterialPageRoute(builder: (context) => BuildConfiguration(killerPerks: perkDesc,survivorPerks: returnSurvivor(),)));
-                    setState(() {
-                      perkDesc = returnedList;
-                    });
-                    encodeList(perkDesc);
+                    if(selectedType == 'survivor/') {
+                      setState(() {
+                        perkDesc = returnedList;
+                      });
+                      encodeList(perkDesc,'survivor');
+                      print('saving survivor');
+                    }
+                    else {
+                      setState(() {
+                        perkDesc = returnedList;
+                      });
+                      encodeList(perkDesc,'killer');
+                      print('saving Killer');
+                    }
                     print('${perkDesc[0].isEnabled}');
                   },
                 ),
@@ -192,25 +201,28 @@ class _PerkPageState extends State<PerkPage> {
                 scale: 1.5,
                 child: Switch(
                   value: isSwitched,
-                  onChanged: (value) {
+                  onChanged: (value) async {
                       setState(() {
                         isSwitched = value;
                         print(value);
                       });
                       if(value == true) {
+                        selectedType = 'killer/';
+                        var appendedList = perkDesc = await getList('killer');
                         setState(() {
-                          selectedType = 'killer/';
-                          filterAmount = 60;
-                          perkDesc = returnKiller();
                           checkNumbers();
+                          filterAmount = perkDesc.length;
+                          perkDesc = appendedList;
+
                         });
                       }
                       else {
+                        selectedType = 'survivor/';
+                        var appendedList = perkDesc = await getList('survivor');
                         setState(() {
                           checkNumbers();
-                          selectedType = 'survivor/';
-                          filterAmount = 65;
-                          perkDesc = returnSurvivor();
+                          perkDesc = appendedList;
+                          filterAmount = perkDesc.length;
                         });
                       }
                   },
@@ -231,23 +243,27 @@ class _PerkPageState extends State<PerkPage> {
                 width: double.infinity,
                 height: 100,
                 child: FlatButton(
-                  onPressed: () {
+                  onPressed: ()  async {
                     if(!isSwitched) {
-                      setState((){
-                        selectedType = 'survivor/';
-                        filterAmount=65;
-                        perkDesc = returnSurvivor();
+                      var appendedList = perkDesc = await getList('survivor');
+                      setState(() {
                         checkNumbers();
-                        encodeList(perkDesc);
-                        getList(perkDesc);
+                        selectedType = 'survivor/';
+                        filterAmount=perkDesc.length;
+                        perkDesc = appendedList;
+                        encodeList(perkDesc,'survivor');
+                        getList('survivor');
                       });
                     }
                     else {
+                      var appendedList = perkDesc = await getList('killer');
                       setState(() {
-                        selectedType = 'killer/';
-                        filterAmount = 60;
-                        perkDesc = returnKiller();
                         checkNumbers();
+                        selectedType = 'killer/';
+                        filterAmount = perkDesc.length;
+                        perkDesc = appendedList;
+                        encodeList(perkDesc,'killer');
+                        getList('killer');
                       });
                     }
                   },
@@ -268,25 +284,26 @@ class _PerkPageState extends State<PerkPage> {
   }
 }
 
-void encodeList(chosen) async {
+void encodeList(chosen,key) async {
   List<Perk> perks = chosen;
-  final String perkKey = 'unique';
+  final String perkKey = key;
   SharedPreferences sp = await SharedPreferences.getInstance();
   sp.setString(perkKey, json.encode(perks));
   print('Ecoded and saved');
 }
 
-void getList(chosen)async {
+Future<List<Perk>> getList(key)async {
   SharedPreferences sp = await SharedPreferences.getInstance();
-  var perks = chosen;
+  List<Perk> perks = [];
   json
-      .decode(sp.getString('unique'))
+      .decode(sp.getString(key))
       .forEach((map) => perks.add(new Perk.fromJson(map)));
   print(perks[0].perkName);
   print('got list');
+  return perks;
 //      .forEach(map) => perks.add(new Perk.fromJson(map));
-
 }
+
 
 //List<Perk> loadList()async {
 //  final prefs = await SharedPreferences.getInstance();
