@@ -1,7 +1,12 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'buildConfigurator.dart';
 import 'package:flutter/services.dart';
+import 'widgets/perk.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+
 
 
 
@@ -15,48 +20,33 @@ class _PerkPageState extends State<PerkPage> {
   int left = 2;
   int right = 3;
   int farRight = 4;
+  int filterAmount=65;
   String selectedType = 'survivor/';
   bool isSwitched = false;
   bool perkArraySelector = true;
 
-  List fullList = ['Ace in the Hole', 'Adrenaline', 'Aftercare', 'Alert', 'Autodidact', 'Balanced Landing', 'Boil Over', 'Bond', 'Borrowed Time', 'Botany Knowledge', 'Breakdown', 'Buckle Up', 'Calm Spirit', 'Dance With Me', 'Dark Sense', 'Dead Hard', 'Decisive Strike', 'Déja Vu', 'Deliverance', "detective's Hunch", 'Distortion', 'Diversion', 'Empathy', 'Flip-Flop', 'Head On', 'Hope', 'Iron Will', 'Kindred', 'Leader', 'Left Behind', 'Lightweight', 'Lithe', 'Mettle of Man', 'No Mither', 'No One Left Behind', 'Object of Obsession', 'Open-Handed', 'Pharmacy', "Plunderer's Instinct", 'Poised', 'Premonition', 'Prove Thyself', 'Quick & Quiet', 'Resilience', 'Saboteur', 'Self-Care', 'Slippery Meat', 'Small Game', 'Sole Survivor', 'Solidarity', 'Spine Chill', 'Sprint Burst', 'Stake Out', 'Streetwise', 'This Is Not Happening', 'Technician', 'Tenacity', 'Up the Ante', 'Unbreakable', 'Urban Evasion', 'Vigil', 'Wake Up!', "We'll Make It", "We're Gonna Live Forever", 'Windows of Opportunity',
-    "A Nurse's Calling", 'Agitation', 'Bamboozle', 'Barbecue & Chilli', 'Beast of Prey', 'Bitter Murmur', 'Bloodhound', 'Blood Warden', 'Brutal Strength', 'Corrupt Intervention', 'Coulrophobia', 'Dark Devotion', 'Deerstalker', 'Discordance', 'Distressing', 'Dying Light', 'Enduring', 'Fire Up', "Franklin's Demise", 'Furtive Chase', "Hangman's Trick", 'Hex: Devour Hope', 'Hex: Haunted Grounds', 'Hex: Huntress Lullaby', 'Hex: No One Escapes Death', 'Hex: Ruin', 'Hex: The Third Seal', 'Hex: Thrill of the Hunt', "I'm All Ears", 'Infectious Fright', 'Insidious', 'Iron Grasp', 'Iron Maiden', 'Knock Out', 'Lightborn', 'Mad Grit', 'Make Your Choice', 'Monitor & Abuse', 'Monstrous Shrine', 'Overcharge', 'Overwhelming Presence', 'Play With Your Food', 'Pop Goes the Weasel', 'Predator', 'Rancor', 'Remember Me', 'Save the Best for Last', 'Shadowborn', 'Sloppy Butcher', 'Spies from the Shadows', 'Spirit Fury', 'Stridor', 'Surveillance', 'Territorial Imperative', 'Tinkerer', 'Thanataphobia', 'Thrilling Tremors', 'Unnerving Presence', 'Unrelenting', 'Whispers'
-  ];
 
   void checkNumbers() {
-    if(selectedType == 'survivor') { farLeft = Random().nextInt(65) + 1; left = Random().nextInt(65) + 1; right = Random().nextInt(65) + 1; farRight = Random().nextInt(65) + 1; }
-    else {
-      farLeft = Random().nextInt(60) + 1;
-      left = Random().nextInt(60) + 1;
-      right = Random().nextInt(60) + 1;
-      farRight = Random().nextInt(60) + 1;
-    }
-
+      farLeft = Random().nextInt(filterAmount) + 1;
+      left = Random().nextInt(filterAmount) + 1;
+      right = Random().nextInt(filterAmount) + 1;
+      farRight = Random().nextInt(filterAmount) + 1;
     if (farLeft == farRight ||
         left == right ||
         farLeft == left ||
         farRight == right) {
-      if(selectedType == 'survivor/') {
-        print("matched Survivor");
-        farLeft = Random().nextInt(65) + 1;
-        left = Random().nextInt(65) + 1;
-        right = Random().nextInt(65) + 1;
-        farRight = Random().nextInt(65) + 1;
-      }
-      else {
-        print("matched Killer");
-        farLeft = Random().nextInt(60) + 1;
-        left = Random().nextInt(60) + 1;
-        right = Random().nextInt(60) + 1;
-        farRight = Random().nextInt(60) + 1;
-      }
-    }
+          farLeft = Random().nextInt(filterAmount) + 1;
+          left = Random().nextInt(filterAmount) + 1;
+          right = Random().nextInt(filterAmount) + 1;
+          farRight = Random().nextInt(filterAmount) + 1;
+        }
   }
 
-  List<String> perkDesc = ['Ace in the Hole', 'Adrenaline', 'Aftercare', 'Alert', 'Autodidact', 'Balanced Landing', 'Boil Over', 'Bond', 'Borrowed Time', 'Botany Knowledge', 'Breakdown', 'Buckle Up', 'Calm Spirit', 'Dance With Me', 'Dark Sense', 'Dead Hard', 'Decisive Strike', 'Déja Vu', 'Deliverance', "detective's Hunch", 'Distortion', 'Diversion', 'Empathy', 'Flip-Flop', 'Head On', 'Hope', 'Iron Will', 'Kindred', 'Leader', 'Left Behind', 'Lightweight', 'Lithe', 'Mettle of Man', 'No Mither', 'No One Left Behind', 'Object of Obsession', 'Open-Handed', 'Pharmacy', "Plunderer's Instinct", 'Poised', 'Premonition', 'Prove Thyself', 'Quick & Quiet', 'Resilience', 'Saboteur', 'Self-Care', 'Slippery Meat', 'Small Game', 'Sole Survivor', 'Solidarity', 'Spine Chill', 'Sprint Burst', 'Stake Out', 'Streetwise', 'This Is Not Happening', 'Technician', 'Tenacity', 'Up the Ante', 'Unbreakable', 'Urban Evasion', 'Vigil', 'Wake Up!', "We'll Make It", "We're Gonna Live Forever", 'Windows of Opportunity'];
+  List<Perk>perkDesc = returnSurvivor();
 
   @override
   Widget build(BuildContext context) {
+
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
@@ -85,8 +75,23 @@ class _PerkPageState extends State<PerkPage> {
                 color: Color(0xff21213b),
                 child: ListTile(
                   title: Center(child: Text('Perk List',style: TextStyle(fontWeight: FontWeight.w700, fontSize: 22.0,color: Colors.white, decoration: TextDecoration.underline),)),
-                  onTap: () {
-                    Navigator.push(context,MaterialPageRoute(builder: (context) => BuildConfiguration(perks: fullList,)));
+                  onTap: () async {
+                    final returnedList = await Navigator.push(context,MaterialPageRoute(builder: (context) => BuildConfiguration(killerPerks: perkDesc,survivorPerks: returnSurvivor(),)));
+                    if(selectedType == 'survivor/') {
+                      setState(() {
+                        perkDesc = returnedList;
+                      });
+                      encodeList(perkDesc,'survivor');
+                      print('saving survivor');
+                    }
+                    else {
+                      setState(() {
+                        perkDesc = returnedList;
+                      });
+                      encodeList(perkDesc,'killer');
+                      print('saving Killer');
+                    }
+                    print('${perkDesc[0].isEnabled}');
                   },
                 ),
               )
@@ -116,7 +121,7 @@ class _PerkPageState extends State<PerkPage> {
                     child: Column(
                   children: <Widget>[
                     Text(
-                      (perkDesc[farLeft - 1]),
+                      (perkDesc[farLeft - 1].perkName),
                       style: TextStyle(color: Colors.white),
                     ),
                     Image.asset(
@@ -131,7 +136,7 @@ class _PerkPageState extends State<PerkPage> {
                     child: Column(
                   children: <Widget>[
                     Text(
-                      (perkDesc[left - 1]),
+                      (perkDesc[left - 1].perkName),
                       style: TextStyle(color: Colors.white),
                     ),
                     Image.asset(
@@ -154,7 +159,7 @@ class _PerkPageState extends State<PerkPage> {
                   child: Column(
                 children: <Widget>[
                   Text(
-                    (perkDesc[farRight - 1]),
+                    (perkDesc[farRight - 1].perkName),
                     style: TextStyle(color: Colors.white),
                   ),
                   Image.asset(
@@ -169,7 +174,7 @@ class _PerkPageState extends State<PerkPage> {
                   child: Column(
                 children: <Widget>[
                   Text(
-                    (perkDesc[right - 1]),
+                    (perkDesc[right - 1].perkName),
                     style: TextStyle(color: Colors.white),
                   ),
                   Image.asset(
@@ -196,27 +201,28 @@ class _PerkPageState extends State<PerkPage> {
                 scale: 1.5,
                 child: Switch(
                   value: isSwitched,
-                  onChanged: (value) {
+                  onChanged: (value) async {
                       setState(() {
                         isSwitched = value;
                         print(value);
                       });
                       if(value == true) {
+                        selectedType = 'killer/';
+                        var appendedList = perkDesc = await getList('killer');
                         setState(() {
-                          selectedType = 'killer/';
-                          perkDesc = [
-                            "A Nurse's Calling", 'Agitation', 'Bamboozle', 'Barbecue & Chilli', 'Beast of Prey', 'Bitter Murmur', 'Bloodhound', 'Blood Warden', 'Brutal Strength', 'Corrupt Intervention', 'Coulrophobia', 'Dark Devotion', 'Deerstalker', 'Discordance', 'Distressing', 'Dying Light', 'Enduring', 'Fire Up', "Franklin's Demise", 'Furtive Chase', "Hangman's Trick", 'Hex: Devour Hope', 'Hex: Haunted Grounds', 'Hex: Huntress Lullaby', 'Hex: No One Escapes Death', 'Hex: Ruin', 'Hex: The Third Seal', 'Hex: Thrill of the Hunt', "I'm All Ears", 'Infectious Fright', 'Insidious', 'Iron Grasp', 'Iron Maiden', 'Knock Out', 'Lightborn', 'Mad Grit', 'Make Your Choice', 'Monitor & Abuse', 'Monstrous Shrine', 'Overcharge', 'Overwhelming Presence', 'Play With Your Food', 'Pop Goes the Weasel', 'Predator', 'Rancor', 'Remember Me', 'Save the Best for Last', 'Shadowborn', 'Sloppy Butcher', 'Spies from the Shadows', 'Spirit Fury', 'Stridor', 'Surveillance', 'Territorial Imperative', 'Tinkerer', 'Thanataphobia', 'Thrilling Tremors', 'Unnerving Presence', 'Unrelenting', 'Whispers'
-                          ];
                           checkNumbers();
+                          filterAmount = perkDesc.length;
+                          perkDesc = appendedList;
+
                         });
                       }
                       else {
+                        selectedType = 'survivor/';
+                        var appendedList = perkDesc = await getList('survivor');
                         setState(() {
                           checkNumbers();
-                          selectedType = 'survivor/';
-                          perkDesc = [
-                            'Ace in the Hole', 'Adrenaline', 'Aftercare', 'Alert', 'Autodidact', 'Balanced Landing', 'Boil Over', 'Bond', 'Borrowed Time', 'Botany Knowledge', 'Breakdown', 'Buckle Up', 'Calm Spirit', 'Dance With Me', 'Dark Sense', 'Dead Hard', 'Decisive Strike', 'Déja Vu', 'Deliverance', "detective's Hunch", 'Distortion', 'Diversion', 'Empathy', 'Flip-Flop', 'Head On', 'Hope', 'Iron Will', 'Kindred', 'Leader', 'Left Behind', 'Lightweight', 'Lithe', 'Mettle of Man', 'No Mither', 'No One Left Behind', 'Object of Obsession', 'Open-Handed', 'Pharmacy', "Plunderer's Instinct", 'Poised', 'Premonition', 'Prove Thyself', 'Quick & Quiet', 'Resilience', 'Saboteur', 'Self-Care', 'Slippery Meat', 'Small Game', 'Sole Survivor', 'Solidarity', 'Spine Chill', 'Sprint Burst', 'Stake Out', 'Streetwise', 'This Is Not Happening', 'Technician', 'Tenacity', 'Up the Ante', 'Unbreakable', 'Urban Evasion', 'Vigil', 'Wake Up!', "We'll Make It", "We're Gonna Live Forever", 'Windows of Opportunity'
-                          ];
+                          perkDesc = appendedList;
+                          filterAmount = perkDesc.length;
                         });
                       }
                   },
@@ -237,23 +243,27 @@ class _PerkPageState extends State<PerkPage> {
                 width: double.infinity,
                 height: 100,
                 child: FlatButton(
-                  onPressed: () {
+                  onPressed: ()  async {
                     if(!isSwitched) {
+                      var appendedList = perkDesc = await getList('survivor');
                       setState(() {
                         checkNumbers();
                         selectedType = 'survivor/';
-                        perkDesc = [
-                          'Ace in the Hole', 'Adrenaline', 'Aftercare', 'Alert', 'Autodidact', 'Balanced Landing', 'Boil Over', 'Bond', 'Borrowed Time', 'Botany Knowledge', 'Breakdown', 'Buckle Up', 'Calm Spirit', 'Dance With Me', 'Dark Sense', 'Dead Hard', 'Decisive Strike', 'Déja Vu', 'Deliverance', "detective's Hunch", 'Distortion', 'Diversion', 'Empathy', 'Flip-Flop', 'Head On', 'Hope', 'Iron Will', 'Kindred', 'Leader', 'Left Behind', 'Lightweight', 'Lithe', 'Mettle of Man', 'No Mither', 'No One Left Behind', 'Object of Obsession', 'Open-Handed', 'Pharmacy', "Plunderer's Instinct", 'Poised', 'Premonition', 'Prove Thyself', 'Quick & Quiet', 'Resilience', 'Saboteur', 'Self-Care', 'Slippery Meat', 'Small Game', 'Sole Survivor', 'Solidarity', 'Spine Chill', 'Sprint Burst', 'Stake Out', 'Streetwise', 'This Is Not Happening', 'Technician', 'Tenacity', 'Up the Ante', 'Unbreakable', 'Urban Evasion', 'Vigil', 'Wake Up!', "We'll Make It", "We're Gonna Live Forever", 'Windows of Opportunity'
-                        ];
+                        filterAmount=perkDesc.length;
+                        perkDesc = appendedList;
+                        encodeList(perkDesc,'survivor');
+                        getList('survivor');
                       });
                     }
                     else {
+                      var appendedList = perkDesc = await getList('killer');
                       setState(() {
-                        selectedType = 'killer/';
-                        perkDesc = [
-                          "A Nurse's Calling", 'Agitation', 'Bamboozle', 'Barbecue & Chilli', 'Beast of Prey', 'Bitter Murmur', 'Bloodhound', 'Blood Warden', 'Brutal Strength', 'Corrupt Intervention', 'Coulrophobia', 'Dark Devotion', 'Deerstalker', 'Discordance', 'Distressing', 'Dying Light', 'Enduring', 'Fire Up', "Franklin's Demise", 'Furtive Chase', "Hangman's Trick", 'Hex: Devour Hope', 'Hex: Haunted Grounds', 'Hex: Huntress Lullaby', 'Hex: No One Escapes Death', 'Hex: Ruin', 'Hex: The Third Seal', 'Hex: Thrill of the Hunt', "I'm All Ears", 'Infectious Fright', 'Insidious', 'Iron Grasp', 'Iron Maiden', 'Knock Out', 'Lightborn', 'Mad Grit', 'Make Your Choice', 'Monitor & Abuse', 'Monstrous Shrine', 'Overcharge', 'Overwhelming Presence', 'Play With Your Food', 'Pop Goes the Weasel', 'Predator', 'Rancor', 'Remember Me', 'Save the Best for Last', 'Shadowborn', 'Sloppy Butcher', 'Spies from the Shadows', 'Spirit Fury', 'Stridor', 'Surveillance', 'Territorial Imperative', 'Tinkerer', 'Thanataphobia', 'Thrilling Tremors', 'Unnerving Presence', 'Unrelenting', 'Whispers'
-                        ];
                         checkNumbers();
+                        selectedType = 'killer/';
+                        filterAmount = perkDesc.length;
+                        perkDesc = appendedList;
+                        encodeList(perkDesc,'killer');
+                        getList('killer');
                       });
                     }
                   },
@@ -274,8 +284,35 @@ class _PerkPageState extends State<PerkPage> {
   }
 }
 
+void encodeList(chosen,key) async {
+  List<Perk> perks = chosen;
+  final String perkKey = key;
+  SharedPreferences sp = await SharedPreferences.getInstance();
+  sp.setString(perkKey, json.encode(perks));
+  print('Ecoded and saved');
+}
+
+Future<List<Perk>> getList(key)async {
+  SharedPreferences sp = await SharedPreferences.getInstance();
+  List<Perk> perks = [];
+  json
+      .decode(sp.getString(key))
+      .forEach((map) => perks.add(new Perk.fromJson(map)));
+  print(perks[0].perkName);
+  print('got list');
+  return perks;
+//      .forEach(map) => perks.add(new Perk.fromJson(map));
+}
+
+
+//List<Perk> loadList()async {
+//  final prefs = await SharedPreferences.getInstance();
+//  var loadedList = prefs.getString('perk_list');
+//  return loadedList;
+//}
+
 void main() {
   return runApp(MaterialApp(
-    home: PerkPage()
-  ));
+    home: PerkPage(
+  )));
 }
