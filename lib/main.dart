@@ -11,9 +11,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 
 class PerkPage extends StatefulWidget {
-
-
-
   @override
   _PerkPageState createState() => _PerkPageState();
 }
@@ -27,7 +24,6 @@ class _PerkPageState extends State<PerkPage> {
   String selectedType = 'survivor/';
   bool isSwitched = false;
   bool perkArraySelector = true;
-
 
 
   void checkNumbers() {
@@ -80,8 +76,13 @@ class _PerkPageState extends State<PerkPage> {
                 color: Color(0xff21213b),
                 child: ListTile(
                   title: Center(child: Text('Perk List',style: TextStyle(fontWeight: FontWeight.w700, fontSize: 22.0,color: Colors.white, decoration: TextDecoration.underline),)),
-                  onTap: () {
-                    Navigator.push(context,MaterialPageRoute(builder: (context) => BuildConfiguration(killerPerks: returnKiller(),survivorPerks: returnSurvivor(),)));
+                  onTap: () async {
+                    final returnedList = await Navigator.push(context,MaterialPageRoute(builder: (context) => BuildConfiguration(killerPerks: perkDesc,survivorPerks: returnSurvivor(),)));
+                    setState(() {
+                      perkDesc = returnedList;
+                    });
+                    encodeList(perkDesc);
+                    print('${perkDesc[0].isEnabled}');
                   },
                 ),
               )
@@ -267,14 +268,12 @@ class _PerkPageState extends State<PerkPage> {
   }
 }
 
-
-
 void encodeList(chosen) async {
   List<Perk> perks = chosen;
   final String perkKey = 'unique';
   SharedPreferences sp = await SharedPreferences.getInstance();
   sp.setString(perkKey, json.encode(perks));
-  print('Econded and saved');
+  print('Ecoded and saved');
 }
 
 void getList(chosen)async {
@@ -289,15 +288,11 @@ void getList(chosen)async {
 
 }
 
-
-
 //List<Perk> loadList()async {
 //  final prefs = await SharedPreferences.getInstance();
 //  var loadedList = prefs.getString('perk_list');
 //  return loadedList;
 //}
-
-
 
 void main() {
   return runApp(MaterialApp(
