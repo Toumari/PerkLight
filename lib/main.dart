@@ -74,12 +74,13 @@ class _PerkPageState extends State<PerkPage> {
                 padding: EdgeInsets.all(24.0),
                 color: Color(0xff21213b),
                 child: ListTile(
-                  title: Center(child: Text('Perk List',style: TextStyle(fontWeight: FontWeight.w700, fontSize: 22.0,color: Colors.white, decoration: TextDecoration.underline),)),
+                  title: Center(child: Text('Perk Configuration',style: TextStyle(fontWeight: FontWeight.w700, fontSize: 22.0,color: Colors.white, decoration: TextDecoration.underline),)),
                   onTap: () async {
                     final returnedList = await Navigator.push(context,MaterialPageRoute(builder: (context) => BuildConfiguration(killerPerks: perkDesc,survivorPerks: returnSurvivor(),)));
                     if(selectedType == 'survivor/') {
                       setState(() {
                         perkDesc = returnedList;
+                        filterAmount = perkDesc.length;
                       });
                       encodeList(perkDesc,'survivor');
                       print('saving survivor');
@@ -87,6 +88,7 @@ class _PerkPageState extends State<PerkPage> {
                     else {
                       setState(() {
                         perkDesc = returnedList;
+                        filterAmount = perkDesc.length;
                       });
                       encodeList(perkDesc,'killer');
                       print('saving Killer');
@@ -209,20 +211,19 @@ class _PerkPageState extends State<PerkPage> {
                       if(value == true) {
                         selectedType = 'killer/';
                         var appendedList = perkDesc = await getList('killer');
+                        filterAmount = appendedList.length;
                         setState(() {
                           checkNumbers();
-                          filterAmount = perkDesc.length;
                           perkDesc = appendedList;
-
                         });
                       }
                       else {
                         selectedType = 'survivor/';
                         var appendedList = perkDesc = await getList('survivor');
+                        filterAmount = appendedList.length;
                         setState(() {
                           checkNumbers();
                           perkDesc = appendedList;
-                          filterAmount = perkDesc.length;
                         });
                       }
                   },
