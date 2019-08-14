@@ -38,7 +38,7 @@ List killerList = [
 
 List survivorList = [
 'Ace in the Hole', 'Adrenaline', 'Aftercare', 'Alert', 'Autodidact', 'Balanced Landing', 'Boil Over', 'Bond', 'Borrowed Time', 'Botany Knowledge',
-  'Breakdown', 'Buckle Up', 'Calm Spirit', 'Dance With Me', 'Dark Sense', 'Dead Hard', 'Decisive Strike', 'Déja Vu', 'Deliverance', "detective's Hunch", 'Distortion',
+  'Breakdown', 'Buckle Up', 'Calm Spirit', 'Dance With Me', 'Dark Sense', 'Dead Hard', 'Decisive Strike', 'Déja Vu', 'Deliverance', "Detective's Hunch", 'Distortion',
   'Diversion', 'Empathy', 'Flip-Flop', 'Head On', 'Hope', 'Iron Will', 'Kindred', 'Leader', 'Left Behind', 'Lightweight', 'Lithe', 'Mettle of Man', 'No Mither',
   'No One Left Behind', 'Object of Obsession', 'Open-Handed', 'Pharmacy', "Plunderer's Instinct", 'Poised', 'Premonition', 'Prove Thyself', 'Quick & Quiet',
   'Resilience', 'Saboteur', 'Self-Care', 'Slippery Meat', 'Small Game', 'Sole Survivor', 'Solidarity', 'Spine Chill', 'Sprint Burst', 'Stake Out', 'Streetwise',
