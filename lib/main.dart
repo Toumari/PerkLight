@@ -17,25 +17,37 @@ class PerkPage extends StatefulWidget {
 class _PerkPageState extends State<PerkPage> {
   Set<int> randomlySelectedPerks;
   int numPerksToSelect = 4;
-  
-  int filterAmount=65;
-
   String selectedType = 'survivor/';
   bool isSwitched = false;
   bool perkArraySelector = true;
-  List<Perk> appendedList;
 
   void generateRandomlySelectedPerks() {
-    randomlySelectedPerks = Utils.generateSetOfRandomNumbers(numPerksToSelect, min: 1, max: perkDesc.length + 1);
+    randomlySelectedPerks = Utils.generateSetOfRandomNumbers(numPerksToSelect, min: 1, max: perkList.length + 1);
   }
 
-  List<Perk> perkDesc = returnSurvivor();
+  List<Perk> perkList = returnSurvivor();
 
   @override
   void initState() {
     super.initState();
     generateRandomlySelectedPerks();
   }
+
+
+  Future loadPerksFromPreferencesOrDefaults(bool value) async {
+    selectedType = value ? 'killer/' : 'survivor/';
+    var filteredList = await getList(selectedType.substring(0,selectedType.length - 1));
+    setState(() {
+      if(filteredList == null) {
+        perkList = value ? returnKiller() : returnSurvivor();
+      }
+      else {
+        perkList = filteredList;
+      }
+      generateRandomlySelectedPerks();
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -69,24 +81,16 @@ class _PerkPageState extends State<PerkPage> {
                 child: ListTile(
                   title: Center(child: Text('Perk Configuration',style: TextStyle(fontWeight: FontWeight.w700, fontSize: 22.0,color: Colors.white, decoration: TextDecoration.underline),)),
                   onTap: () async {
-                    final returnedList = await Navigator.push(context,MaterialPageRoute(builder: (context) => BuildConfiguration(killerPerks: perkDesc,survivorPerks: returnSurvivor(),)));
+                    final returnedList = await Navigator.push(context,MaterialPageRoute(builder: (context) => BuildConfiguration(killerPerks: perkList,survivorPerks: returnSurvivor(),)));
                     if(selectedType == 'survivor/') {
-                      setState(() {
-                        perkDesc = returnedList;
-                        filterAmount = perkDesc.length;
-                      });
-                      encodeList(perkDesc,'survivor');
+                      encodeList(returnedList,'survivor');
                       print('saving survivor');
                     }
                     else {
-                      setState(() {
-                        perkDesc = returnedList;
-                        filterAmount = perkDesc.length;
-                      });
-                      encodeList(perkDesc,'killer');
+                      encodeList(returnedList,'killer');
                       print('saving Killer');
                     }
-                    print('${perkDesc[0].isEnabled}');
+                    print('${returnedList[0].isEnabled}');
                   },
                 ),
               )
@@ -116,7 +120,7 @@ class _PerkPageState extends State<PerkPage> {
                     child: Column(
                   children: <Widget>[
                     Text(
-                      (perkDesc[randomlySelectedPerks.elementAt(0) - 1].perkName),
+                      (perkList[randomlySelectedPerks.elementAt(0) - 1].perkName),
                       style: TextStyle(color: Colors.white),
                     ),
                     Image.asset(
@@ -131,7 +135,7 @@ class _PerkPageState extends State<PerkPage> {
                     child: Column(
                   children: <Widget>[
                     Text(
-                      (perkDesc[randomlySelectedPerks.elementAt(1) - 1].perkName),
+                      (perkList[randomlySelectedPerks.elementAt(1) - 1].perkName),
                       style: TextStyle(color: Colors.white),
                     ),
                     Image.asset(
@@ -154,7 +158,7 @@ class _PerkPageState extends State<PerkPage> {
                   child: Column(
                 children: <Widget>[
                   Text(
-                    (perkDesc[randomlySelectedPerks.elementAt(2) - 1].perkName),
+                    (perkList[randomlySelectedPerks.elementAt(2) - 1].perkName),
                     style: TextStyle(color: Colors.white),
                   ),
                   Image.asset(
@@ -169,7 +173,7 @@ class _PerkPageState extends State<PerkPage> {
                   child: Column(
                 children: <Widget>[
                   Text(
-                    (perkDesc[randomlySelectedPerks.elementAt(3) - 1].perkName),
+                    (perkList[randomlySelectedPerks.elementAt(3) - 1].perkName),
                     style: TextStyle(color: Colors.white),
                   ),
                   Image.asset(
@@ -201,33 +205,7 @@ class _PerkPageState extends State<PerkPage> {
                         isSwitched = value;
                         print(value);
                       });
-                      if(value == true) {
-                        selectedType = 'killer/';
-                        if(appendedList == null ) {
-                          appendedList = returnKiller();
-                        }
-                        else {
-                          appendedList = perkDesc = await getList('killer');
-                        }
-                        filterAmount = appendedList.length;
-                        setState(() {
-                          generateRandomlySelectedPerks();
-                          perkDesc = appendedList;
-                        });
-                      }
-                      else {
-                        selectedType = 'survivor/';
-                        if(appendedList == null) {
-                          appendedList = returnSurvivor();
-                        } else {
-                          appendedList = perkDesc = await getList('survivor');
-                        }
-                        filterAmount = appendedList.length;
-                        setState(() {
-                          generateRandomlySelectedPerks();
-                          perkDesc = appendedList;
-                        });
-                      }
+                      loadPerksFromPreferencesOrDefaults(value);
                   },
                   activeTrackColor: Colors.redAccent,
                   activeColor: Colors.black,
@@ -247,35 +225,13 @@ class _PerkPageState extends State<PerkPage> {
                 height: 100,
                 child: FlatButton(
                   onPressed: ()  async {
-                    if(!isSwitched) {
-                      if(appendedList == null) {
-                        appendedList = returnSurvivor();
-                      }
-                      setState(() {
-                        generateRandomlySelectedPerks();
-                        selectedType = 'survivor/';
-                        filterAmount=perkDesc.length;
-                        perkDesc = appendedList;
-                        encodeList(perkDesc,'survivor');
-                        getList('survivor');
-                      });
-                    }
-                    else {
-                      if(appendedList == null) {
-                        appendedList = returnKiller();
-                      }
-                      setState(() {
-                        generateRandomlySelectedPerks();
-                        selectedType = 'killer/';
-                        filterAmount = perkDesc.length;
-                        perkDesc = appendedList;
-                        encodeList(perkDesc,'killer');
-                        getList('killer');
-                      });
-                    }
+                    loadPerksFromPreferencesOrDefaults(isSwitched);
+                    setState(() {
+                      encodeList(perkList, isSwitched ? 'killer' : 'survivor');
+                    });
                   },
                   child: Text(
-                    'Press to generate a build',
+                    'Randomise',
                     style: TextStyle(fontSize: 22.0),
                   ),
                   color: Colors.redAccent,
@@ -301,9 +257,13 @@ void encodeList(chosen,key) async {
 
 Future<List<Perk>> getList(key)async {
   SharedPreferences sp = await SharedPreferences.getInstance();
+  var stringPreference = sp.get(key);
+  if(stringPreference == null ) {
+    return null;
+  }
   List<Perk> perks = [];
   json
-      .decode(sp.getString(key))
+      .decode(stringPreference)
       .forEach((map) => perks.add(new Perk.fromJson(map)));
   print(perks[0].perkName);
   print('got list');
