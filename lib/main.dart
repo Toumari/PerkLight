@@ -23,6 +23,7 @@ class _PerkPageState extends State<PerkPage> {
   String selectedType = 'survivor/';
   bool isSwitched = false;
   bool perkArraySelector = true;
+  List<Perk> appendedList;
 
   void generateRandomlySelectedPerks() {
     randomlySelectedPerks = Utils.generateSetOfRandomNumbers(numPerksToSelect, min: 1, max: perkDesc.length + 1);
@@ -202,7 +203,12 @@ class _PerkPageState extends State<PerkPage> {
                       });
                       if(value == true) {
                         selectedType = 'killer/';
-                        var appendedList = perkDesc = await getList('killer');
+                        if(appendedList == null ) {
+                          appendedList = returnKiller();
+                        }
+                        else {
+                          appendedList = perkDesc = await getList('killer');
+                        }
                         filterAmount = appendedList.length;
                         setState(() {
                           generateRandomlySelectedPerks();
@@ -211,7 +217,11 @@ class _PerkPageState extends State<PerkPage> {
                       }
                       else {
                         selectedType = 'survivor/';
-                        var appendedList = perkDesc = await getList('survivor');
+                        if(appendedList == null) {
+                          appendedList = returnSurvivor();
+                        } else {
+                          appendedList = perkDesc = await getList('survivor');
+                        }
                         filterAmount = appendedList.length;
                         setState(() {
                           generateRandomlySelectedPerks();
@@ -238,7 +248,11 @@ class _PerkPageState extends State<PerkPage> {
                 child: FlatButton(
                   onPressed: ()  async {
                     if(!isSwitched) {
-                      var appendedList = perkDesc = await getList('survivor');
+                      if(appendedList == null) {
+                        appendedList = returnSurvivor();
+                      } else {
+                        appendedList = perkDesc = await getList('survivor');
+                      }
                       setState(() {
                         generateRandomlySelectedPerks();
                         selectedType = 'survivor/';
@@ -249,7 +263,12 @@ class _PerkPageState extends State<PerkPage> {
                       });
                     }
                     else {
-                      var appendedList = perkDesc = await getList('killer');
+                      if(appendedList == null) {
+                        appendedList = returnKiller();
+                      }
+                      else {
+                        appendedList = perkDesc = await getList('killer');
+                      }
                       setState(() {
                         generateRandomlySelectedPerks();
                         selectedType = 'killer/';
