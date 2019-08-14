@@ -1,13 +1,15 @@
+// Built-ins
 import 'dart:convert';
+
+// Third-party
 import 'package:flutter/material.dart';
-import 'buildConfigurator.dart';
 import 'package:flutter/services.dart';
-import 'widgets/perk.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+// First-party
+import 'buildConfigurator.dart';
 import 'utilities.dart' as Utils;
-
-
-
+import 'widgets/perk.dart';
 
 class PerkPage extends StatefulWidget {
   @override
@@ -33,21 +35,18 @@ class _PerkPageState extends State<PerkPage> {
     generateRandomlySelectedPerks();
   }
 
-
   Future loadPerksFromPreferencesOrDefaults(bool value) async {
     selectedType = value ? 'killer/' : 'survivor/';
-    var filteredList = await getList(selectedType.substring(0,selectedType.length - 1));
+    var filteredList = await getList(selectedType.substring(0, selectedType.length - 1));
     setState(() {
-      if(filteredList == null) {
+      if (filteredList == null) {
         perkList = value ? returnKiller() : returnSurvivor();
-      }
-      else {
+      } else {
         perkList = filteredList;
       }
       generateRandomlySelectedPerks();
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -56,6 +55,7 @@ class _PerkPageState extends State<PerkPage> {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
+
     return Scaffold(
       drawer: Drawer(
         child: Container(
@@ -64,190 +64,211 @@ class _PerkPageState extends State<PerkPage> {
             children: <Widget>[
               Container(
                 decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(width: 1.0,color: Colors.white)
-                  )
+                  border: Border(bottom: BorderSide(width: 1.0, color: Colors.white))
                 ),
                 child: DrawerHeader(
-                  child: Center(child: Text('PerkLight',style: TextStyle(fontSize: 40.0,fontWeight: FontWeight.bold,color: Colors.white),)),
-                  decoration: BoxDecoration(
-                    color: Color(0xff21213b)
+                  child: Center(
+                    child: Text(
+                      'PerkLight',
+                      style: TextStyle(
+                        fontSize: 40.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white
+                      ),
+                    ),
                   ),
+                  decoration: BoxDecoration(color: Color(0xff21213b)),
                 ),
               ),
               Container(
                 padding: EdgeInsets.all(24.0),
                 color: Color(0xff21213b),
                 child: ListTile(
-                  title: Center(child: Text('Perk Configuration',style: TextStyle(fontWeight: FontWeight.w700, fontSize: 22.0,color: Colors.white, decoration: TextDecoration.underline),)),
+                  title: Center(
+                    child: Text(
+                      'Perk Configuration',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 22.0,
+                        color: Colors.white,
+                        decoration: TextDecoration.underline
+                      ),
+                    )
+                  ),
                   onTap: () async {
-                    final returnedList = await Navigator.push(context,MaterialPageRoute(builder: (context) => BuildConfiguration(killerPerks: perkList,survivorPerks: returnSurvivor(),)));
-                    if(selectedType == 'survivor/') {
-                      encodeList(returnedList,'survivor');
+                    final returnedList = await Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => BuildConfiguration(killerPerks: perkList,survivorPerks: returnSurvivor()))
+                    );
+                    if (selectedType == 'survivor/') {
+                      encodeList(returnedList, 'survivor');
                       print('saving survivor');
-                    }
-                    else {
-                      encodeList(returnedList,'killer');
+                    } else {
+                      encodeList(returnedList, 'killer');
                       print('saving Killer');
                     }
                     print('${returnedList[0].isEnabled}');
                   },
                 ),
-              )
+              ),
             ],
           ),
         ),
       ),
-    backgroundColor: Color(0xff21213b),
-    appBar: AppBar(
-    title: Text('PerkLight'),
-    backgroundColor: Color(0xff21213b),
-    ),
-    body:
-      SafeArea(
-      bottom: false,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          Container(
-            height: 50,
-          ),
-          Container(
-            alignment: Alignment(0, 0),
-            child: Row(
+      backgroundColor: Color(0xff21213b),
+      appBar: AppBar(
+        title: Text('PerkLight'),
+        backgroundColor: Color(0xff21213b),
+      ),
+      body: SafeArea(
+        bottom: false,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Container(
+              height: 50,
+            ),
+            Container(
+              alignment: Alignment(0, 0),
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Column(
+                      children: <Widget>[
+                        Text(
+                          (perkList[randomlySelectedPerks.elementAt(0) - 1].perkName),
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        Image.asset(
+                          'images/$selectedType${randomlySelectedPerks.elementAt(0)}.png',
+                          height: 150,
+                          width: 150,
+                          fit: BoxFit.fill,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: Column(
+                      children: <Widget>[
+                        Text(
+                          (perkList[randomlySelectedPerks.elementAt(1) - 1].perkName),
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        Image.asset(
+                          'images/$selectedType${randomlySelectedPerks.elementAt(1)}.png',
+                          height: 150,
+                          width: 150,
+                          fit: BoxFit.fill,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              height: 50,
+            ),
+            Row(
               children: <Widget>[
                 Expanded(
-                    child: Column(
-                  children: <Widget>[
-                    Text(
-                      (perkList[randomlySelectedPerks.elementAt(0) - 1].perkName),
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    Image.asset(
-                      'images/$selectedType${randomlySelectedPerks.elementAt(0)}.png',
-                      height: 150,
-                      width: 150,
-                      fit: BoxFit.fill,
-                    ),
-                  ],
-                )),
+                  child: Column(
+                    children: <Widget>[
+                      Text(
+                        (perkList[randomlySelectedPerks.elementAt(2) - 1].perkName),
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      Image.asset(
+                        'images/$selectedType${randomlySelectedPerks.elementAt(2)}.png',
+                        height: 150,
+                        width: 150,
+                        fit: BoxFit.fill,
+                      ),
+                    ],
+                  ),
+                ),
                 Expanded(
-                    child: Column(
-                  children: <Widget>[
-                    Text(
-                      (perkList[randomlySelectedPerks.elementAt(1) - 1].perkName),
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    Image.asset(
-                      'images/$selectedType${randomlySelectedPerks.elementAt(1)}.png',
-                      height: 150,
-                      width: 150,
-                      fit: BoxFit.fill,
-                    ),
-                  ],
-                )),
+                  child: Column(
+                    children: <Widget>[
+                      Text(
+                        (perkList[randomlySelectedPerks.elementAt(3) - 1].perkName),
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      Image.asset(
+                        'images/$selectedType${randomlySelectedPerks.elementAt(3)}.png',
+                        height: 150,
+                        width: 150,
+                        fit: BoxFit.fill,
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
-          ),
-          Container(
-            height: 50,
-          ),
-          Row(
-            children: <Widget>[
-              Expanded(
-                  child: Column(
-                children: <Widget>[
-                  Text(
-                    (perkList[randomlySelectedPerks.elementAt(2) - 1].perkName),
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  Image.asset(
-                    'images/$selectedType${randomlySelectedPerks.elementAt(2)}.png',
-                    height: 150,
-                    width: 150,
-                    fit: BoxFit.fill,
-                  ),
-                ],
-              )),
-              Expanded(
-                  child: Column(
-                children: <Widget>[
-                  Text(
-                    (perkList[randomlySelectedPerks.elementAt(3) - 1].perkName),
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  Image.asset(
-                    'images/$selectedType${randomlySelectedPerks.elementAt(3)}.png',
-                    height: 150,
-                    width: 150,
-                    fit: BoxFit.fill,
-                  ),
-                ],
-              )),
-            ],
-          ),
-          SizedBox(
-            height: 50,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              Text(
-                'Survivor',
-                style: TextStyle(fontSize: 22.0, color: Colors.white),
-              ),
-              Transform.scale(
-                scale: 1.5,
-                child: Switch(
-                  value: isSwitched,
-                  onChanged: (value) async {
+            SizedBox(
+              height: 50,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Text(
+                  'Survivor',
+                  style: TextStyle(fontSize: 22.0, color: Colors.white),
+                ),
+                Transform.scale(
+                  scale: 1.5,
+                  child: Switch(
+                    value: isSwitched,
+                    onChanged: (value) async {
                       setState(() {
                         isSwitched = value;
                         print(value);
                       });
                       loadPerksFromPreferencesOrDefaults(value);
-                  },
-                  activeTrackColor: Colors.redAccent,
-                  activeColor: Colors.black,
-                ),
-              ),
-              Text(
-                'Killer',
-                style: TextStyle(fontSize: 22.0, color: Colors.white),
-              )
-            ],
-          ),
-          Expanded(
-            child: Container(
-              alignment: Alignment(0, 1),
-              child: SizedBox(
-                width: double.infinity,
-                height: 100,
-                child: FlatButton(
-                  onPressed: ()  async {
-                    loadPerksFromPreferencesOrDefaults(isSwitched);
-                    setState(() {
-                      encodeList(perkList, isSwitched ? 'killer' : 'survivor');
-                    });
-                  },
-                  child: Text(
-                    'Randomise',
-                    style: TextStyle(fontSize: 22.0),
+                    },
+                    activeTrackColor: Colors.redAccent,
+                    activeColor: Colors.black,
                   ),
-                  color: Colors.redAccent,
-                  textColor: Colors.white,
+                ),
+                Text(
+                  'Killer',
+                  style: TextStyle(fontSize: 22.0, color: Colors.white),
+                ),
+              ],
+            ),
+            Expanded(
+              child: Container(
+                alignment: Alignment(0, 1),
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 100,
+                  child: FlatButton(
+                    onPressed: () async {
+                      loadPerksFromPreferencesOrDefaults(isSwitched);
+                      setState(() {
+                        encodeList(
+                            perkList, isSwitched ? 'killer' : 'survivor');
+                      });
+                    },
+                    child: Text(
+                      'Randomise',
+                      style: TextStyle(fontSize: 22.0),
+                    ),
+                    color: Colors.redAccent,
+                    textColor: Colors.white,
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-    )
     );
   }
 }
 
-void encodeList(chosen,key) async {
+void encodeList(chosen, key) async {
   List<Perk> perks = chosen;
   final String perkKey = key;
   SharedPreferences sp = await SharedPreferences.getInstance();
@@ -255,10 +276,10 @@ void encodeList(chosen,key) async {
   print('Ecoded and saved');
 }
 
-Future<List<Perk>> getList(key)async {
+Future<List<Perk>> getList(key) async {
   SharedPreferences sp = await SharedPreferences.getInstance();
   var stringPreference = sp.get(key);
-  if(stringPreference == null ) {
+  if (stringPreference == null) {
     return null;
   }
   List<Perk> perks = [];
@@ -268,18 +289,8 @@ Future<List<Perk>> getList(key)async {
   print(perks[0].perkName);
   print('got list');
   return perks;
-//      .forEach(map) => perks.add(new Perk.fromJson(map));
 }
 
-
-//List<Perk> loadList()async {
-//  final prefs = await SharedPreferences.getInstance();
-//  var loadedList = prefs.getString('perk_list');
-//  return loadedList;
-//}
-
 void main() {
-  return runApp(MaterialApp(
-    home: PerkPage(
-  )));
+  return runApp(MaterialApp(home: PerkPage()));
 }
