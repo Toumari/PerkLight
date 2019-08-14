@@ -1,11 +1,10 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'dart:math';
 import 'buildConfigurator.dart';
 import 'package:flutter/services.dart';
 import 'widgets/perk.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'utilities.dart' as Utils;
 
 
 
@@ -16,33 +15,26 @@ class PerkPage extends StatefulWidget {
 }
 
 class _PerkPageState extends State<PerkPage> {
-  int farLeft = 1;
-  int left = 2;
-  int right = 3;
-  int farRight = 4;
+  Set<int> randomlySelectedPerks;
+  int numPerksToSelect = 4;
+  
   int filterAmount=65;
+
   String selectedType = 'survivor/';
   bool isSwitched = false;
   bool perkArraySelector = true;
 
-
-  void checkNumbers() {
-      farLeft = Random().nextInt(filterAmount) + 1;
-      left = Random().nextInt(filterAmount) + 1;
-      right = Random().nextInt(filterAmount) + 1;
-      farRight = Random().nextInt(filterAmount) + 1;
-    if (farLeft == farRight ||
-        left == right ||
-        farLeft == left ||
-        farRight == right) {
-          farLeft = Random().nextInt(filterAmount) + 1;
-          left = Random().nextInt(filterAmount) + 1;
-          right = Random().nextInt(filterAmount) + 1;
-          farRight = Random().nextInt(filterAmount) + 1;
-        }
+  void generateRandomlySelectedPerks() {
+    randomlySelectedPerks = Utils.generateSetOfRandomNumbers(numPerksToSelect, min: 1, max: perkDesc.length + 1);
   }
 
-  List<Perk>perkDesc = returnSurvivor();
+  List<Perk> perkDesc = returnSurvivor();
+
+  @override
+  void initState() {
+    super.initState();
+    generateRandomlySelectedPerks();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -123,11 +115,11 @@ class _PerkPageState extends State<PerkPage> {
                     child: Column(
                   children: <Widget>[
                     Text(
-                      (perkDesc[farLeft - 1].perkName),
+                      (perkDesc[randomlySelectedPerks.elementAt(0) - 1].perkName),
                       style: TextStyle(color: Colors.white),
                     ),
                     Image.asset(
-                      'images/$selectedType$farLeft.png',
+                      'images/$selectedType${randomlySelectedPerks.elementAt(0)}.png',
                       height: 150,
                       width: 150,
                       fit: BoxFit.fill,
@@ -138,11 +130,11 @@ class _PerkPageState extends State<PerkPage> {
                     child: Column(
                   children: <Widget>[
                     Text(
-                      (perkDesc[left - 1].perkName),
+                      (perkDesc[randomlySelectedPerks.elementAt(1) - 1].perkName),
                       style: TextStyle(color: Colors.white),
                     ),
                     Image.asset(
-                      'images/$selectedType$left.png',
+                      'images/$selectedType${randomlySelectedPerks.elementAt(1)}.png',
                       height: 150,
                       width: 150,
                       fit: BoxFit.fill,
@@ -161,11 +153,11 @@ class _PerkPageState extends State<PerkPage> {
                   child: Column(
                 children: <Widget>[
                   Text(
-                    (perkDesc[farRight - 1].perkName),
+                    (perkDesc[randomlySelectedPerks.elementAt(2) - 1].perkName),
                     style: TextStyle(color: Colors.white),
                   ),
                   Image.asset(
-                    'images/$selectedType$farRight.png',
+                    'images/$selectedType${randomlySelectedPerks.elementAt(2)}.png',
                     height: 150,
                     width: 150,
                     fit: BoxFit.fill,
@@ -176,11 +168,11 @@ class _PerkPageState extends State<PerkPage> {
                   child: Column(
                 children: <Widget>[
                   Text(
-                    (perkDesc[right - 1].perkName),
+                    (perkDesc[randomlySelectedPerks.elementAt(3) - 1].perkName),
                     style: TextStyle(color: Colors.white),
                   ),
                   Image.asset(
-                    'images/$selectedType$right.png',
+                    'images/$selectedType${randomlySelectedPerks.elementAt(3)}.png',
                     height: 150,
                     width: 150,
                     fit: BoxFit.fill,
@@ -213,7 +205,7 @@ class _PerkPageState extends State<PerkPage> {
                         var appendedList = perkDesc = await getList('killer');
                         filterAmount = appendedList.length;
                         setState(() {
-                          checkNumbers();
+                          generateRandomlySelectedPerks();
                           perkDesc = appendedList;
                         });
                       }
@@ -222,7 +214,7 @@ class _PerkPageState extends State<PerkPage> {
                         var appendedList = perkDesc = await getList('survivor');
                         filterAmount = appendedList.length;
                         setState(() {
-                          checkNumbers();
+                          generateRandomlySelectedPerks();
                           perkDesc = appendedList;
                         });
                       }
@@ -248,7 +240,7 @@ class _PerkPageState extends State<PerkPage> {
                     if(!isSwitched) {
                       var appendedList = perkDesc = await getList('survivor');
                       setState(() {
-                        checkNumbers();
+                        generateRandomlySelectedPerks();
                         selectedType = 'survivor/';
                         filterAmount=perkDesc.length;
                         perkDesc = appendedList;
@@ -259,7 +251,7 @@ class _PerkPageState extends State<PerkPage> {
                     else {
                       var appendedList = perkDesc = await getList('killer');
                       setState(() {
-                        checkNumbers();
+                        generateRandomlySelectedPerks();
                         selectedType = 'killer/';
                         filterAmount = perkDesc.length;
                         perkDesc = appendedList;

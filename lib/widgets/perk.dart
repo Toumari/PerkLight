@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class Perk {
   String perkName;
   bool isEnabled;
@@ -22,11 +20,6 @@ class Perk {
     'isEnabled': _isEnabled,
     'id': _id
   };
-
-
-
-
-
 }
 
 
