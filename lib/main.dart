@@ -10,6 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'buildConfigurator.dart';
 import 'utilities.dart' as Utils;
 import 'widgets/perk.dart';
+import 'widgets/perkTile.dart';
 
 class PerkPage extends StatefulWidget {
   @override
@@ -133,35 +134,15 @@ class _PerkPageState extends State<PerkPage> {
               child: Row(
                 children: <Widget>[
                   Expanded(
-                    child: Column(
-                      children: <Widget>[
-                        Text(
-                          (perkList[randomlySelectedPerks.elementAt(0) - 1].perkName),
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        Image.asset(
-                          'images/$selectedType${randomlySelectedPerks.elementAt(0)}.png',
-                          height: 150,
-                          width: 150,
-                          fit: BoxFit.fill,
-                        ),
-                      ],
+                    child: PerkTile(
+                      name: perkList[randomlySelectedPerks.elementAt(0) - 1].perkName,
+                      iconPath: 'images/$selectedType${randomlySelectedPerks.elementAt(0)}.png'
                     ),
                   ),
                   Expanded(
-                    child: Column(
-                      children: <Widget>[
-                        Text(
-                          (perkList[randomlySelectedPerks.elementAt(1) - 1].perkName),
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        Image.asset(
-                          'images/$selectedType${randomlySelectedPerks.elementAt(1)}.png',
-                          height: 150,
-                          width: 150,
-                          fit: BoxFit.fill,
-                        ),
-                      ],
+                    child: PerkTile(
+                      name: perkList[randomlySelectedPerks.elementAt(1) - 1].perkName,
+                      iconPath: 'images/$selectedType${randomlySelectedPerks.elementAt(1)}.png'
                     ),
                   ),
                 ],
@@ -173,35 +154,15 @@ class _PerkPageState extends State<PerkPage> {
             Row(
               children: <Widget>[
                 Expanded(
-                  child: Column(
-                    children: <Widget>[
-                      Text(
-                        (perkList[randomlySelectedPerks.elementAt(2) - 1].perkName),
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      Image.asset(
-                        'images/$selectedType${randomlySelectedPerks.elementAt(2)}.png',
-                        height: 150,
-                        width: 150,
-                        fit: BoxFit.fill,
-                      ),
-                    ],
+                  child: PerkTile(
+                    name: perkList[randomlySelectedPerks.elementAt(2) - 1].perkName,
+                    iconPath: 'images/$selectedType${randomlySelectedPerks.elementAt(2)}.png'
                   ),
                 ),
                 Expanded(
-                  child: Column(
-                    children: <Widget>[
-                      Text(
-                        (perkList[randomlySelectedPerks.elementAt(3) - 1].perkName),
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      Image.asset(
-                        'images/$selectedType${randomlySelectedPerks.elementAt(3)}.png',
-                        height: 150,
-                        width: 150,
-                        fit: BoxFit.fill,
-                      ),
-                    ],
+                  child: PerkTile(
+                    name: perkList[randomlySelectedPerks.elementAt(3) - 1].perkName,
+                    iconPath: 'images/$selectedType${randomlySelectedPerks.elementAt(3)}.png'
                   ),
                 ),
               ],
