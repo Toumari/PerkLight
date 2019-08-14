@@ -250,8 +250,6 @@ class _PerkPageState extends State<PerkPage> {
                     if(!isSwitched) {
                       if(appendedList == null) {
                         appendedList = returnSurvivor();
-                      } else {
-                        appendedList = perkDesc = await getList('survivor');
                       }
                       setState(() {
                         generateRandomlySelectedPerks();
@@ -265,9 +263,6 @@ class _PerkPageState extends State<PerkPage> {
                     else {
                       if(appendedList == null) {
                         appendedList = returnKiller();
-                      }
-                      else {
-                        appendedList = perkDesc = await getList('killer');
                       }
                       setState(() {
                         generateRandomlySelectedPerks();
