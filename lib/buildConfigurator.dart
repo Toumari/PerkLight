@@ -7,8 +7,9 @@ class BuildConfiguration extends StatefulWidget {
 
   final List<Perk> killerPerks;
   final List<Perk> survivorPerks;
+  final bool lightModeDisabled;
 
-  BuildConfiguration({Key key, @required this.killerPerks, @required this.survivorPerks}) : super(key: key);
+  BuildConfiguration({Key key, @required this.killerPerks, @required this.survivorPerks, @required this.lightModeDisabled}) : super(key: key);
 
   @override
   _BuildConfigurationState createState() => _BuildConfigurationState();
@@ -25,11 +26,11 @@ class _BuildConfigurationState extends State<BuildConfiguration> {
       DeviceOrientation.portraitDown,
     ]);
     return Scaffold(
-      backgroundColor: Color(0xff21213b),
+      backgroundColor: widget.lightModeDisabled ? Color(0xff21213b) : Colors.blueGrey.shade100,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: Color(0xff21213b),
-        title: Text('Perk List',style: TextStyle(color: Colors.white),),
+        backgroundColor: widget.lightModeDisabled ? Color(0xff21213b) : Colors.blueGrey.shade100,
+        title: Text('Perk List',style: TextStyle(color: widget.lightModeDisabled ? Colors.white : Colors.black),),
       ),
       body: SafeArea(
         child: Column(
@@ -40,7 +41,7 @@ class _BuildConfigurationState extends State<BuildConfiguration> {
                 children: <Widget>[
                   for(var item in widget.killerPerks)
                     CheckboxListTile(
-                title: Text(item.perkName, style: TextStyle(color: Colors.white),),
+                title: Text(item.perkName, style: TextStyle(color: widget.lightModeDisabled ? Colors.white : Colors.black),),
                       value: item.isEnabled,
                       onChanged: (bool value) {
                           setState(() {

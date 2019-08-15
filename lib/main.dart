@@ -23,6 +23,7 @@ class _PerkPageState extends State<PerkPage> {
   String selectedType = 'survivor/';
   bool isSwitched = false;
   bool perkArraySelector = true;
+  bool lightModeDisabled = false;
 
   void generateRandomlySelectedPerks() {
     randomlySelectedPerks = Utils.generateSetOfRandomNumbers(numPerksToSelect, min: 1, max: perkList.length + 1);
@@ -35,6 +36,7 @@ class _PerkPageState extends State<PerkPage> {
     super.initState();
     generateRandomlySelectedPerks();
   }
+
 
   Future loadPerksFromPreferencesOrDefaults(bool value) async {
     selectedType = value ? 'killer/' : 'survivor/';
@@ -49,8 +51,17 @@ class _PerkPageState extends State<PerkPage> {
     });
   }
 
+  Color themeSelection() {
+    var colorSelected;
+    lightModeDisabled ? colorSelected = Color(0xff21213b) : colorSelected = Colors.blueGrey.shade100;
+    return colorSelected;
+  }
+
   @override
   Widget build(BuildContext context) {
+
+
+
 
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
@@ -59,47 +70,38 @@ class _PerkPageState extends State<PerkPage> {
 
     return Scaffold(
       drawer: Drawer(
-        child: Container(
-          color: Color(0xff21213b),
-          child: ListView(
-            children: <Widget>[
-              Container(
-                decoration: BoxDecoration(
-                  border: Border(bottom: BorderSide(width: 1.0, color: Colors.white))
-                ),
-                child: DrawerHeader(
-                  child: Center(
-                    child: Text(
-                      'PerkLight',
-                      style: TextStyle(
-                        fontSize: 40.0,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white
-                      ),
-                    ),
+        child: Column(
+          children: <Widget>[
+            DrawerHeader(
+              child: Center(
+                child: Text(
+                  'PerkLight',
+                  style: TextStyle(
+                    fontSize: 40.0,
+                    fontWeight: FontWeight.bold,
+                    color: lightModeDisabled ? Colors.white : Colors.black,
                   ),
-                  decoration: BoxDecoration(color: Color(0xff21213b)),
                 ),
               ),
-              Container(
-                padding: EdgeInsets.all(24.0),
-                color: Color(0xff21213b),
-                child: ListTile(
-                  title: Center(
-                    child: Text(
+              decoration: BoxDecoration(color: themeSelection()),
+            ),
+            ListView(
+              shrinkWrap: true,
+              scrollDirection: Axis.vertical,
+              children: <Widget>[
+                ListTile(
+                  title: Text(
                       'Perk Configuration',
                       style: TextStyle(
                         fontWeight: FontWeight.w700,
                         fontSize: 22.0,
-                        color: Colors.white,
-                        decoration: TextDecoration.underline
+                        color: Colors.black,
                       ),
-                    )
                   ),
                   onTap: () async {
                     final returnedList = await Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => BuildConfiguration(killerPerks: perkList,survivorPerks: returnSurvivor()))
+                        MaterialPageRoute(builder: (context) => BuildConfiguration(killerPerks: perkList,survivorPerks: returnSurvivor(),lightModeDisabled: lightModeDisabled))
                     );
                     if (selectedType == 'survivor/') {
                       encodeList(returnedList, 'survivor');
@@ -111,15 +113,35 @@ class _PerkPageState extends State<PerkPage> {
                     print('${returnedList[0].isEnabled}');
                   },
                 ),
+              ],
+            ),
+            Expanded(
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text('Dark Theme'),
+                    Transform.scale(
+                      scale: 1.2,
+                      child: Switch(
+                          value: lightModeDisabled, onChanged: (newValue) {
+                            setState(()
+                            {lightModeDisabled = newValue;});
+                      }),
+                    ),
+                  ],
+                )
               ),
-            ],
-          ),
+            )
+          ],
         ),
       ),
-      backgroundColor: Color(0xff21213b),
+      backgroundColor: themeSelection(),
       appBar: AppBar(
-        title: Text('PerkLight'),
-        backgroundColor: Color(0xff21213b),
+        iconTheme: new IconThemeData(color: lightModeDisabled ? Colors.white : Colors.black ),
+        title: Text('PerkLight' ,style: TextStyle(color: lightModeDisabled ? Colors.white : Colors.black,),),
+        backgroundColor: themeSelection(),
       ),
       body: SafeArea(
         bottom: false,
@@ -136,13 +158,15 @@ class _PerkPageState extends State<PerkPage> {
                   Expanded(
                     child: PerkTile(
                       name: perkList[randomlySelectedPerks.elementAt(0) - 1].perkName,
-                      iconPath: 'images/$selectedType${randomlySelectedPerks.elementAt(0)}.png'
+                      iconPath: 'images/$selectedType${randomlySelectedPerks.elementAt(0)}.png',
+                      textColor: lightModeDisabled ? Colors.white : Colors.black,
                     ),
                   ),
                   Expanded(
                     child: PerkTile(
                       name: perkList[randomlySelectedPerks.elementAt(1) - 1].perkName,
-                      iconPath: 'images/$selectedType${randomlySelectedPerks.elementAt(1)}.png'
+                      iconPath: 'images/$selectedType${randomlySelectedPerks.elementAt(1)}.png',
+                      textColor: lightModeDisabled ? Colors.white : Colors.black,
                     ),
                   ),
                 ],
@@ -156,13 +180,15 @@ class _PerkPageState extends State<PerkPage> {
                 Expanded(
                   child: PerkTile(
                     name: perkList[randomlySelectedPerks.elementAt(2) - 1].perkName,
-                    iconPath: 'images/$selectedType${randomlySelectedPerks.elementAt(2)}.png'
+                    iconPath: 'images/$selectedType${randomlySelectedPerks.elementAt(2)}.png',
+                    textColor: lightModeDisabled ? Colors.white : Colors.black,
                   ),
                 ),
                 Expanded(
                   child: PerkTile(
                     name: perkList[randomlySelectedPerks.elementAt(3) - 1].perkName,
-                    iconPath: 'images/$selectedType${randomlySelectedPerks.elementAt(3)}.png'
+                    iconPath: 'images/$selectedType${randomlySelectedPerks.elementAt(3)}.png',
+                    textColor: lightModeDisabled ? Colors.white : Colors.black,
                   ),
                 ),
               ],
@@ -175,7 +201,7 @@ class _PerkPageState extends State<PerkPage> {
               children: <Widget>[
                 Text(
                   'Survivor',
-                  style: TextStyle(fontSize: 22.0, color: Colors.white),
+                  style: TextStyle(fontSize: 22.0, color: lightModeDisabled ? Colors.white : Colors.black,),
                 ),
                 Transform.scale(
                   scale: 1.5,
@@ -194,7 +220,7 @@ class _PerkPageState extends State<PerkPage> {
                 ),
                 Text(
                   'Killer',
-                  style: TextStyle(fontSize: 22.0, color: Colors.white),
+                  style: TextStyle(fontSize: 22.0, color: lightModeDisabled ? Colors.white : Colors.black,),
                 ),
               ],
             ),
