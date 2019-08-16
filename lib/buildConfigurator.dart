@@ -29,7 +29,7 @@ class _BuildConfigurationState extends State<BuildConfiguration> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: Color(0xff21213b),
-        title: Text('Perk List',style: TextStyle(color: Colors.white),),
+        title: Text('Perk Configuration',style: TextStyle(color: Colors.white),),
       ),
       body: SafeArea(
         child: Column(
@@ -47,16 +47,30 @@ class _BuildConfigurationState extends State<BuildConfiguration> {
                             widget.killerPerks[item.id].isEnabled = value;
                           });
                       },
-      ),
-                ],
+                    ),
+                  ],
               ),
             ),
-            Container (
-              width: double.infinity,
-              child: FlatButton(onPressed: () {
-                Navigator.pop(context, widget.killerPerks);
-              }, child: Text('press me')),
-            )
+            Expanded(
+              child: Container(
+                alignment: Alignment(0, 1),
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 75,
+                  child: FlatButton(
+                    onPressed: () {
+                      Navigator.pop(context, widget.killerPerks);
+                    },
+                    child: Text(
+                      'Save',
+                      style: TextStyle(fontSize: 22.0),
+                    ),
+                    color: Colors.redAccent,
+                    textColor: Colors.white,
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
         ),
@@ -70,3 +84,5 @@ class _BuildConfigurationState extends State<BuildConfiguration> {
 //title: Text(item, style: TextStyle(color: Colors.white),),
 //onTap: () {print('tapped');},
 //),
+
+
