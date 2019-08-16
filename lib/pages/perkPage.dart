@@ -97,12 +97,9 @@ class _PerkPageState extends State<PerkPage> {
                     );
                     if (selectedType == 'survivor/') {
                       Utils.encodeList(returnedList, 'survivor');
-                      print('saving survivor');
                     } else {
                       Utils.encodeList(returnedList, 'killer');
-                      print('saving Killer');
                     }
-                    print('${returnedList[0].isEnabled}');
                   },
                 ),
               ),
@@ -178,7 +175,6 @@ class _PerkPageState extends State<PerkPage> {
                     onChanged: (value) async {
                       setState(() {
                         isSwitched = value;
-                        print(value);
                       });
                       loadPerksFromPreferencesOrDefaults(value);
                     },

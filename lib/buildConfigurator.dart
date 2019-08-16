@@ -78,11 +78,3 @@ class _BuildConfigurationState extends State<BuildConfiguration> {
   }
 }
 
-
-//ListTile(
-//leading: Icon(Icons.map, color: Colors.white,),
-//title: Text(item, style: TextStyle(color: Colors.white),),
-//onTap: () {print('tapped');},
-//),
-
-

@@ -40,7 +40,6 @@ void encodeList(chosen, key) async {
   final String perkKey = key;
   SharedPreferences sp = await SharedPreferences.getInstance();
   sp.setString(perkKey, json.encode(perks));
-  print('Ecoded and saved');
 }
 
 //Gets a list of Perks from Shared Preferences using key provided to function call
@@ -55,6 +54,5 @@ Future<List<Perk>> getList(key) async {
       .decode(stringPreference)
       .forEach((map) => perks.add(new Perk.fromJson(map)));
   print(perks[0].perkName);
-  print('got list');
   return perks;
 }
