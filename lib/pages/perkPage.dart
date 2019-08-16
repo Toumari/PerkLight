@@ -98,6 +98,10 @@ class _PerkPageState extends State<PerkPage> {
                         MaterialPageRoute(builder: (context) => BuildConfiguration())
                     );
 
+                    if(returnedList == null) {
+                      return;
+                    }
+
                     var survivorList = returnedList[1];
                     var killerList = returnedList[0];
 
@@ -133,13 +137,13 @@ class _PerkPageState extends State<PerkPage> {
                   Expanded(
                     child: PerkTile(
                         name: perkList[randomlySelectedPerks.elementAt(0) - 1].perkName,
-                        iconPath: 'images/$selectedType${randomlySelectedPerks.elementAt(0)}.png'
+                        iconPath: 'images/$selectedType${perkList[randomlySelectedPerks.elementAt(0) - 1].iconName}'
                     ),
                   ),
                   Expanded(
                     child: PerkTile(
                         name: perkList[randomlySelectedPerks.elementAt(1) - 1].perkName,
-                        iconPath: 'images/$selectedType${randomlySelectedPerks.elementAt(1)}.png'
+                        iconPath: 'images/$selectedType${perkList[randomlySelectedPerks.elementAt(1) - 1].iconName}'
                     ),
                   ),
                 ],
@@ -153,13 +157,13 @@ class _PerkPageState extends State<PerkPage> {
                 Expanded(
                   child: PerkTile(
                       name: perkList[randomlySelectedPerks.elementAt(2) - 1].perkName,
-                      iconPath: 'images/$selectedType${randomlySelectedPerks.elementAt(2)}.png'
+                      iconPath: 'images/$selectedType${perkList[randomlySelectedPerks.elementAt(2) - 1].iconName}'
                   ),
                 ),
                 Expanded(
                   child: PerkTile(
                       name: perkList[randomlySelectedPerks.elementAt(3) - 1].perkName,
-                      iconPath: 'images/$selectedType${randomlySelectedPerks.elementAt(3)}.png'
+                      iconPath: 'images/$selectedType${perkList[randomlySelectedPerks.elementAt(3) - 1].iconName}'
                   ),
                 ),
               ],
