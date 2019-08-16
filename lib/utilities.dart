@@ -53,6 +53,5 @@ Future<List<Perk>> getList(key) async {
   json
       .decode(stringPreference)
       .forEach((map) => perks.add(new Perk.fromJson(map)));
-  print(perks[0].perkName);
   return perks;
 }
