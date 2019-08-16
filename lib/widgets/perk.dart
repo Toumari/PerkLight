@@ -1,24 +1,28 @@
 class Perk {
   String perkName;
+  String iconName;
   bool isEnabled;
   int id;
 
-  Perk(this.perkName, this.isEnabled,this.id);
+  Perk(this.perkName, this.isEnabled,this.id, this.iconName);
 
   Perk.fromJson(Map<String, dynamic> m) {
     perkName = m['perkName'];
     isEnabled = m['isEnabled'];
     id = m['id'];
+    iconName = m['iconName'];
   }
 
   String get _perkName => perkName;
   bool get _isEnabled => isEnabled;
   int get _id => id;
+  String get _iconName => iconName;
 
   Map<String, dynamic> toJson() => {
     'perkName': _perkName,
     'isEnabled': _isEnabled,
-    'id': _id
+    'id': _id,
+    'iconName': _iconName,
   };
 }
 
@@ -49,7 +53,7 @@ List survivorList = [
 List<Perk> returnAll() {
   List<Perk> allPerks = List<Perk>();
   for(var i=0;i<fullList.length;i++) {
-    allPerks.add(Perk(fullList[i], true,i));
+    allPerks.add(Perk(fullList[i], true,i,"${i + 1}.png"));
   }
   return allPerks;
 }
@@ -57,7 +61,7 @@ List<Perk> returnAll() {
 List<Perk> returnKiller() {
   List<Perk> killerPerks = List<Perk>();
   for(var i=0;i<killerList.length;i++) {
-    killerPerks.add(Perk(killerList[i],true,i));
+    killerPerks.add(Perk(killerList[i],true,i,"${i + 1}.png"));
   }
   return killerPerks;
 }
@@ -65,7 +69,7 @@ List<Perk> returnKiller() {
 List<Perk> returnSurvivor() {
   List<Perk> survivorPerks = List<Perk>();
   for(var i=0;i<survivorList.length;i++) {
-    survivorPerks.add(Perk(survivorList[i],true,i));
+    survivorPerks.add(Perk(survivorList[i],true,i,"${i + 1}.png"));
   }
   return survivorPerks;
 }
