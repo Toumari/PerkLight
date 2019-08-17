@@ -91,6 +91,8 @@ class _BuildConfigurationState extends State<BuildConfiguration> {
                                   survivorPerks[item.id].isEnabled = value;
                                 });
                               },
+                              secondary: IconButton(icon: Image.asset('images/survivor/${item.iconName}',color: Colors.white,), onPressed: () {
+                              })
                             ),
                         ],
                       ),
@@ -130,6 +132,8 @@ class _BuildConfigurationState extends State<BuildConfiguration> {
                                   killerPerks[item.id].isEnabled = value;
                                 });
                               },
+                              secondary: IconButton(icon: Image.asset('images/killer/${item.iconName}',color: Colors.white,), onPressed: () {
+                              })
                             ),
                         ],
                       ),
