@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'pages/perkPage.dart';
 
 void main() {
-  return runApp(MaterialApp(home: PerkPage()));
+  return runApp(PerkLight());
 }
 
 
