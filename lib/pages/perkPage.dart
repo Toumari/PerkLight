@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 // First-party
-import '../buildConfigurator.dart';
+import 'package:perklight/pages/buildConfigurator.dart';
 import '../utilities.dart' as Utils;
 import '../widgets/perk.dart';
 import '../widgets/perkTile.dart';
@@ -40,7 +40,9 @@ class _PerkPageState extends State<PerkPage> {
       if (filteredList == null) {
         perkList = value ? returnKiller() : returnSurvivor();
       } else {
-        perkList = filteredList;
+        perkList = filteredList.where((perk) {
+          return perk.isEnabled;
+        }).toList();
       }
       generateRandomlySelectedPerks();
     });
@@ -93,13 +95,21 @@ class _PerkPageState extends State<PerkPage> {
                   onTap: () async {
                     final returnedList = await Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => BuildConfiguration(killerPerks: perkList,survivorPerks: returnSurvivor()))
+                        MaterialPageRoute(builder: (context) => BuildConfiguration())
                     );
-                    if (selectedType == 'survivor/') {
-                      Utils.encodeList(returnedList, 'survivor');
-                    } else {
-                      Utils.encodeList(returnedList, 'killer');
+
+                    if(returnedList == null) {
+                      return;
                     }
+
+                    var survivorList = returnedList[1];
+                    var killerList = returnedList[0];
+
+                    Utils.encodeList(survivorList, 'survivor');
+                    Utils.encodeList(killerList, 'killer');
+
+                    loadPerksFromPreferencesOrDefaults(isSwitched);
+
                   },
                 ),
               ),
@@ -127,13 +137,13 @@ class _PerkPageState extends State<PerkPage> {
                   Expanded(
                     child: PerkTile(
                         name: perkList[randomlySelectedPerks.elementAt(0) - 1].perkName,
-                        iconPath: 'images/$selectedType${randomlySelectedPerks.elementAt(0)}.png'
+                        iconPath: 'images/$selectedType${perkList[randomlySelectedPerks.elementAt(0) - 1].iconName}'
                     ),
                   ),
                   Expanded(
                     child: PerkTile(
                         name: perkList[randomlySelectedPerks.elementAt(1) - 1].perkName,
-                        iconPath: 'images/$selectedType${randomlySelectedPerks.elementAt(1)}.png'
+                        iconPath: 'images/$selectedType${perkList[randomlySelectedPerks.elementAt(1) - 1].iconName}'
                     ),
                   ),
                 ],
@@ -147,13 +157,13 @@ class _PerkPageState extends State<PerkPage> {
                 Expanded(
                   child: PerkTile(
                       name: perkList[randomlySelectedPerks.elementAt(2) - 1].perkName,
-                      iconPath: 'images/$selectedType${randomlySelectedPerks.elementAt(2)}.png'
+                      iconPath: 'images/$selectedType${perkList[randomlySelectedPerks.elementAt(2) - 1].iconName}'
                   ),
                 ),
                 Expanded(
                   child: PerkTile(
                       name: perkList[randomlySelectedPerks.elementAt(3) - 1].perkName,
-                      iconPath: 'images/$selectedType${randomlySelectedPerks.elementAt(3)}.png'
+                      iconPath: 'images/$selectedType${perkList[randomlySelectedPerks.elementAt(3) - 1].iconName}'
                   ),
                 ),
               ],
@@ -197,10 +207,6 @@ class _PerkPageState extends State<PerkPage> {
                   child: FlatButton(
                     onPressed: () async {
                       loadPerksFromPreferencesOrDefaults(isSwitched);
-                      setState(() {
-                        Utils.encodeList(
-                            perkList, isSwitched ? 'killer' : 'survivor');
-                      });
                     },
                     child: Text(
                       'Randomise',
