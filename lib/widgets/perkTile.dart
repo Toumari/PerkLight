@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../pages/perkDetail.dart';
 
 
 class PerkTile extends StatelessWidget {
@@ -15,11 +16,16 @@ class PerkTile extends StatelessWidget {
           name,
           style: TextStyle(color: Colors.white),
         ),
-        Image.asset(
-          iconPath,
-          height: 150,
-          width: 150,
-          fit: BoxFit.fill,
+        GestureDetector(
+          onTap: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => PerkDetail(perkName: name, perkIconPath: iconPath, perkDescription: 'Test',)));
+          },
+          child: Image.asset(
+            iconPath,
+            height: 150,
+            width: 150,
+            fit: BoxFit.fill,
+          ),
         ),
       ]
     );
