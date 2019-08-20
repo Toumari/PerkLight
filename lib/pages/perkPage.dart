@@ -93,10 +93,7 @@ class _PerkPageState extends State<PerkPage> {
                     ),
                   ),
                   onTap: () async {
-                    final returnedList = await Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => BuildConfiguration())
-                    );
+                    final dynamic returnedList = await Navigator.pushNamed(context, '/builder');
 
                     if(returnedList == null) {
                       return;

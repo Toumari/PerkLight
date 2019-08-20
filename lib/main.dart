@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'pages/perkPage.dart';
+
+import 'router.dart' as router;
+import 'widgets/perk.dart';
+
 
 void main() {
   return runApp(PerkLight());
 }
-
 
 class PerkLight extends StatefulWidget {
   @override
@@ -12,14 +14,12 @@ class PerkLight extends StatefulWidget {
 }
 
 class _PerkLightState extends State<PerkLight> {
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: PerkPage(),
+      onGenerateRoute: router.generateRoute,
+      initialRoute: '/',
     );
   }
 }
-
-
-
-
