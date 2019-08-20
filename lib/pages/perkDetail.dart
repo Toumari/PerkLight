@@ -23,9 +23,10 @@ class _PerkDetailState extends State<PerkDetail> {
     title: Text('Perk Configuration', style: TextStyle(color: Colors.white)),
     ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Image.asset(widget.perkIconPath),
-          Text(widget.perkName, style: TextStyle(color: Colors.white, fontSize: 32),)
+          Image.asset(widget.perkIconPath, height: 200,),
+          Text(widget.perkName, style: TextStyle(color: Colors.white, fontSize: 32), textAlign: TextAlign.center,)
         ],
       ),
     );
