@@ -1,0 +1,756 @@
+{
+    "survivor": [
+        {
+            "id": 1,
+            "name": "Ace in the Hole",
+            "description": "",
+            "iconFilename": "1.png"
+        },
+        {
+            "id": 2,
+            "name": "Adrenaline",
+            "description": "",
+            "iconFilename": "2.png"
+        },
+        {
+            "id": 3,
+            "name": "Aftercare",
+            "description": "",
+            "iconFilename": "3.png"
+        },
+        {
+            "id": 4,
+            "name": "Alert",
+            "description": "",
+            "iconFilename": "4.png"
+        },
+        {
+            "id": 5,
+            "name": "Autodidact",
+            "description": "",
+            "iconFilename": "5.png"
+        },
+        {
+            "id": 6,
+            "name": "Balanced Landing",
+            "description": "",
+            "iconFilename": "6.png"
+        },
+        {
+            "id": 7,
+            "name": "Boil Over",
+            "description": "",
+            "iconFilename": "7.png"
+        },
+        {
+            "id": 8,
+            "name": "Bond",
+            "description": "",
+            "iconFilename": "8.png"
+        },
+        {
+            "id": 9,
+            "name": "Borrowed Time",
+            "description": "",
+            "iconFilename": "9.png"
+        },
+        {
+            "id": 10,
+            "name": "Botany Knowledge",
+            "description": "",
+            "iconFilename": "10.png"
+        },
+        {
+            "id": 11,
+            "name": "Breakdown",
+            "description": "",
+            "iconFilename": "11.png"
+        },
+        {
+            "id": 12,
+            "name": "Buckle Up",
+            "description": "",
+            "iconFilename": "12.png"
+        },
+        {
+            "id": 13,
+            "name": "Calm Spirit",
+            "description": "",
+            "iconFilename": "13.png"
+        },
+        {
+            "id": 14,
+            "name": "Dance With Me",
+            "description": "",
+            "iconFilename": "14.png"
+        },
+        {
+            "id": 15,
+            "name": "Dark Sense",
+            "description": "",
+            "iconFilename": "15.png"
+        },
+        {
+            "id": 16,
+            "name": "Dead Hard",
+            "description": "",
+            "iconFilename": "16.png"
+        },
+        {
+            "id": 17,
+            "name": "Decisive Strike",
+            "description": "",
+            "iconFilename": "17.png"
+        },
+        {
+            "id": 18,
+            "name": "Déja Vu",
+            "description": "",
+            "iconFilename": "18.png"
+        },
+        {
+            "id": 19,
+            "name": "Deliverance",
+            "description": "",
+            "iconFilename": "19.png"
+        },
+        {
+            "id": 20,
+            "name": "Detective's Hunch",
+            "description": "",
+            "iconFilename": "20.png"
+        },
+        {
+            "id": 21,
+            "name": "Distortion",
+            "description": "",
+            "iconFilename": "21.png"
+        },
+        {
+            "id": 22,
+            "name": "Diversion",
+            "description": "",
+            "iconFilename": "22.png"
+        },
+        {
+            "id": 23,
+            "name": "Empathy",
+            "description": "",
+            "iconFilename": "23.png"
+        },
+        {
+            "id": 24,
+            "name": "Flip-Flop",
+            "description": "",
+            "iconFilename": "24.png"
+        },
+        {
+            "id": 25,
+            "name": "Head On",
+            "description": "",
+            "iconFilename": "25.png"
+        },
+        {
+            "id": 26,
+            "name": "Hope",
+            "description": "",
+            "iconFilename": "26.png"
+        },
+        {
+            "id": 27,
+            "name": "Iron Will",
+            "description": "",
+            "iconFilename": "27.png"
+        },
+        {
+            "id": 28,
+            "name": "Kindred",
+            "description": "",
+            "iconFilename": "28.png"
+        },
+        {
+            "id": 29,
+            "name": "Leader",
+            "description": "",
+            "iconFilename": "29.png"
+        },
+        {
+            "id": 30,
+            "name": "Left Behind",
+            "description": "",
+            "iconFilename": "30.png"
+        },
+        {
+            "id": 31,
+            "name": "Lightweight",
+            "description": "",
+            "iconFilename": "31.png"
+        },
+        {
+            "id": 32,
+            "name": "Lithe",
+            "description": "",
+            "iconFilename": "32.png"
+        },
+        {
+            "id": 33,
+            "name": "Mettle of Man",
+            "description": "",
+            "iconFilename": "33.png"
+        },
+        {
+            "id": 34,
+            "name": "No Mither",
+            "description": "",
+            "iconFilename": "34.png"
+        },
+        {
+            "id": 35,
+            "name": "No One Left Behind",
+            "description": "",
+            "iconFilename": "35.png"
+        },
+        {
+            "id": 36,
+            "name": "Object of Obsession",
+            "description": "",
+            "iconFilename": "36.png"
+        },
+        {
+            "id": 37,
+            "name": "Open-Handed",
+            "description": "",
+            "iconFilename": "37.png"
+        },
+        {
+            "id": 38,
+            "name": "Pharmacy",
+            "description": "",
+            "iconFilename": "38.png"
+        },
+        {
+            "id": 39,
+            "name": "Plunderer's Instinct",
+            "description": "",
+            "iconFilename": "39.png"
+        },
+        {
+            "id": 40,
+            "name": "Poised",
+            "description": "",
+            "iconFilename": "40.png"
+        },
+        {
+            "id": 41,
+            "name": "Premonition",
+            "description": "",
+            "iconFilename": "41.png"
+        },
+        {
+            "id": 42,
+            "name": "Prove Thyself",
+            "description": "",
+            "iconFilename": "42.png"
+        },
+        {
+            "id": 43,
+            "name": "Quick & Quiet",
+            "description": "",
+            "iconFilename": "43.png"
+        },
+        {
+            "id": 44,
+            "name": "Resilience",
+            "description": "",
+            "iconFilename": "44.png"
+        },
+        {
+            "id": 45,
+            "name": "Saboteur",
+            "description": "",
+            "iconFilename": "45.png"
+        },
+        {
+            "id": 46,
+            "name": "Self-Care",
+            "description": "",
+            "iconFilename": "46.png"
+        },
+        {
+            "id": 47,
+            "name": "Slippery Meat",
+            "description": "",
+            "iconFilename": "47.png"
+        },
+        {
+            "id": 48,
+            "name": "Small Game",
+            "description": "",
+            "iconFilename": "48.png"
+        },
+        {
+            "id": 49,
+            "name": "Sole Survivor",
+            "description": "",
+            "iconFilename": "49.png"
+        },
+        {
+            "id": 50,
+            "name": "Solidarity",
+            "description": "",
+            "iconFilename": "50.png"
+        },
+        {
+            "id": 51,
+            "name": "Spine Chill",
+            "description": "",
+            "iconFilename": "51.png"
+        },
+        {
+            "id": 52,
+            "name": "Sprint Burst",
+            "description": "",
+            "iconFilename": "52.png"
+        },
+        {
+            "id": 53,
+            "name": "Stake Out",
+            "description": "",
+            "iconFilename": "53.png"
+        },
+        {
+            "id": 54,
+            "name": "Streetwise",
+            "description": "",
+            "iconFilename": "54.png"
+        },
+        {
+            "id": 55,
+            "name": "This Is Not Happening",
+            "description": "",
+            "iconFilename": "55.png"
+        },
+        {
+            "id": 56,
+            "name": "Technician",
+            "description": "",
+            "iconFilename": "56.png"
+        },
+        {
+            "id": 57,
+            "name": "Tenacity",
+            "description": "",
+            "iconFilename": "57.png"
+        },
+        {
+            "id": 58,
+            "name": "Up the Ante",
+            "description": "",
+            "iconFilename": "58.png"
+        },
+        {
+            "id": 59,
+            "name": "Unbreakable",
+            "description": "",
+            "iconFilename": "59.png"
+        },
+        {
+            "id": 60,
+            "name": "Urban Evasion",
+            "description": "",
+            "iconFilename": "60.png"
+        },
+        {
+            "id": 61,
+            "name": "Vigil",
+            "description": "",
+            "iconFilename": "61.png"
+        },
+        {
+            "id": 62,
+            "name": "Wake Up!",
+            "description": "",
+            "iconFilename": "62.png"
+        },
+        {
+            "id": 63,
+            "name": "We'll Make It",
+            "description": "",
+            "iconFilename": "63.png"
+        },
+        {
+            "id": 64,
+            "name": "We're Gonna Live Forever",
+            "description": "",
+            "iconFilename": "64.png"
+        },
+        {
+            "id": 65,
+            "name": "Windows of Opportunity",
+            "description": "",
+            "iconFilename": "65.png"
+        }        
+    ],
+    "killer": [
+        {
+            "id": 1,
+            "name": "A Nurse's Calling",
+            "description": "",
+            "iconFilename": "1.png"
+        },
+        {
+            "id": 2,
+            "name": "Agitation",
+            "description": "",
+            "iconFilename": "2.png"
+        },
+        {
+            "id": 3,
+            "name": "Bamboozle",
+            "description": "",
+            "iconFilename": "3.png"
+        },
+        {
+            "id": 4,
+            "name": "Barbecue & Chilli",
+            "description": "",
+            "iconFilename": "4.png"
+        },
+        {
+            "id": 5,
+            "name": "Beast of Prey",
+            "description": "",
+            "iconFilename": "5.png"
+        },
+        {
+            "id": 6,
+            "name": "Bitter Murmur",
+            "description": "",
+            "iconFilename": "6.png"
+        },
+        {
+            "id": 7,
+            "name": "Bloodhound",
+            "description": "",
+            "iconFilename": "7.png"
+        },
+        {
+            "id": 8,
+            "name": "Blood Warden",
+            "description": "",
+            "iconFilename": "8.png"
+        },
+        {
+            "id": 9,
+            "name": "Brutal Strength",
+            "description": "",
+            "iconFilename": "9.png"
+        },
+        {
+            "id": 10,
+            "name": "Corrupt Intervention",
+            "description": "",
+            "iconFilename": "10.png"
+        },
+        {
+            "id": 11,
+            "name": "Coulrophobia",
+            "description": "",
+            "iconFilename": "11.png"
+        },
+        {
+            "id": 12,
+            "name": "Dark Devotion",
+            "description": "",
+            "iconFilename": "12.png"
+        },
+        {
+            "id": 13,
+            "name": "Deerstalker",
+            "description": "",
+            "iconFilename": "13.png"
+        },
+        {
+            "id": 14,
+            "name": "Discordance",
+            "description": "",
+            "iconFilename": "14.png"
+        },
+        {
+            "id": 15,
+            "name": "Distressing",
+            "description": "",
+            "iconFilename": "15.png"
+        },
+        {
+            "id": 16,
+            "name": "Dying Light",
+            "description": "",
+            "iconFilename": "16.png"
+        },
+        {
+            "id": 17,
+            "name": "Enduring",
+            "description": "",
+            "iconFilename": "17.png"
+        },
+        {
+            "id": 18,
+            "name": "Fire Up",
+            "description": "",
+            "iconFilename": "18.png"
+        },
+        {
+            "id": 19,
+            "name": "Franklin's Demise",
+            "description": "",
+            "iconFilename": "19.png"
+        },
+        {
+            "id": 20,
+            "name": "Furtive Chase",
+            "description": "",
+            "iconFilename": "20.png"
+        },
+        {
+            "id": 21,
+            "name": "Hangman's Trick",
+            "description": "",
+            "iconFilename": "21.png"
+        },
+        {
+            "id": 22,
+            "name": "Hex: Devour Hope",
+            "description": "",
+            "iconFilename": "22.png"
+        },
+        {
+            "id": 23,
+            "name": "Hex: Haunted Grounds",
+            "description": "",
+            "iconFilename": "23.png"
+        },
+        {
+            "id": 24,
+            "name": "Hex: Huntress Lullaby",
+            "description": "",
+            "iconFilename": "24.png"
+        },
+        {
+            "id": 25,
+            "name": "Hex: No One Escapes Death",
+            "description": "",
+            "iconFilename": "25.png"
+        },
+        {
+            "id": 26,
+            "name": "Hex: Ruin",
+            "description": "",
+            "iconFilename": "26.png"
+        },
+        {
+            "id": 27,
+            "name": "Hex: The Third Seal",
+            "description": "",
+            "iconFilename": "27.png"
+        },
+        {
+            "id": 28,
+            "name": "Hex: Thrill of the Hunt",
+            "description": "",
+            "iconFilename": "28.png"
+        },
+        {
+            "id": 29,
+            "name": "I'm All Ears",
+            "description": "",
+            "iconFilename": "29.png"
+        },
+        {
+            "id": 30,
+            "name": "Infectious Fright",
+            "description": "",
+            "iconFilename": "30.png"
+        },
+        {
+            "id": 31,
+            "name": "Insidious",
+            "description": "",
+            "iconFilename": "31.png"
+        },
+        {
+            "id": 32,
+            "name": "Iron Grasp",
+            "description": "",
+            "iconFilename": "32.png"
+        },
+        {
+            "id": 33,
+            "name": "Iron Maiden",
+            "description": "",
+            "iconFilename": "33.png"
+        },
+        {
+            "id": 34,
+            "name": "Knock Out",
+            "description": "",
+            "iconFilename": "34.png"
+        },
+        {
+            "id": 35,
+            "name": "Lightborn",
+            "description": "",
+            "iconFilename": "35.png"
+        },
+        {
+            "id": 36,
+            "name": "Mad Grit",
+            "description": "",
+            "iconFilename": "36.png"
+        },
+        {
+            "id": 37,
+            "name": "Make Your Choice",
+            "description": "",
+            "iconFilename": "37.png"
+        },
+        {
+            "id": 38,
+            "name": "Monitor & Abuse",
+            "description": "",
+            "iconFilename": "38.png"
+        },
+        {
+            "id": 39,
+            "name": "Monstrous Shrine",
+            "description": "",
+            "iconFilename": "39.png"
+        },
+        {
+            "id": 40,
+            "name": "Overcharge",
+            "description": "",
+            "iconFilename": "40.png"
+        },
+        {
+            "id": 41,
+            "name": "Overwhelming Presence",
+            "description": "",
+            "iconFilename": "41.png"
+        },
+        {
+            "id": 42,
+            "name": "Play With Your Food",
+            "description": "",
+            "iconFilename": "42.png"
+        },
+        {
+            "id": 43,
+            "name": "Pop Goes the Weasel",
+            "description": "",
+            "iconFilename": "43.png"
+        },
+        {
+            "id": 44,
+            "name": "Predator",
+            "description": "",
+            "iconFilename": "44.png"
+        },
+        {
+            "id": 45,
+            "name": "Rancor",
+            "description": "",
+            "iconFilename": "45.png"
+        },
+        {
+            "id": 46,
+            "name": "Remember Me",
+            "description": "",
+            "iconFilename": "46.png"
+        },
+        {
+            "id": 47,
+            "name": "Save the Best for Last",
+            "description": "",
+            "iconFilename": "47.png"
+        },
+        {
+            "id": 48,
+            "name": "Shadowborn",
+            "description": "",
+            "iconFilename": "48.png"
+        },
+        {
+            "id": 49,
+            "name": "Sloppy Butcher",
+            "description": "",
+            "iconFilename": "49.png"
+        },
+        {
+            "id": 50,
+            "name": "Spies from the Shadows",
+            "description": "",
+            "iconFilename": "50.png"
+        },
+        {
+            "id": 51,
+            "name": "Spirit Fury",
+            "description": "",
+            "iconFilename": "51.png"
+        },
+        {
+            "id": 52,
+            "name": "Stridor",
+            "description": "",
+            "iconFilename": "52.png"
+        },
+        {
+            "id": 53,
+            "name": "Surveillance",
+            "description": "",
+            "iconFilename": "53.png"
+        },
+        {
+            "id": 54,
+            "name": "Territorial Imperative",
+            "description": "",
+            "iconFilename": "54.png"
+        },
+        {
+            "id": 55,
+            "name": "Tinkerer",
+            "description": "",
+            "iconFilename": "55.png"
+        },
+        {
+            "id": 56,
+            "name": "Thanataphobia",
+            "description": "",
+            "iconFilename": "56.png"
+        },
+        {
+            "id": 57,
+            "name": "Thrilling Tremors",
+            "description": "",
+            "iconFilename": "57.png"
+        },
+        {
+            "id": 58,
+            "name": "Unnerving Presence",
+            "description": "",
+            "iconFilename": "58.png"
+        },
+        {
+            "id": 59,
+            "name": "Unrelenting",
+            "description": "",
+            "iconFilename": "59.png"
+        },
+        {
+            "id": 60,
+            "name": "Whispers",
+            "description": "",
+            "iconFilename": "60.png"
+        }        
+    ]
+}
