@@ -75,7 +75,13 @@ class _BuildConfigurationState extends State<BuildConfiguration> {
                               },
                               secondary: IconButton(
                                 icon: Image.asset('assets/images/survivor/${item.iconFilename}',color: Colors.white),
-                                onPressed: () {}
+                                onPressed: () {
+                                  Navigator.pushNamed(
+                                    context,
+                                    '/details',
+                                    arguments: item
+                                  );
+                                }
                               )
                             ),
                         ],
@@ -126,7 +132,13 @@ class _BuildConfigurationState extends State<BuildConfiguration> {
                               },
                               secondary: IconButton(
                                 icon: Image.asset('assets/images/killer/${item.iconFilename}', color: Colors.white),
-                                onPressed: () {}
+                                onPressed: () {
+                                  Navigator.pushNamed(
+                                    context,
+                                    '/details',
+                                    arguments: item
+                                  );
+                                }
                               )
                             ),
                         ],

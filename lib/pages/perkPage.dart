@@ -133,16 +133,10 @@ class _PerkPageState extends State<PerkPage> {
               child: Row(
                 children: <Widget>[
                   Expanded(
-                    child: PerkTile(
-                        name: perkList[randomlySelectedPerks.elementAt(0) - 1].name,
-                        iconPath: 'assets/images/$selectedType${perkList[randomlySelectedPerks.elementAt(0) - 1].iconFilename}'
-                    ),
+                    child: PerkTile(perkList[randomlySelectedPerks.elementAt(0) - 1])
                   ),
                   Expanded(
-                    child: PerkTile(
-                        name: perkList[randomlySelectedPerks.elementAt(1) - 1].name,
-                        iconPath: 'assets/images/$selectedType${perkList[randomlySelectedPerks.elementAt(1) - 1].iconFilename}'
-                    ),
+                    child: PerkTile(perkList[randomlySelectedPerks.elementAt(1) - 1])
                   ),
                 ],
               ),
@@ -153,16 +147,10 @@ class _PerkPageState extends State<PerkPage> {
             Row(
               children: <Widget>[
                 Expanded(
-                  child: PerkTile(
-                      name: perkList[randomlySelectedPerks.elementAt(2) - 1].name,
-                      iconPath: 'assets/images/$selectedType${perkList[randomlySelectedPerks.elementAt(2) - 1].iconFilename}'
-                  ),
+                  child: PerkTile(perkList[randomlySelectedPerks.elementAt(2) - 1])
                 ),
                 Expanded(
-                  child: PerkTile(
-                      name: perkList[randomlySelectedPerks.elementAt(3) - 1].name,
-                      iconPath: 'assets/images/$selectedType${perkList[randomlySelectedPerks.elementAt(3) - 1].iconFilename}'
-                  ),
+                  child: PerkTile(perkList[randomlySelectedPerks.elementAt(3) - 1])
                 ),
               ],
             ),
