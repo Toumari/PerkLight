@@ -7,7 +7,10 @@ class PerkDetail extends StatefulWidget {
   final String perkDescription;
   final String perkIconPath;
 
-  PerkDetail({Key key, @required this.perkName, @required this.perkDescription, @required this.perkIconPath});
+  PerkDetail(Map<String, dynamic> arguments) :
+    perkName = arguments['perkName'],
+    perkDescription = arguments['perkDescription'],
+    perkIconPath = arguments['perkIconPath'];
 
   @override
   _PerkDetailState createState() => _PerkDetailState();

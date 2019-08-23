@@ -1,79 +1,50 @@
+import 'dart:convert';
+
+import 'package:perklight/utilities.dart';
+
 class Perk {
-  String perkName;
-  String perkDescription;
-  String iconName;
-  bool isEnabled;
-  int id;
+  final int id;
+  final String name;
+  final String description;
+  final String iconFilename;
+  final String type;
 
-  Perk(this.perkName, this.isEnabled,this.id, this.iconName, this.perkDescription);
+  PerkPreference preference;
+  final String preferenceKey;
 
-  Perk.fromJson(Map<String, dynamic> m) {
-    perkName = m['perkName'];
-    isEnabled = m['isEnabled'];
-    perkDescription = m['perkDescription'];
-    id = m['id'];
-    iconName = m['iconName'];
+  Perk(this.id, this.name, this.description, this.iconFilename, this.type) :
+    preferenceKey = '${type}_perk_preference_$id';
+
+  Perk.fromJson(Map<String, dynamic> m, this.type) :
+    id = m['id'] ?? -1,
+    name = m['name'] ?? 'Unknown Perk',
+    description = m['description'] ?? 'This perk doesn\'t currently have a description assigned to it',
+    iconFilename = m['iconFilename'],
+    preferenceKey = '${type}_perk_preference_${m["id"]}';
+
+  Future loadPreference() async {
+    String _json = await loadFromSharedPreferences(preferenceKey);
+    preference = PerkPreference.fromJson(json.decode(_json ?? '{"id":$id}'));
   }
 
-  String get _perkName => perkName;
-  bool get _isEnabled => isEnabled;
-  int get _id => id;
-  String get _iconName => iconName;
-  String get _perkDescription => perkDescription;
+  Future savePreference() async {
+    await saveToSharedPreferences(preferenceKey, json.encode(preference));
+  }
+}
+
+class PerkPreference {
+  final int perkId;
+  bool unlocked;
+  bool enabled;
 
   Map<String, dynamic> toJson() => {
-    'perkName': _perkName,
-    'isEnabled': _isEnabled,
-    'id': _id,
-    'iconName': _iconName,
-    'perkDescription': _perkDescription,
+    'perkId': perkId,
+    'unlocked': unlocked,
+    'enabled': enabled
   };
-}
 
-List fullList = ['Ace in the Hole', 'Adrenaline', 'Aftercare', 'Alert', 'Autodidact', 'Balanced Landing', 'Boil Over', 'Bond', 'Borrowed Time', 'Botany Knowledge', 'Breakdown', 'Buckle Up', 'Calm Spirit', 'Dance With Me', 'Dark Sense', 'Dead Hard', 'Decisive Strike', 'Déja Vu', 'Deliverance', "Detective's Hunch", 'Distortion', 'Diversion', 'Empathy', 'Flip-Flop', 'Head On', 'Hope', 'Iron Will', 'Kindred', 'Leader', 'Left Behind', 'Lightweight', 'Lithe', 'Mettle of Man', 'No Mither', 'No One Left Behind', 'Object of Obsession', 'Open-Handed', 'Pharmacy', "Plunderer's Instinct", 'Poised', 'Premonition', 'Prove Thyself', 'Quick & Quiet', 'Resilience', 'Saboteur', 'Self-Care', 'Slippery Meat', 'Small Game', 'Sole Survivor', 'Solidarity', 'Spine Chill', 'Sprint Burst', 'Stake Out', 'Streetwise', 'This Is Not Happening', 'Technician', 'Tenacity', 'Up the Ante', 'Unbreakable', 'Urban Evasion', 'Vigil', 'Wake Up!', "We'll Make It", "We're Gonna Live Forever", 'Windows of Opportunity',
-  "A Nurse's Calling", 'Agitation', 'Bamboozle', 'Barbecue & Chilli', 'Beast of Prey', 'Bitter Murmur', 'Bloodhound', 'Blood Warden', 'Brutal Strength', 'Corrupt Intervention', 'Coulrophobia', 'Dark Devotion', 'Deerstalker', 'Discordance', 'Distressing', 'Dying Light', 'Enduring', 'Fire Up', "Franklin's Demise", 'Furtive Chase', "Hangman's Trick", 'Hex: Devour Hope', 'Hex: Haunted Grounds', 'Hex: Huntress Lullaby', 'Hex: No One Escapes Death', 'Hex: Ruin', 'Hex: The Third Seal', 'Hex: Thrill of the Hunt', "I'm All Ears", 'Infectious Fright', 'Insidious', 'Iron Grasp', 'Iron Maiden', 'Knock Out', 'Lightborn', 'Mad Grit', 'Make Your Choice', 'Monitor & Abuse', 'Monstrous Shrine', 'Overcharge', 'Overwhelming Presence', 'Play With Your Food', 'Pop Goes the Weasel', 'Predator', 'Rancor', 'Remember Me', 'Save the Best for Last', 'Shadowborn', 'Sloppy Butcher', 'Spies from the Shadows', 'Spirit Fury', 'Stridor', 'Surveillance', 'Territorial Imperative', 'Tinkerer', 'Thanataphobia', 'Thrilling Tremors', 'Unnerving Presence', 'Unrelenting', 'Whispers'
-];
-
-List killerList = [
-"A Nurse's Calling", 'Agitation', 'Bamboozle', 'Barbecue & Chilli', 'Beast of Prey', 'Bitter Murmur', 'Bloodhound', 'Blood Warden', 'Brutal Strength', 'Corrupt Intervention', 'Coulrophobia',
-  'Dark Devotion', 'Deerstalker', 'Discordance', 'Distressing', 'Dying Light', 'Enduring', 'Fire Up', "Franklin's Demise", 'Furtive Chase', "Hangman's Trick", 'Hex: Devour Hope',
-  'Hex: Haunted Grounds', 'Hex: Huntress Lullaby', 'Hex: No One Escapes Death', 'Hex: Ruin', 'Hex: The Third Seal', 'Hex: Thrill of the Hunt', "I'm All Ears", 'Infectious Fright', 'Insidious',
-  'Iron Grasp', 'Iron Maiden', 'Knock Out', 'Lightborn', 'Mad Grit', 'Make Your Choice', 'Monitor & Abuse', 'Monstrous Shrine', 'Overcharge', 'Overwhelming Presence', 'Play With Your Food',
-  'Pop Goes the Weasel', 'Predator', 'Rancor', 'Remember Me', 'Save the Best for Last', 'Shadowborn', 'Sloppy Butcher', 'Spies from the Shadows', 'Spirit Fury', 'Stridor', 'Surveillance',
-  'Territorial Imperative', 'Tinkerer', 'Thanataphobia', 'Thrilling Tremors', 'Unnerving Presence', 'Unrelenting', 'Whispers'
-];
-
-List survivorList = [
-'Ace in the Hole', 'Adrenaline', 'Aftercare', 'Alert', 'Autodidact', 'Balanced Landing', 'Boil Over', 'Bond', 'Borrowed Time', 'Botany Knowledge',
-  'Breakdown', 'Buckle Up', 'Calm Spirit', 'Dance With Me', 'Dark Sense', 'Dead Hard', 'Decisive Strike', 'Déja Vu', 'Deliverance', "Detective's Hunch", 'Distortion',
-  'Diversion', 'Empathy', 'Flip-Flop', 'Head On', 'Hope', 'Iron Will', 'Kindred', 'Leader', 'Left Behind', 'Lightweight', 'Lithe', 'Mettle of Man', 'No Mither',
-  'No One Left Behind', 'Object of Obsession', 'Open-Handed', 'Pharmacy', "Plunderer's Instinct", 'Poised', 'Premonition', 'Prove Thyself', 'Quick & Quiet',
-  'Resilience', 'Saboteur', 'Self-Care', 'Slippery Meat', 'Small Game', 'Sole Survivor', 'Solidarity', 'Spine Chill', 'Sprint Burst', 'Stake Out', 'Streetwise',
-  'This Is Not Happening', 'Technician', 'Tenacity', 'Up the Ante', 'Unbreakable', 'Urban Evasion', 'Vigil', 'Wake Up!', "We'll Make It", "We're Gonna Live Forever", 'Windows of Opportunity'
-];
-
-
-
-List<Perk> returnAll() {
-  List<Perk> allPerks = List<Perk>();
-  for(var i=0;i<fullList.length;i++) {
-    allPerks.add(Perk(fullList[i], true,i,"${i + 1}.png",''));
-  }
-  return allPerks;
-}
-
-List<Perk> returnKiller() {
-  List<Perk> killerPerks = List<Perk>();
-  for(var i=0;i<killerList.length;i++) {
-    killerPerks.add(Perk(killerList[i],true,i,"${i + 1}.png",''));
-  }
-  return killerPerks;
-}
-
-List<Perk> returnSurvivor() {
-  List<Perk> survivorPerks = List<Perk>();
-  for(var i=0;i<survivorList.length;i++) {
-    survivorPerks.add(Perk(survivorList[i],true,i,"${i + 1}.png",''));
-  }
-  return survivorPerks;
+  PerkPreference.fromJson(Map<String, dynamic> inJson) :
+    perkId = inJson['perkId'],
+    unlocked = inJson['unlocked'] ?? true,
+    enabled = inJson['enabled'] ?? true;
 }

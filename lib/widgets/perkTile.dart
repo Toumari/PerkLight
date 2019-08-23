@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../pages/perkDetail.dart';
 
 
 class PerkTile extends StatelessWidget {
@@ -18,7 +17,15 @@ class PerkTile extends StatelessWidget {
         ),
         GestureDetector(
           onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => PerkDetail(perkName: name, perkIconPath: iconPath, perkDescription: 'Test Desription for the Perk. This will eventually be replaced by the actual description for the Perk.',)));
+            Navigator.pushNamed(
+              context,
+              '/details',
+              arguments: {
+                'perkName': name,
+                'perkIconPath': iconPath,
+                'perkDescription': 'Test Desription for the Perk. This will eventually be replaced by the actual description for the Perk.'
+              }
+            );
           },
           child: Image.asset(
             iconPath,
