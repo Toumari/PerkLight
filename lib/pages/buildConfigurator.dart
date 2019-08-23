@@ -23,31 +23,7 @@ class _BuildConfigurationState extends State<BuildConfiguration> {
   }
 
   void onSaveButtonPressed(BuildContext context) {
-    int selectedKillerPerks = widget.killerPerks.where((perk) => perk.preference.enabled).toList().length;
-    int selectedSurvivorPerks = widget.survivorPerks.where((perk) => perk.preference.enabled).toList().length;
-
-    ScaffoldState scaffold = Scaffold.of(context);
-
-    scaffold.removeCurrentSnackBar();
-
-    if (selectedKillerPerks >= 4 && selectedSurvivorPerks >=4) {
-      for (Perk perk in widget.killerPerks) {
-        perk.savePreference();
-      }
-      for (Perk perk in widget.survivorPerks) {
-        perk.savePreference();
-      }
-      Navigator.pop(context);
-    }
-    else if (selectedKillerPerks < 4 && selectedSurvivorPerks < 4) {
-      scaffold.showSnackBar(SnackBar(content: Text('You must select at least 4 killer and at least 4 survivor perks')));
-    }
-    else if (selectedKillerPerks < 4) {
-      scaffold.showSnackBar(SnackBar(content: Text('You must select at least 4 killer perks')));
-    }
-    else {
-      scaffold.showSnackBar(SnackBar(content: Text('You must select at least 4 survivor perks')));
-    }
+    Navigator.pop(context);
   }
 
   @override
@@ -85,6 +61,13 @@ class _BuildConfigurationState extends State<BuildConfiguration> {
                               title: Text(item.name, style: TextStyle(color: Colors.white)),
                               value: item.preference.enabled,
                               onChanged: (bool value) {
+                                int selectedSurvivorPerks = widget.survivorPerks.where((perk) => perk.preference.enabled).toList().length;
+                                if (!value && selectedSurvivorPerks - 1 < 4) {
+                                  ScaffoldState scaffold = Scaffold.of(context);
+                                  scaffold.removeCurrentSnackBar();
+                                  scaffold.showSnackBar(SnackBar(content: Text('You cannot select less than 4 survivor perks')));
+                                  return;
+                                }
                                 setState(() {
                                   item.preference.enabled = value;
                                   item.savePreference();
@@ -129,6 +112,13 @@ class _BuildConfigurationState extends State<BuildConfiguration> {
                               title: Text(item.name, style: TextStyle(color: Colors.white)),
                               value: item.preference.enabled,
                               onChanged: (bool value) {
+                                int selectedKillerPerks = widget.killerPerks.where((perk) => perk.preference.enabled).toList().length;
+                                if (!value && selectedKillerPerks - 1 < 4) {
+                                  ScaffoldState scaffold = Scaffold.of(context);
+                                  scaffold.removeCurrentSnackBar();
+                                  scaffold.showSnackBar(SnackBar(content: Text('You cannot select less than 4 killer perks')));
+                                  return;
+                                }
                                 setState(() {
                                   item.preference.enabled = value;
                                   item.savePreference();
