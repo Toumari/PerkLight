@@ -3,13 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 // First-party
-import 'package:perklight/pages/buildConfigurator.dart';
 import '../utilities.dart' as Utils;
 import '../widgets/perk.dart';
 import '../widgets/perkTile.dart';
 
 
 class PerkPage extends StatefulWidget {
+  PerkPage(arguments) :
+    killerPerks = arguments['killerPerks'],
+    survivorPerks = arguments['survivorPerks'];
+
+  final List<Perk> killerPerks;
+  final List<Perk> survivorPerks;
+
   @override
   _PerkPageState createState() => _PerkPageState();
 }
@@ -19,32 +25,31 @@ class _PerkPageState extends State<PerkPage> {
   int numPerksToSelect = 4;
   String selectedType = 'survivor/';
   bool isSwitched = false;
-  bool perkArraySelector = true;
 
   void generateRandomlySelectedPerks() {
     randomlySelectedPerks = Utils.generateSetOfRandomNumbers(numPerksToSelect, min: 1, max: perkList.length + 1);
   }
 
-  List<Perk> perkList = returnSurvivor();
+  List<Perk> perkList;
 
   @override
   void initState() {
     super.initState();
+    setPerkListAndRandomise();
+  }
+
+  void setPerkListAndRandomise() {
+    List<Perk> listToFilter = selectedType == 'killer/' ? widget.killerPerks : widget.survivorPerks;
+    perkList = listToFilter.where((perk) {
+      return perk.preference.enabled;
+    }).toList();
     generateRandomlySelectedPerks();
   }
 
-  Future loadPerksFromPreferencesOrDefaults(bool value) async {
+  void loadPerksFromPreferencesOrDefaults(bool value) {
     selectedType = value ? 'killer/' : 'survivor/';
-    var filteredList = await Utils.getList(selectedType.substring(0, selectedType.length - 1));
     setState(() {
-      if (filteredList == null) {
-        perkList = value ? returnKiller() : returnSurvivor();
-      } else {
-        perkList = filteredList.where((perk) {
-          return perk.isEnabled;
-        }).toList();
-      }
-      generateRandomlySelectedPerks();
+      setPerkListAndRandomise();
     });
   }
 
@@ -93,20 +98,16 @@ class _PerkPageState extends State<PerkPage> {
                     ),
                   ),
                   onTap: () async {
-                    final dynamic returnedList = await Navigator.pushNamed(context, '/builder');
-
-                    if(returnedList == null) {
-                      return;
-                    }
-
-                    var survivorList = returnedList[1];
-                    var killerList = returnedList[0];
-
-                    Utils.encodeList(survivorList, 'survivor');
-                    Utils.encodeList(killerList, 'killer');
+                    await Navigator.pushNamed(
+                      context,
+                      '/builder',
+                      arguments: {
+                        'killerPerks': widget.killerPerks,
+                        'survivorPerks': widget.survivorPerks
+                      }
+                    );
 
                     loadPerksFromPreferencesOrDefaults(isSwitched);
-
                   },
                 ),
               ),
@@ -133,14 +134,14 @@ class _PerkPageState extends State<PerkPage> {
                 children: <Widget>[
                   Expanded(
                     child: PerkTile(
-                        name: perkList[randomlySelectedPerks.elementAt(0) - 1].perkName,
-                        iconPath: 'images/$selectedType${perkList[randomlySelectedPerks.elementAt(0) - 1].iconName}'
+                        name: perkList[randomlySelectedPerks.elementAt(0) - 1].name,
+                        iconPath: 'assets/images/$selectedType${perkList[randomlySelectedPerks.elementAt(0) - 1].iconFilename}'
                     ),
                   ),
                   Expanded(
                     child: PerkTile(
-                        name: perkList[randomlySelectedPerks.elementAt(1) - 1].perkName,
-                        iconPath: 'images/$selectedType${perkList[randomlySelectedPerks.elementAt(1) - 1].iconName}'
+                        name: perkList[randomlySelectedPerks.elementAt(1) - 1].name,
+                        iconPath: 'assets/images/$selectedType${perkList[randomlySelectedPerks.elementAt(1) - 1].iconFilename}'
                     ),
                   ),
                 ],
@@ -153,14 +154,14 @@ class _PerkPageState extends State<PerkPage> {
               children: <Widget>[
                 Expanded(
                   child: PerkTile(
-                      name: perkList[randomlySelectedPerks.elementAt(2) - 1].perkName,
-                      iconPath: 'images/$selectedType${perkList[randomlySelectedPerks.elementAt(2) - 1].iconName}'
+                      name: perkList[randomlySelectedPerks.elementAt(2) - 1].name,
+                      iconPath: 'assets/images/$selectedType${perkList[randomlySelectedPerks.elementAt(2) - 1].iconFilename}'
                   ),
                 ),
                 Expanded(
                   child: PerkTile(
-                      name: perkList[randomlySelectedPerks.elementAt(3) - 1].perkName,
-                      iconPath: 'images/$selectedType${perkList[randomlySelectedPerks.elementAt(3) - 1].iconName}'
+                      name: perkList[randomlySelectedPerks.elementAt(3) - 1].name,
+                      iconPath: 'assets/images/$selectedType${perkList[randomlySelectedPerks.elementAt(3) - 1].iconFilename}'
                   ),
                 ),
               ],

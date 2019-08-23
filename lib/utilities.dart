@@ -1,13 +1,8 @@
 //Built-in
-import 'dart:convert';
 import 'dart:math';
 
 //Third-Party
 import 'package:shared_preferences/shared_preferences.dart';
-
-//First-Party
-import 'widgets/perk.dart';
-
 
 
 Set<int> generateSetOfRandomNumbers(int size, { int min = 0, int max = 100 }) {
@@ -33,25 +28,25 @@ Set<int> generateSetOfRandomNumbers(int size, { int min = 0, int max = 100 }) {
   return values;
 }
 
-
-//Encodes a list of Perks into Json, then subsequently saves the list into Shared Preferences
-void encodeList(chosen, key) async {
-  List<Perk> perks = chosen;
-  final String perkKey = key;
+Future<dynamic> loadFromSharedPreferences(key) async {
   SharedPreferences sp = await SharedPreferences.getInstance();
-  sp.setString(perkKey, json.encode(perks));
+  return sp.get(key);
 }
 
-//Gets a list of Perks from Shared Preferences using key provided to function call
-Future<List<Perk>> getList(key) async {
+Future<bool> saveToSharedPreferences(key, value) async {
   SharedPreferences sp = await SharedPreferences.getInstance();
-  var stringPreference = sp.get(key);
-  if (stringPreference == null) {
-    return null;
+  switch (value.runtimeType) {
+    case (bool):
+      return sp.setBool(key, value);
+    case (double):
+      return sp.setDouble(key, value);
+    case (int):
+      return sp.setInt(key, value);
+    case (String):
+      return sp.setString(key, value);
+    case (List):
+      return sp.setStringList(key, value);
+    default:
+      return false;
   }
-  List<Perk> perks = [];
-  json
-      .decode(stringPreference)
-      .forEach((map) => perks.add(new Perk.fromJson(map)));
-  return perks;
 }

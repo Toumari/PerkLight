@@ -1,44 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../utilities.dart' as Utils;
 import '../widgets/perk.dart';
 
 
 class BuildConfiguration extends StatefulWidget {
+  BuildConfiguration(arguments) :
+    killerPerks = arguments['killerPerks'],
+    survivorPerks = arguments['survivorPerks'];
+
+  final List<Perk> killerPerks;
+  final List<Perk> survivorPerks;
+
   @override
   _BuildConfigurationState createState() => _BuildConfigurationState();
 }
 
 class _BuildConfigurationState extends State<BuildConfiguration> {
 
-  List<Perk> killerPerks = returnKiller();
-  List<Perk> survivorPerks = returnSurvivor();
-
   @override
   void initState() {
     super.initState();
-
-    void loadList() async {
-      var survivorListLoad = await Utils.getList('survivor') ?? returnSurvivor();
-      var killerListLoad = await Utils.getList('killer') ?? returnKiller();
-      setState(() {
-        killerPerks = killerListLoad;
-        survivorPerks = survivorListLoad;
-      });
-    }
-    loadList();
   }
 
   void onSaveButtonPressed(BuildContext context) {
-    int selectedKillerPerks = killerPerks.where((perk) => perk.isEnabled).toList().length;
-    int selectedSurvivorPerks = survivorPerks.where((perk) => perk.isEnabled).toList().length;
+    int selectedKillerPerks = widget.killerPerks.where((perk) => perk.preference.enabled).toList().length;
+    int selectedSurvivorPerks = widget.survivorPerks.where((perk) => perk.preference.enabled).toList().length;
 
     ScaffoldState scaffold = Scaffold.of(context);
 
     scaffold.removeCurrentSnackBar();
 
     if (selectedKillerPerks >= 4 && selectedSurvivorPerks >=4) {
-      Navigator.pop(context, [killerPerks,survivorPerks]);
+      for (Perk perk in widget.killerPerks) {
+        perk.savePreference();
+      }
+      for (Perk perk in widget.survivorPerks) {
+        perk.savePreference();
+      }
+      Navigator.pop(context);
     }
     else if (selectedKillerPerks < 4 && selectedSurvivorPerks < 4) {
       scaffold.showSnackBar(SnackBar(content: Text('You must select at least 4 killer and at least 4 survivor perks')));
@@ -68,7 +67,6 @@ class _BuildConfigurationState extends State<BuildConfiguration> {
             Tab(text: 'Survivor'),
             Tab(text: 'Killer'),
           ]),
-          automaticallyImplyLeading: false,
           backgroundColor: Color(0xff21213b),
           title: Text('Perk Configuration', style: TextStyle(color: Colors.white)),
         ),
@@ -82,17 +80,20 @@ class _BuildConfigurationState extends State<BuildConfiguration> {
                       height: MediaQuery.of(context).size.height - 200,
                       child: ListView(
                         children: <Widget>[
-                          for(var item in survivorPerks)
+                          for(var item in widget.survivorPerks)
                             CheckboxListTile(
-                              title: Text(item.perkName, style: TextStyle(color: Colors.white)),
-                              value: item.isEnabled,
+                              title: Text(item.name, style: TextStyle(color: Colors.white)),
+                              value: item.preference.enabled,
                               onChanged: (bool value) {
                                 setState(() {
-                                  survivorPerks[item.id].isEnabled = value;
+                                  item.preference.enabled = value;
+                                  item.savePreference();
                                 });
                               },
-                              secondary: IconButton(icon: Image.asset('images/survivor/${item.iconName}',color: Colors.white,), onPressed: () {
-                              })
+                              secondary: IconButton(
+                                icon: Image.asset('assets/images/survivor/${item.iconFilename}',color: Colors.white),
+                                onPressed: () {}
+                              )
                             ),
                         ],
                       ),
@@ -123,17 +124,20 @@ class _BuildConfigurationState extends State<BuildConfiguration> {
                       height: MediaQuery.of(context).size.height - 200,
                       child: ListView(
                         children: <Widget>[
-                          for (var item in killerPerks)
+                          for (var item in widget.killerPerks)
                             CheckboxListTile(
-                              title: Text(item.perkName, style: TextStyle(color: Colors.white)),
-                              value: item.isEnabled,
+                              title: Text(item.name, style: TextStyle(color: Colors.white)),
+                              value: item.preference.enabled,
                               onChanged: (bool value) {
                                 setState(() {
-                                  killerPerks[item.id].isEnabled = value;
+                                  item.preference.enabled = value;
+                                  item.savePreference();
                                 });
                               },
-                              secondary: IconButton(icon: Image.asset('images/killer/${item.iconName}',color: Colors.white,), onPressed: () {
-                              })
+                              secondary: IconButton(
+                                icon: Image.asset('assets/images/killer/${item.iconFilename}', color: Colors.white),
+                                onPressed: () {}
+                              )
                             ),
                         ],
                       ),

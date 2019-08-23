@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'router.dart' as router;
-import 'widgets/perk.dart';
 
 
 void main() {
