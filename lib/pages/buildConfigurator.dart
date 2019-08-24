@@ -42,7 +42,7 @@ class _BuildConfigurationState extends State<BuildConfiguration> {
           backgroundColor: Color(0xff21213b),
           appBar: AppBar(
             actions: <Widget>[
-              IconButton(icon: Icon(Icons.clear_all), onPressed: () {
+              IconButton(icon: Icon(Icons.check_box), onPressed: () {
                   final index = DefaultTabController.of(context).index;
                   if(index == 0) {
                     for(var item in widget.survivorPerks) {
