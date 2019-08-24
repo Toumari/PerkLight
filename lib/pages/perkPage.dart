@@ -23,8 +23,7 @@ class PerkPage extends StatefulWidget {
 class _PerkPageState extends State<PerkPage> {
   Set<int> randomlySelectedPerks;
   int numPerksToSelect = 4;
-  String selectedType = 'survivor/';
-  bool isSwitched = false;
+  bool killerMode = false;
 
   void generateRandomlySelectedPerks() {
     randomlySelectedPerks = Utils.generateSetOfRandomNumbers(numPerksToSelect, max: perkList.length);
@@ -39,18 +38,11 @@ class _PerkPageState extends State<PerkPage> {
   }
 
   void setPerkListAndRandomise() {
-    List<Perk> listToFilter = selectedType == 'killer/' ? widget.killerPerks : widget.survivorPerks;
+    List<Perk> listToFilter = killerMode ? widget.killerPerks : widget.survivorPerks;
     perkList = listToFilter.where((perk) {
       return perk.preference.enabled;
     }).toList();
     generateRandomlySelectedPerks();
-  }
-
-  void loadPerksFromPreferencesOrDefaults(bool value) {
-    selectedType = value ? 'killer/' : 'survivor/';
-    setState(() {
-      setPerkListAndRandomise();
-    });
   }
 
   @override
@@ -69,16 +61,16 @@ class _PerkPageState extends State<PerkPage> {
             children: <Widget>[
               Container(
                 decoration: BoxDecoration(
-                    border: Border(bottom: BorderSide(width: 1.0, color: Colors.white))
+                  border: Border(bottom: BorderSide(width: 1.0, color: Colors.white))
                 ),
                 child: DrawerHeader(
                   child: Center(
                     child: Text(
                       'PerkLight',
                       style: TextStyle(
-                          fontSize: 40.0,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white
+                        fontSize: 40.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white
                       ),
                     ),
                   ),
@@ -92,9 +84,9 @@ class _PerkPageState extends State<PerkPage> {
                   title: Text(
                     'Perk Configuration',
                     style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 22.0,
-                        color: Colors.white,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 22.0,
+                      color: Colors.white,
                     ),
                   ),
                   onTap: () async {
@@ -106,8 +98,9 @@ class _PerkPageState extends State<PerkPage> {
                         'survivorPerks': widget.survivorPerks
                       }
                     );
-
-                    loadPerksFromPreferencesOrDefaults(isSwitched);
+                    setState(() {
+                      setPerkListAndRandomise();
+                    });
                   },
                 ),
               ),
@@ -148,12 +141,12 @@ class _PerkPageState extends State<PerkPage> {
                   Transform.scale(
                     scale: 1.5,
                     child: Switch(
-                      value: isSwitched,
+                      value: killerMode,
                       onChanged: (value) async {
                         setState(() {
-                          isSwitched = value;
+                          killerMode = value;
+                          setPerkListAndRandomise();
                         });
-                        loadPerksFromPreferencesOrDefaults(value);
                       },
                       activeTrackColor: Colors.redAccent,
                       activeColor: Colors.black,
@@ -173,7 +166,9 @@ class _PerkPageState extends State<PerkPage> {
                 height: 75,
                 child: FlatButton(
                   onPressed: () async {
-                    loadPerksFromPreferencesOrDefaults(isSwitched);
+                    setState(() {
+                      generateRandomlySelectedPerks();
+                    });
                   },
                   child: Text(
                     'Randomise',
