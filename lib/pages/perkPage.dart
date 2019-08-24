@@ -125,61 +125,62 @@ class _PerkPageState extends State<PerkPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            Container(height: 50),
+            Container(height: 24.0),
             Expanded(
               child:GridView.count(
                 crossAxisCount: 2,
+                shrinkWrap: true,
                 children: <Widget>[
-                  for (int i = 0; i < 4; ++i)
-                    PerkTile(perkList[randomlySelectedPerks.elementAt(i)])
-                  ],
-                ),
+                  for (int i in randomlySelectedPerks)
+                    PerkTile(perkList[i])
+                ],
+              ),
             ),
-            Container(height: 50),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Text(
-                  'Survivor',
-                  style: TextStyle(fontSize: 22.0, color: Colors.white),
-                ),
-                Transform.scale(
-                  scale: 1.5,
-                  child: Switch(
-                    value: isSwitched,
-                    onChanged: (value) async {
-                      setState(() {
-                        isSwitched = value;
-                      });
-                      loadPerksFromPreferencesOrDefaults(value);
-                    },
-                    activeTrackColor: Colors.redAccent,
-                    activeColor: Colors.black,
+            Container(
+              margin: EdgeInsets.only(top: 24.0, bottom: 24.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Text(
+                    'Survivor',
+                    style: TextStyle(fontSize: 22.0, color: Colors.white),
                   ),
-                ),
-                Text(
-                  'Killer',
-                  style: TextStyle(fontSize: 22.0, color: Colors.white),
-                ),
-              ],
-            ),
-            Expanded(
-              child: Container(
-                alignment: Alignment(0, 1),
-                child: SizedBox(
-                  width: double.infinity,
-                  height: 75,
-                  child: FlatButton(
-                    onPressed: () async {
-                      loadPerksFromPreferencesOrDefaults(isSwitched);
-                    },
-                    child: Text(
-                      'Randomise',
-                      style: TextStyle(fontSize: 22.0),
+                  Transform.scale(
+                    scale: 1.5,
+                    child: Switch(
+                      value: isSwitched,
+                      onChanged: (value) async {
+                        setState(() {
+                          isSwitched = value;
+                        });
+                        loadPerksFromPreferencesOrDefaults(value);
+                      },
+                      activeTrackColor: Colors.redAccent,
+                      activeColor: Colors.black,
                     ),
-                    color: Colors.redAccent,
-                    textColor: Colors.white,
                   ),
+                  Text(
+                    'Killer',
+                    style: TextStyle(fontSize: 22.0, color: Colors.white),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              alignment: Alignment(0, 1),
+              child: SizedBox(
+                width: double.infinity,
+                height: 75,
+                child: FlatButton(
+                  onPressed: () async {
+                    loadPerksFromPreferencesOrDefaults(isSwitched);
+                  },
+                  child: Text(
+                    'Randomise',
+                    style: TextStyle(fontSize: 22.0),
+                  ),
+                  color: Colors.redAccent,
+                  textColor: Colors.white,
                 ),
               ),
             ),
