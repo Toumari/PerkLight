@@ -33,7 +33,7 @@ def scrapeTableRow(inRow, outDict):
 
 def writeOutResults(results):
     outputFilePath = 'assets/data/perks.json'
-    with open(outputFilePath, 'r') as f:
+    with open(outputFilePath, 'r', encoding='utf-8') as f:
         rawInput = f.read()
     
     input = json.loads(rawInput)
@@ -41,7 +41,7 @@ def writeOutResults(results):
         for perk in input[type]:
             perk['description'] = results[type].get(perk['name'], 'This perk does not currently have a description.')
     
-    with open(outputFilePath, 'w') as f:
+    with open(outputFilePath, 'w', encoding='utf-8') as f:
         f.write(json.dumps(input, indent=4, ensure_ascii=False))
 
 
