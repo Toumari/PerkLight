@@ -21,7 +21,7 @@ class PerkPage extends StatefulWidget {
 }
 
 class _PerkPageState extends State<PerkPage> {
-  Set<int> randomlySelectedPerks;
+  List<int> randomlySelectedPerks;
   int numPerksToSelect = 4;
   bool killerMode = false;
 
@@ -43,6 +43,24 @@ class _PerkPageState extends State<PerkPage> {
       return perk.preference.enabled;
     }).toList();
     generateRandomlySelectedPerks();
+  }
+
+  void _rollTileCallback(int index, BuildContext context) {
+    // Check if randomlySelectedPerks is less than or equal to perkList
+    if (perkList.length <= randomlySelectedPerks.length) {
+      String perkType = killerMode ? 'killer' : 'survivor';
+      String message = 'You cannot reroll with only 4 $perkType perks selected';
+
+      ScaffoldState scaffold = Scaffold.of(context);
+      scaffold.removeCurrentSnackBar();
+      scaffold.showSnackBar(SnackBar(content: Text(message)));
+
+      return;
+    }
+
+    setState(() {
+      randomlySelectedPerks = Utils.replaceIndexValue(randomlySelectedPerks, [index], max: perkList.length);
+    });
   }
 
   @override
@@ -115,72 +133,81 @@ class _PerkPageState extends State<PerkPage> {
       ),
       body: SafeArea(
         bottom: false,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Container(height: 24.0),
-            Expanded(
-              child:GridView.count(
-                crossAxisCount: 2,
-                shrinkWrap: true,
-                children: <Widget>[
-                  for (int i in randomlySelectedPerks)
-                    PerkTile(perkList[i])
-                ],
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 24.0, bottom: 24.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Text(
-                    'Survivor',
-                    style: TextStyle(fontSize: 22.0, color: Colors.white),
+        child: Builder(
+          builder: (BuildContext context) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Container(height: 24.0),
+                Expanded(
+                  child:GridView.count(
+                    crossAxisCount: 2,
+                    shrinkWrap: true,
+                    children: <Widget>[
+                      for (int i = 0; i < randomlySelectedPerks.length; ++i)
+                        PerkTile(
+                          perk: perkList[randomlySelectedPerks[i]],
+                          index: i,
+                          onChanged: _rollTileCallback,
+                          context: context
+                        )
+                    ],
                   ),
-                  Transform.scale(
-                    scale: 1.5,
-                    child: Switch(
-                      value: killerMode,
-                      onChanged: (value) async {
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 24.0, bottom: 24.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Text(
+                        'Survivor',
+                        style: TextStyle(fontSize: 22.0, color: Colors.white),
+                      ),
+                      Transform.scale(
+                        scale: 1.5,
+                        child: Switch(
+                          value: killerMode,
+                          onChanged: (value) async {
+                            setState(() {
+                              killerMode = value;
+                              setPerkListAndRandomise();
+                            });
+                          },
+                          activeTrackColor: Colors.redAccent,
+                          activeColor: Colors.black,
+                        ),
+                      ),
+                      Text(
+                        'Killer',
+                        style: TextStyle(fontSize: 22.0, color: Colors.white),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  alignment: Alignment(0, 1),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 75,
+                    child: FlatButton(
+                      onPressed: () async {
                         setState(() {
-                          killerMode = value;
-                          setPerkListAndRandomise();
+                          generateRandomlySelectedPerks();
                         });
                       },
-                      activeTrackColor: Colors.redAccent,
-                      activeColor: Colors.black,
+                      child: Text(
+                        'Randomise',
+                        style: TextStyle(fontSize: 22.0),
+                      ),
+                      color: Colors.redAccent,
+                      textColor: Colors.white,
                     ),
                   ),
-                  Text(
-                    'Killer',
-                    style: TextStyle(fontSize: 22.0, color: Colors.white),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              alignment: Alignment(0, 1),
-              child: SizedBox(
-                width: double.infinity,
-                height: 75,
-                child: FlatButton(
-                  onPressed: () async {
-                    setState(() {
-                      generateRandomlySelectedPerks();
-                    });
-                  },
-                  child: Text(
-                    'Randomise',
-                    style: TextStyle(fontSize: 22.0),
-                  ),
-                  color: Colors.redAccent,
-                  textColor: Colors.white,
                 ),
-              ),
-            ),
-          ],
-        ),
+              ]
+            );
+          }
+        )
       ),
     );
   }

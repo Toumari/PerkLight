@@ -4,9 +4,12 @@ import './perk.dart';
 
 
 class PerkTile extends StatelessWidget {
-  PerkTile(this.perk);
+  PerkTile({@required this.perk, @required this.index, @required this.onChanged, @required this.context});
 
   final Perk perk;
+  final int index;
+  final Function onChanged;
+  final BuildContext context;
 
   final double imageSize = 150.0;
   final double boxSize = 100.0;
@@ -27,6 +30,9 @@ class PerkTile extends StatelessWidget {
         ),
         GestureDetector(
           onTap: () {
+            onChanged(index, this.context);
+          },
+          onLongPress: () {
             Navigator.pushNamed(
               context,
               '/details',
