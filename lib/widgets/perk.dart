@@ -30,6 +30,10 @@ class Perk {
   Future savePreference() async {
     await saveToSharedPreferences(preferenceKey, json.encode(preference));
   }
+
+  String get iconPath {
+    return 'assets/images/$type/$iconFilename';
+  }
 }
 
 class PerkPreference {

@@ -1,25 +1,34 @@
 import 'package:flutter/material.dart';
+import './perk.dart';
 
 
 class PerkTile extends StatelessWidget {
-  PerkTile ({Key key, this.name, this.iconPath});
+  PerkTile(this.perk);
 
-  final String name;
-  final String iconPath;
+  final Perk perk;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         Text(
-          name,
+          perk.name,
           style: TextStyle(color: Colors.white),
         ),
-        Image.asset(
-          iconPath,
-          height: 150,
-          width: 150,
-          fit: BoxFit.fill,
+        GestureDetector(
+          onTap: () {
+            Navigator.pushNamed(
+              context,
+              '/details',
+              arguments: perk
+            );
+          },
+          child: Image.asset(
+            perk.iconPath,
+            height: 150,
+            width: 150,
+            fit: BoxFit.fill,
+          ),
         ),
       ]
     );
