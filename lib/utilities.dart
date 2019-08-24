@@ -35,11 +35,11 @@ List<int> replaceIndexValue(List<int> values, List<int>targetIndexes, { int min 
   
     while(true) {
       int val = Random().nextInt(max - min) + min;
-     if(!values.contains(val)) {
-       values[index] = val;
-       break;
-     }
-   }
+      if(!values.contains(val)) {
+        values[index] = val;
+        break;
+      }
+    }
   }
 
   return values;
