@@ -27,7 +27,7 @@ class _PerkPageState extends State<PerkPage> {
   bool isSwitched = false;
 
   void generateRandomlySelectedPerks() {
-    randomlySelectedPerks = Utils.generateSetOfRandomNumbers(numPerksToSelect, min: 1, max: perkList.length + 1);
+    randomlySelectedPerks = Utils.generateSetOfRandomNumbers(numPerksToSelect, max: perkList.length);
   }
 
   List<Perk> perkList;
@@ -133,10 +133,10 @@ class _PerkPageState extends State<PerkPage> {
               child: Row(
                 children: <Widget>[
                   Expanded(
-                    child: PerkTile(perkList[randomlySelectedPerks.elementAt(0) - 1])
+                    child: PerkTile(perkList[randomlySelectedPerks.elementAt(0)])
                   ),
                   Expanded(
-                    child: PerkTile(perkList[randomlySelectedPerks.elementAt(1) - 1])
+                    child: PerkTile(perkList[randomlySelectedPerks.elementAt(1)])
                   ),
                 ],
               ),
@@ -147,10 +147,10 @@ class _PerkPageState extends State<PerkPage> {
             Row(
               children: <Widget>[
                 Expanded(
-                  child: PerkTile(perkList[randomlySelectedPerks.elementAt(2) - 1])
+                  child: PerkTile(perkList[randomlySelectedPerks.elementAt(2)])
                 ),
                 Expanded(
-                  child: PerkTile(perkList[randomlySelectedPerks.elementAt(3) - 1])
+                  child: PerkTile(perkList[randomlySelectedPerks.elementAt(3)])
                 ),
               ],
             ),
