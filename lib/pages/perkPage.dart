@@ -21,7 +21,7 @@ class PerkPage extends StatefulWidget {
 }
 
 class _PerkPageState extends State<PerkPage> {
-  Set<int> randomlySelectedPerks;
+  List<int> randomlySelectedPerks;
   int numPerksToSelect = 4;
   String selectedType = 'survivor/';
   bool isSwitched = false;
@@ -50,6 +50,24 @@ class _PerkPageState extends State<PerkPage> {
     selectedType = value ? 'killer/' : 'survivor/';
     setState(() {
       setPerkListAndRandomise();
+    });
+  }
+
+  void _rollTileCallback(int index, BuildContext context) {
+    // Check if randomlySelectedPerks is less than or equal to perkList
+    if (perkList.length <= randomlySelectedPerks.length) {
+      String perkType = isSwitched ? 'killer' : 'survivor';
+      String message = 'You cannot reroll with only 4 $perkType perks selected';
+
+      ScaffoldState scaffold = Scaffold.of(context);
+      scaffold.removeCurrentSnackBar();
+      scaffold.showSnackBar(SnackBar(content: Text(message)));
+
+      return;
+    }
+
+    setState(() {
+      randomlySelectedPerks = Utils.replaceIndexValue(randomlySelectedPerks, [index], max: perkList.length);
     });
   }
 
@@ -122,90 +140,114 @@ class _PerkPageState extends State<PerkPage> {
       ),
       body: SafeArea(
         bottom: false,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Container(
-              height: 50,
-            ),
-            Container(
-              alignment: Alignment(0, 0),
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    child: PerkTile(perkList[randomlySelectedPerks.elementAt(0)])
-                  ),
-                  Expanded(
-                    child: PerkTile(perkList[randomlySelectedPerks.elementAt(1)])
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              height: 50,
-            ),
-            Row(
+        child: Builder(
+          builder: (BuildContext context) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                Expanded(
-                  child: PerkTile(perkList[randomlySelectedPerks.elementAt(2)])
+                Container(
+                  height: 50,
                 ),
-                Expanded(
-                  child: PerkTile(perkList[randomlySelectedPerks.elementAt(3)])
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 50,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Text(
-                  'Survivor',
-                  style: TextStyle(fontSize: 22.0, color: Colors.white),
-                ),
-                Transform.scale(
-                  scale: 1.5,
-                  child: Switch(
-                    value: isSwitched,
-                    onChanged: (value) async {
-                      setState(() {
-                        isSwitched = value;
-                      });
-                      loadPerksFromPreferencesOrDefaults(value);
-                    },
-                    activeTrackColor: Colors.redAccent,
-                    activeColor: Colors.black,
+                Container(
+                  alignment: Alignment(0, 0),
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: PerkTile(
+                          perk: perkList[randomlySelectedPerks.elementAt(0)],
+                          index: 0,
+                          onChanged: _rollTileCallback,
+                          context: context
+                        )
+                      ),
+                      Expanded(
+                        child: PerkTile(
+                          perk: perkList[randomlySelectedPerks.elementAt(1)],
+                          index: 1,
+                          onChanged: _rollTileCallback,
+                          context: context
+                        )
+                      ),
+                    ],
                   ),
                 ),
-                Text(
-                  'Killer',
-                  style: TextStyle(fontSize: 22.0, color: Colors.white),
+                Container(
+                  height: 50,
                 ),
-              ],
-            ),
-            Expanded(
-              child: Container(
-                alignment: Alignment(0, 1),
-                child: SizedBox(
-                  width: double.infinity,
-                  height: 75,
-                  child: FlatButton(
-                    onPressed: () async {
-                      loadPerksFromPreferencesOrDefaults(isSwitched);
-                    },
-                    child: Text(
-                      'Randomise',
-                      style: TextStyle(fontSize: 22.0),
+                Row(
+                  children: <Widget>[
+                    Expanded(
+                        child: PerkTile(
+                          perk: perkList[randomlySelectedPerks.elementAt(2)],
+                          index: 2,
+                          onChanged: _rollTileCallback,
+                          context: context
+                        )
                     ),
-                    color: Colors.redAccent,
-                    textColor: Colors.white,
+                    Expanded(
+                        child: PerkTile(
+                          perk: perkList[randomlySelectedPerks.elementAt(3)],
+                          index: 3,
+                          onChanged: _rollTileCallback,
+                          context: context
+                        )
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 50,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Text(
+                      'Survivor',
+                      style: TextStyle(fontSize: 22.0, color: Colors.white),
+                    ),
+                    Transform.scale(
+                      scale: 1.5,
+                      child: Switch(
+                        value: isSwitched,
+                        onChanged: (value) async {
+                          setState(() {
+                            isSwitched = value;
+                          });
+                          loadPerksFromPreferencesOrDefaults(value);
+                        },
+                        activeTrackColor: Colors.redAccent,
+                        activeColor: Colors.black,
+                      ),
+                    ),
+                    Text(
+                      'Killer',
+                      style: TextStyle(fontSize: 22.0, color: Colors.white),
+                    ),
+                  ],
+                ),
+                Expanded(
+                  child: Container(
+                    alignment: Alignment(0, 1),
+                    child: SizedBox(
+                      width: double.infinity,
+                      height: 75,
+                      child: FlatButton(
+                        onPressed: () async {
+                          loadPerksFromPreferencesOrDefaults(isSwitched);
+                        },
+                        child: Text(
+                          'Randomise',
+                          style: TextStyle(fontSize: 22.0),
+                        ),
+                        color: Colors.redAccent,
+                        textColor: Colors.white,
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ),
-          ],
-        ),
+              ],
+            );
+          }
+        )
       ),
     );
   }
