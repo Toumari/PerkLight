@@ -27,7 +27,8 @@ class PerkTile extends StatelessWidget {
             style: TextStyle(color: Colors.white, fontSize: 14.0),
           ),
         ),
-        GestureDetector(
+        InkResponse(
+          radius: imageSize,
           onTap: () {
             onChanged(index, context);
           },
