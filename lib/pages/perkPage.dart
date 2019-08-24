@@ -55,7 +55,7 @@ class _PerkPageState extends State<PerkPage> {
 
   void _rollTileCallback(int index, BuildContext context) {
     // Check if randomlySelectedPerks is less than or equal to perkList
-    if (randomlySelectedPerks.length <= perkList.length) {
+    if (perkList.length <= randomlySelectedPerks.length) {
       String perkType = isSwitched ? 'killer' : 'survivor';
       String message = 'You cannot reroll with only 4 $perkType perks selected';
 
