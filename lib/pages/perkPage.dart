@@ -139,18 +139,22 @@ class _PerkPageState extends State<PerkPage> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Container(height: 24.0),
-                GridView.count(
-                  mainAxisSpacing: 20.0,
-                  crossAxisCount: 2,
-                  shrinkWrap: true,
-                  children: <Widget>[
-                    for (int i = 0; i < randomlySelectedPerks.length; ++i)
-                      PerkTile(
-                        perk: perkList[randomlySelectedPerks[i]],
-                        index: i,
-                        onChanged: _rollTileCallback
-                      )
-                  ],
+                Expanded(
+                  child: GridView.count(
+                    mainAxisSpacing: 20.0,
+                    crossAxisCount: 2,
+                    shrinkWrap: true,
+                    children: <Widget>[
+                      for (int i = 0; i < randomlySelectedPerks.length; ++i)
+                        Container(
+                          child: PerkTile(
+                            perk: perkList[randomlySelectedPerks[i]],
+                            index: i,
+                            onChanged: _rollTileCallback
+                          )
+                        )
+                    ],
+                  ),
                 ),
                 Container(
                   margin: EdgeInsets.only(top: 24.0, bottom: 24.0),
@@ -182,25 +186,23 @@ class _PerkPageState extends State<PerkPage> {
                     ],
                   ),
                 ),
-                Expanded(
-                  child: Container(
-                    alignment: Alignment(0, 1),
-                    child: SizedBox(
-                      width: double.infinity,
-                      height: 75,
-                      child: FlatButton(
-                        onPressed: () async {
-                          setState(() {
-                            generateRandomlySelectedPerks();
-                          });
-                        },
-                        child: Text(
-                          'Randomise',
-                          style: TextStyle(fontSize: 22.0),
-                        ),
-                        color: Colors.redAccent,
-                        textColor: Colors.white,
+                Container(
+                  alignment: Alignment(0, 1),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 75,
+                    child: FlatButton(
+                      onPressed: () async {
+                        setState(() {
+                          generateRandomlySelectedPerks();
+                        });
+                      },
+                      child: Text(
+                        'Randomise',
+                        style: TextStyle(fontSize: 22.0),
                       ),
+                      color: Colors.redAccent,
+                      textColor: Colors.white,
                     ),
                   ),
                 ),
