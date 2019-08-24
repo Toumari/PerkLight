@@ -53,6 +53,12 @@ class _PerkPageState extends State<PerkPage> {
     });
   }
 
+  void _rollTileCallback(int index) {
+    setState(() {
+      randomlySelectedPerks = Utils.replaceIndexValue(randomlySelectedPerks, [index], max: perkList.length);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -133,10 +139,18 @@ class _PerkPageState extends State<PerkPage> {
               child: Row(
                 children: <Widget>[
                   Expanded(
-                    child: PerkTile(perkList[randomlySelectedPerks.elementAt(0)])
+                    child: PerkTile(
+                      perk: perkList[randomlySelectedPerks.elementAt(0)],
+                      index: 0,
+                      onChanged: _rollTileCallback
+                    )
                   ),
                   Expanded(
-                    child: PerkTile(perkList[randomlySelectedPerks.elementAt(1)])
+                    child: PerkTile(
+                      perk: perkList[randomlySelectedPerks.elementAt(1)],
+                      index: 1,
+                      onChanged: _rollTileCallback
+                    )
                   ),
                 ],
               ),
@@ -147,10 +161,18 @@ class _PerkPageState extends State<PerkPage> {
             Row(
               children: <Widget>[
                 Expanded(
-                  child: PerkTile(perkList[randomlySelectedPerks.elementAt(2)])
+                    child: PerkTile(
+                      perk: perkList[randomlySelectedPerks.elementAt(2)],
+                      index: 2,
+                      onChanged: _rollTileCallback
+                    )
                 ),
                 Expanded(
-                  child: PerkTile(perkList[randomlySelectedPerks.elementAt(3)])
+                    child: PerkTile(
+                      perk: perkList[randomlySelectedPerks.elementAt(3)],
+                      index: 3,
+                      onChanged: _rollTileCallback
+                    )
                 ),
               ],
             ),
