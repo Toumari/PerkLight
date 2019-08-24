@@ -24,6 +24,9 @@ class PerkTile extends StatelessWidget {
           margin: EdgeInsets.only(bottom: 5.0),
           child: Text(
             perk.name,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.center,
             style: TextStyle(color: Colors.white, fontSize: 14.0),
           ),
         ),
