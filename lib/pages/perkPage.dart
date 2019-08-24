@@ -21,7 +21,7 @@ class PerkPage extends StatefulWidget {
 }
 
 class _PerkPageState extends State<PerkPage> {
-  Set<int> randomlySelectedPerks;
+  List<int> randomlySelectedPerks;
   int numPerksToSelect = 4;
   String selectedType = 'survivor/';
   bool isSwitched = false;
