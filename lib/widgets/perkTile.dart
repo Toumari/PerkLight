@@ -3,11 +3,12 @@ import './perk.dart';
 
 
 class PerkTile extends StatelessWidget {
-  PerkTile({Key key, @required this.perk, @required this.index, this.onChanged}) : super(key: key);
+  PerkTile({@required this.perk, @required this.index, @required this.onChanged, @required this.context});
 
   final Perk perk;
   final int index;
-  final ValueChanged<int> onChanged;
+  final Function onChanged;
+  final BuildContext context;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,7 @@ class PerkTile extends StatelessWidget {
         ),
         GestureDetector(
           onTap: () {
-            onChanged(index);
+            onChanged(index, this.context);
           },
           onLongPress: () {
             Navigator.pushNamed(
