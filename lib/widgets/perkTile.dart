@@ -31,7 +31,7 @@ class PerkTile extends StatelessWidget {
           ),
         ),
         InkResponse(
-          radius: imageSize,
+          radius: boxSize,
           onTap: () {
             onChanged(index, context);
           },
