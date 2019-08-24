@@ -125,38 +125,17 @@ class _PerkPageState extends State<PerkPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            Container(
-              height: 50,
-            ),
-            Container(
-              alignment: Alignment(0, 0),
-              child: Row(
+            Container(height: 50),
+            Expanded(
+              child:GridView.count(
+                crossAxisCount: 2,
                 children: <Widget>[
-                  Expanded(
-                    child: PerkTile(perkList[randomlySelectedPerks.elementAt(0)])
-                  ),
-                  Expanded(
-                    child: PerkTile(perkList[randomlySelectedPerks.elementAt(1)])
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              height: 50,
-            ),
-            Row(
-              children: <Widget>[
-                Expanded(
-                  child: PerkTile(perkList[randomlySelectedPerks.elementAt(2)])
+                  for (int i = 0; i < 4; ++i)
+                    PerkTile(perkList[randomlySelectedPerks.elementAt(i)])
+                  ],
                 ),
-                Expanded(
-                  child: PerkTile(perkList[randomlySelectedPerks.elementAt(3)])
-                ),
-              ],
             ),
-            SizedBox(
-              height: 50,
-            ),
+            Container(height: 50),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
