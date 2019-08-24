@@ -1,27 +1,30 @@
 import 'package:flutter/material.dart';
-import '../pages/perkDetail.dart';
+import './perk.dart';
 
 
 class PerkTile extends StatelessWidget {
-  PerkTile ({Key key, this.name, this.iconPath});
+  PerkTile(this.perk);
 
-  final String name;
-  final String iconPath;
+  final Perk perk;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         Text(
-          name,
+          perk.name,
           style: TextStyle(color: Colors.white),
         ),
         GestureDetector(
           onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => PerkDetail(perkName: name, perkIconPath: iconPath, perkDescription: 'Test Desription for the Perk. This will eventually be replaced by the actual description for the Perk.',)));
+            Navigator.pushNamed(
+              context,
+              '/details',
+              arguments: perk
+            );
           },
           child: Image.asset(
-            iconPath,
+            perk.iconPath,
             height: 150,
             width: 150,
             fit: BoxFit.fill,
