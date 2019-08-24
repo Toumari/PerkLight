@@ -29,6 +29,10 @@ List<int> generateSetOfRandomNumbers(int size, { int min = 0, int max = 100 }) {
 }
 
 List<int> replaceIndexValue(List<int> values, List<int>targetIndexes, { int min = 0, int max = 100 }) {
+  if (max <= values.length) {
+    return values;
+  }
+
   for (int index in targetIndexes) {
     if (index < 0 || index > values.length)
       throw Exception('Index out of bounds');
