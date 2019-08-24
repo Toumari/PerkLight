@@ -141,6 +141,7 @@ class _PerkPageState extends State<PerkPage> {
                 Container(height: 24.0),
                 Expanded(
                   child:GridView.count(
+                    mainAxisSpacing: 20.0,
                     crossAxisCount: 2,
                     shrinkWrap: true,
                     children: <Widget>[
@@ -148,8 +149,7 @@ class _PerkPageState extends State<PerkPage> {
                         PerkTile(
                           perk: perkList[randomlySelectedPerks[i]],
                           index: i,
-                          onChanged: _rollTileCallback,
-                          context: context
+                          onChanged: _rollTileCallback
                         )
                     ],
                   ),

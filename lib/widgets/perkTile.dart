@@ -4,12 +4,11 @@ import './perk.dart';
 
 
 class PerkTile extends StatelessWidget {
-  PerkTile({@required this.perk, @required this.index, @required this.onChanged, @required this.context});
+  PerkTile({@required this.perk, @required this.index, @required this.onChanged});
 
   final Perk perk;
   final int index;
   final Function onChanged;
-  final BuildContext context;
 
   final double imageSize = 150.0;
   final double boxSize = 100.0;
@@ -25,12 +24,12 @@ class PerkTile extends StatelessWidget {
           margin: EdgeInsets.only(bottom: 5.0),
           child: Text(
             perk.name,
-            style: TextStyle(color: Colors.white, fontSize: 16.0),
+            style: TextStyle(color: Colors.white, fontSize: 14.0),
           ),
         ),
         GestureDetector(
           onTap: () {
-            onChanged(index, this.context);
+            onChanged(index, context);
           },
           onLongPress: () {
             Navigator.pushNamed(
