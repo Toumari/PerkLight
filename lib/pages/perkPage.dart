@@ -1,55 +1,91 @@
 // Third-party
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 // First-party
-import '../utilities.dart' as Utils;
-import '../widgets/perk.dart';
-import '../widgets/perkTile.dart';
+import 'package:perklight/utilities.dart' as Utils;
 
+import 'package:perklight/classes/perk.dart';
+import 'package:perklight/widgets/perkTile.dart';
+import 'package:perklight/classes/perkSerialiser.dart';
 
 class PerkPage extends StatefulWidget {
   PerkPage(arguments) :
     killerPerks = arguments['killerPerks'],
     survivorPerks = arguments['survivorPerks'];
 
-  final List<Perk> killerPerks;
-  final List<Perk> survivorPerks;
+  final List<KillerPerk> killerPerks;
+  final List<SurvivorPerk> survivorPerks;
 
   @override
   _PerkPageState createState() => _PerkPageState();
 }
 
 class _PerkPageState extends State<PerkPage> {
+  static const numPerksToSelect = 4;
+  static const ALL_TILES = [0, 1, 2, 3];
+
+  bool perkModeSwitch = false;
+
   List<int> randomlySelectedPerks;
-  int numPerksToSelect = 4;
-  bool killerMode = false;
+  PerkType perkMode = PerkType.survivor;
 
-  void generateRandomlySelectedPerks() {
-    randomlySelectedPerks = Utils.generateSetOfRandomNumbers(numPerksToSelect, max: perkList.length);
-  }
+  String shareCode;
 
-  List<Perk> perkList;
+  List<Perk> rollablePerks;
+  List<Perk> selectedPerks;
 
   @override
   void initState() {
     super.initState();
-    setPerkListAndRandomise();
+    
+    _filteredRoll();
   }
 
-  void setPerkListAndRandomise() {
-    List<Perk> listToFilter = killerMode ? widget.killerPerks : widget.survivorPerks;
-    perkList = listToFilter.where((perk) {
+  void _filteredRoll([ List<int> indexes = ALL_TILES ]) {
+    _filterRollable();
+    _rollPerks(indexes);
+  }
+
+  void _generateShareCode() {
+    List<int> selectedPerksIds = selectedPerks.map((item) => item.id).toList();
+    shareCode = PerksSerialiser.serialiseUrl(perksIds: selectedPerksIds, perkType: perkMode);
+
+    print('$shareCode');
+  }
+
+  void _filterRollable() {
+    List<Perk> listToFilter;
+
+    switch (perkMode) {
+      case PerkType.killer:
+        listToFilter = widget.killerPerks;
+        break;
+      case PerkType.survivor:
+        listToFilter = widget.survivorPerks;
+        break;
+    }
+
+    rollablePerks = listToFilter.where((perk) {
       return perk.preference.enabled;
     }).toList();
-    generateRandomlySelectedPerks();
+
+    randomlySelectedPerks = Utils.generateSetOfRandomNumbers(numPerksToSelect, max: rollablePerks.length);
   }
 
+  void _rollPerks([ List<int> indexes = ALL_TILES ]) {
+    randomlySelectedPerks = Utils.replaceIndexValue(randomlySelectedPerks, indexes, max: rollablePerks.length);
+    selectedPerks = randomlySelectedPerks.map((item) => rollablePerks[item]).toList();
+
+    _generateShareCode(); 
+  }
+ 
   void _rollTileCallback(int index, BuildContext context) {
-    // Check if randomlySelectedPerks is less than or equal to perkList
-    if (perkList.length <= randomlySelectedPerks.length) {
-      String perkType = killerMode ? 'killer' : 'survivor';
-      String message = 'You cannot reroll with only 4 $perkType perks selected';
+    // Check if randomlySelectedPerks is less than or equal to rollablePerks
+    if (rollablePerks.length <= numPerksToSelect) {
+      String mode = describeEnum(perkMode);
+      String message = 'You cannot reroll with only 4 $mode perks selected';
 
       ScaffoldState scaffold = Scaffold.of(context);
       scaffold.removeCurrentSnackBar();
@@ -59,7 +95,7 @@ class _PerkPageState extends State<PerkPage> {
     }
 
     setState(() {
-      randomlySelectedPerks = Utils.replaceIndexValue(randomlySelectedPerks, [index], max: perkList.length);
+      _rollPerks([index]);
     });
   }
 
@@ -117,7 +153,7 @@ class _PerkPageState extends State<PerkPage> {
                       }
                     );
                     setState(() {
-                      setPerkListAndRandomise();
+                      _filteredRoll();
                     });
                   },
                 ),
@@ -148,8 +184,8 @@ class _PerkPageState extends State<PerkPage> {
                       for (int i = 0; i < randomlySelectedPerks.length; ++i)
                         Container(
                           child: PerkTile(
-                            perk: perkList[randomlySelectedPerks[i]],
-                            index: i,
+                          perk: selectedPerks[i],
+                          index: i,
                             onChanged: _rollTileCallback
                           )
                         )
@@ -168,11 +204,13 @@ class _PerkPageState extends State<PerkPage> {
                       Transform.scale(
                         scale: 1.5,
                         child: Switch(
-                          value: killerMode,
+                          value: perkModeSwitch,
                           onChanged: (value) async {
                             setState(() {
-                              killerMode = value;
-                              setPerkListAndRandomise();
+                              perkModeSwitch = value;
+
+                              perkMode = !perkModeSwitch ? PerkType.survivor : PerkType.killer;
+                              _filteredRoll();
                             });
                           },
                           activeTrackColor: Colors.redAccent,
@@ -194,7 +232,7 @@ class _PerkPageState extends State<PerkPage> {
                     child: FlatButton(
                       onPressed: () async {
                         setState(() {
-                          generateRandomlySelectedPerks();
+                          _rollPerks();
                         });
                       },
                       child: Text(

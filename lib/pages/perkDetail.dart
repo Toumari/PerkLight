@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/perk.dart';
-import '../widgets/perkIcon.dart';
+import 'package:perklight/classes/perk.dart';
+import 'package:perklight/widgets/perkIcon.dart';
 
 class PerkDetail extends StatefulWidget {
   PerkDetail(this.perk);

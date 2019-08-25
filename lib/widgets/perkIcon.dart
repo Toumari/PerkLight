@@ -1,7 +1,6 @@
 import 'dart:math' as Math;
 import 'package:flutter/material.dart';
 
-
 class PerkIcon extends StatelessWidget {
   PerkIcon(this.iconPath, this.iconSize) :
     boxSize = iconSize * 0.7;
