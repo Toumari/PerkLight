@@ -27,8 +27,8 @@ def scrapeTableBody(inBody, outDict):
         scrapeTableRow(tableRow, outDict)
 
 def scrapeTableRow(inRow, outDict):
-    perkName = inRow.find_all('th')[1].text.replace('\n', '').replace('&nbsp;', '').replace('\xa0', '')
-    perkDesc = inRow.find('td').text.strip('\n').replace('\n', ' ').replace('&nbsp;', '').replace('\xa0', '')
+    perkName = inRow.find_all('th')[1].text.replace('\n', '').replace('&nbsp;', ' ').replace('\xa0', '')
+    perkDesc = inRow.find('td').text.strip('\n').replace('&nbsp;', ' ').replace('\xa0', ' ')
     outDict[perkName] = perkDesc
 
 def writeOutResults(results):

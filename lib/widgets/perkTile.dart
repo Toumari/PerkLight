@@ -1,26 +1,34 @@
 import 'package:flutter/material.dart';
+
 import './perk.dart';
+import './perkIcon.dart';
 
 
 class PerkTile extends StatelessWidget {
-  PerkTile({@required this.perk, @required this.index, @required this.onChanged, @required this.context});
+  PerkTile({@required this.perk, @required this.index, @required this.onChanged});
 
   final Perk perk;
   final int index;
   final Function onChanged;
-  final BuildContext context;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        Text(
-          perk.name,
-          style: TextStyle(color: Colors.white),
+        Container(
+          margin: EdgeInsets.only(bottom: 5.0),
+          child: Text(
+            perk.name,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.center,
+            style: TextStyle(color: Colors.white, fontSize: 14.0),
+          ),
         ),
-        GestureDetector(
+        InkResponse(
+          radius: 105.0,
           onTap: () {
-            onChanged(index, this.context);
+            onChanged(index, context);
           },
           onLongPress: () {
             Navigator.pushNamed(
@@ -29,12 +37,7 @@ class PerkTile extends StatelessWidget {
               arguments: perk
             );
           },
-          child: Image.asset(
-            perk.iconPath,
-            height: 150,
-            width: 150,
-            fit: BoxFit.fill,
-          ),
+          child: PerkIcon(perk.iconPath, 150.0)
         ),
       ]
     );
