@@ -31,7 +31,7 @@ class _PerkPageState extends State<PerkPage> {
   List<int> randomlySelectedPerks;
   PerkType perkMode = PerkType.survivor;
 
-  String shareCode;
+  String buildId;
 
   List<Perk> rollablePerks;
   List<Perk> selectedPerks;
@@ -50,9 +50,9 @@ class _PerkPageState extends State<PerkPage> {
 
   void _generateShareCode() {
     List<int> selectedPerksIds = selectedPerks.map((item) => item.id).toList();
-    shareCode = PerksSerialiser.serialiseUrl(perksIds: selectedPerksIds, perkType: perkMode);
+    buildId = PerksSerialiser.encode(perksIds: selectedPerksIds, perkType: perkMode);
 
-    print('$shareCode');
+    print('Build ID: $buildId');
   }
 
   void _filterRollable() {
