@@ -36,7 +36,7 @@ List<int> replaceIndexValue(List<int> values, List<int>targetIndexes, { int min 
   for (int index in targetIndexes) {
     if (index < 0 || index > values.length)
       throw Exception('Index out of bounds');
-  
+
     while(true) {
       int val = Random().nextInt(max - min) + min;
       if(!values.contains(val)) {

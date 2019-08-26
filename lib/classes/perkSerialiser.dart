@@ -19,7 +19,7 @@ class PerksSerialiser {
 
     // Concat bytes and output Base64 URL string
     List<int> uInt8Bytes = [...uInt8PerkIds, ...uInt8Chksum];
-    
+
     // Create Bas64 URL string
     String output = base64UrlEncode(uInt8Bytes);
 
@@ -66,7 +66,7 @@ class PerksSerialiser {
 
   static String serialiseUrl({ List<int> perksIds, PerkType perkType }) {
     String base64 = PerksSerialiser.encode(perksIds: perksIds, perkType: perkType);
-    
+
     var template = new UriTemplate("$URL/{buildId}");
     String url = template.expand({'buildId': base64});
 

@@ -39,7 +39,7 @@ class _PerkPageState extends State<PerkPage> {
   @override
   void initState() {
     super.initState();
-    
+
     _filteredRoll();
   }
 
@@ -78,9 +78,9 @@ class _PerkPageState extends State<PerkPage> {
     randomlySelectedPerks = Utils.replaceIndexValue(randomlySelectedPerks, indexes, max: rollablePerks.length);
     selectedPerks = randomlySelectedPerks.map((item) => rollablePerks[item]).toList();
 
-    _generateShareCode(); 
+    _generateShareCode();
   }
- 
+
   void _rollTileCallback(int index, BuildContext context) {
     // Check if randomlySelectedPerks is less than or equal to rollablePerks
     if (rollablePerks.length <= numPerksToSelect) {
