@@ -81,7 +81,7 @@ class _PerkPageState extends State<PerkPage> {
     _generateShareCode();
   }
 
-  void _rollTileCallback(int index, BuildContext context) {
+  void _rollTileCallback(List<int> indexes, BuildContext context) {
     // Check if randomlySelectedPerks is less than or equal to rollablePerks
     if (rollablePerks.length <= numPerksToSelect) {
       String mode = describeEnum(perkMode);
@@ -95,7 +95,7 @@ class _PerkPageState extends State<PerkPage> {
     }
 
     setState(() {
-      _rollPerks([index]);
+      _rollPerks(indexes);
     });
   }
 
@@ -186,7 +186,7 @@ class _PerkPageState extends State<PerkPage> {
                           child: PerkTile(
                           perk: selectedPerks[i],
                           index: i,
-                            onChanged: _rollTileCallback
+                          onChanged: _rollTileCallback
                           )
                         )
                     ],
@@ -232,7 +232,7 @@ class _PerkPageState extends State<PerkPage> {
                     child: FlatButton(
                       onPressed: () async {
                         setState(() {
-                          _rollPerks();
+                          _rollTileCallback(ALL_TILES, context);
                         });
                       },
                       child: Text(

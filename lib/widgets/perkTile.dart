@@ -27,7 +27,7 @@ class PerkTile extends StatelessWidget {
         InkResponse(
           radius: 105.0,
           onTap: () {
-            onChanged(index, context);
+            onChanged([index], context);
           },
           onLongPress: () {
             Navigator.pushNamed(
