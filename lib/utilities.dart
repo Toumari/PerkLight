@@ -10,7 +10,7 @@ List<int> generateSetOfRandomNumbers(int size, { int min = 0, int max = 100 }) {
    * Generates a Set of the specified size containing unique integers in the range min (inclusive) to max (exclusive)
    * e.g.:
    *   generateSetOfRandomNumbers(4, min: 2, max: 20) will generate a set of 4 unique numbers, the smallest being 2 and the biggest being 19
-   * 
+   *
    * :param size: int The number of integers that the Set will contain
    * :param min: int The min value for the randomly generated integer (inclusive)
    * :param max: int The max value for the randomly generated integer (exclusive)
