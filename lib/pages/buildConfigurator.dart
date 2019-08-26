@@ -1,54 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../utilities.dart' as Utils;
-import '../widgets/perk.dart';
+
+import 'package:perklight/classes/perk.dart';
 
 
 class BuildConfiguration extends StatefulWidget {
+  BuildConfiguration(arguments) :
+    killerPerks = arguments['killerPerks'],
+    survivorPerks = arguments['survivorPerks'];
+
+  final List<Perk> killerPerks;
+  final List<Perk> survivorPerks;
+
   @override
   _BuildConfigurationState createState() => _BuildConfigurationState();
 }
 
 class _BuildConfigurationState extends State<BuildConfiguration> {
 
-  List<Perk> killerPerks = returnKiller();
-  List<Perk> survivorPerks = returnSurvivor();
-
   @override
   void initState() {
     super.initState();
-
-    void loadList() async {
-      var survivorListLoad = await Utils.getList('survivor') ?? returnSurvivor();
-      var killerListLoad = await Utils.getList('killer') ?? returnKiller();
-      setState(() {
-        killerPerks = killerListLoad;
-        survivorPerks = survivorListLoad;
-      });
-    }
-    loadList();
   }
 
   void onSaveButtonPressed(BuildContext context) {
-    int selectedKillerPerks = killerPerks.where((perk) => perk.isEnabled).toList().length;
-    int selectedSurvivorPerks = survivorPerks.where((perk) => perk.isEnabled).toList().length;
-
-    ScaffoldState scaffold = Scaffold.of(context);
-
-    scaffold.removeCurrentSnackBar();
-
-    if (selectedKillerPerks >= 4 && selectedSurvivorPerks >=4) {
-      Navigator.pop(context, [killerPerks,survivorPerks]);
-    }
-    else if (selectedKillerPerks < 4 && selectedSurvivorPerks < 4) {
-      scaffold.showSnackBar(SnackBar(content: Text('You must select at least 4 killer and at least 4 survivor perks')));
-    }
-    else if (selectedKillerPerks < 4) {
-      scaffold.showSnackBar(SnackBar(content: Text('You must select at least 4 killer perks')));
-    }
-    else {
-      scaffold.showSnackBar(SnackBar(content: Text('You must select at least 4 survivor perks')));
-    }
+    Navigator.pop(context);
   }
 
   @override
@@ -61,103 +37,164 @@ class _BuildConfigurationState extends State<BuildConfiguration> {
 
     return DefaultTabController(
       length: 2,
-      child: Scaffold(
-        backgroundColor: Color(0xff21213b),
-        appBar: AppBar(
-          bottom: TabBar(tabs: [
-            Tab(text: 'Survivor'),
-            Tab(text: 'Killer'),
-          ]),
-          automaticallyImplyLeading: false,
+      child: Builder(
+        builder: (BuildContext context) {
+        return Scaffold(
           backgroundColor: Color(0xff21213b),
-          title: Text('Perk Configuration', style: TextStyle(color: Colors.white)),
-        ),
-        body: Builder(
-          builder: (BuildContext context) {
-            return TabBarView(
-              children: [
-                Column(
-                  children: <Widget>[
-                    Container(
-                      height: MediaQuery.of(context).size.height - 200,
-                      child: ListView(
-                        children: <Widget>[
-                          for(var item in survivorPerks)
-                            CheckboxListTile(
-                              title: Text(item.perkName, style: TextStyle(color: Colors.white)),
-                              value: item.isEnabled,
-                              onChanged: (bool value) {
-                                setState(() {
-                                  survivorPerks[item.id].isEnabled = value;
-                                });
-                              },
-                            ),
-                        ],
+          appBar: AppBar(
+            actions: <Widget>[
+              IconButton(icon: Icon(Icons.check_box), onPressed: () {
+                  final index = DefaultTabController.of(context).index;
+                  if(index == 0) {
+                    for(var item in widget.survivorPerks) {
+                      setState(() {
+                        item.preference.enabled = true;
+                        item.savePreference();
+                      });
+                    }
+                  }
+                  else {
+                    for(var item in widget.killerPerks) {
+                      setState(() {
+                        item.preference.enabled = true;
+                        item.savePreference();
+                      });
+                    }
+                  }
+                },
+              )
+            ],
+            bottom: TabBar(tabs: [
+              Tab(text: 'Survivor'),
+              Tab(text: 'Killer'),
+            ]),
+            backgroundColor: Color(0xff21213b),
+            title: Text('Perk Configuration', style: TextStyle(color: Colors.white)),
+          ),
+          body: Builder(
+            builder: (BuildContext context) {
+              return TabBarView(
+                children: [
+                  Column(
+                    children: <Widget>[
+                      Container(
+                        height: MediaQuery.of(context).size.height - 200,
+                        child: ListView(
+                          children: <Widget>[
+                            for(var item in widget.survivorPerks)
+                              CheckboxListTile(
+                                title: Text(item.name, style: TextStyle(color: Colors.white)),
+                                value: item.preference.enabled,
+                                onChanged: (bool value) {
+                                  int selectedSurvivorPerks = widget.survivorPerks.where((perk) => perk.preference.enabled).toList().length;
+                                  if (!value && selectedSurvivorPerks - 1 < 4) {
+                                    ScaffoldState scaffold = Scaffold.of(context);
+                                    scaffold.removeCurrentSnackBar();
+                                    scaffold.showSnackBar(SnackBar(content: Text('You cannot select less than 4 survivor perks')));
+                                    return;
+                                  }
+                                  setState(() {
+                                    item.preference.enabled = value;
+                                    item.savePreference();
+                                  });
+                                },
+                                secondary: IconButton(
+                                  icon: Image.asset('assets/images/survivor/${item.iconFilename}',color: Colors.white),
+                                  onPressed: () {
+                                    Navigator.pushNamed(
+                                      context,
+                                      '/details',
+                                      arguments: item
+                                    );
+                                  }
+                                )
+                              ),
+                          ],
+                        ),
                       ),
-                    ),
-                    Expanded(
-                      child: Container(
-                        alignment: Alignment(0, 1),
-                        child: SizedBox(
-                          width: double.infinity,
-                          height: 75,
-                          child: FlatButton(
-                            onPressed: () => onSaveButtonPressed(context),
-                            child: Text(
-                              'Save',
-                              style: TextStyle(fontSize: 22.0),
+                      Expanded(
+                        child: Container(
+                          alignment: Alignment(0, 1),
+                          child: SizedBox(
+                            width: double.infinity,
+                            height: 75,
+                            child: FlatButton(
+                              onPressed: () => onSaveButtonPressed(context),
+                              child: Text(
+                                'Save',
+                                style: TextStyle(fontSize: 22.0),
+                              ),
+                              color: Colors.redAccent,
+                              textColor: Colors.white,
                             ),
-                            color: Colors.redAccent,
-                            textColor: Colors.white,
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                Column(
-                  children: <Widget>[
-                    Container(
-                      height: MediaQuery.of(context).size.height - 200,
-                      child: ListView(
-                        children: <Widget>[
-                          for (var item in killerPerks)
-                            CheckboxListTile(
-                              title: Text(item.perkName, style: TextStyle(color: Colors.white)),
-                              value: item.isEnabled,
-                              onChanged: (bool value) {
-                                setState(() {
-                                  killerPerks[item.id].isEnabled = value;
-                                });
-                              },
-                            ),
-                        ],
+                    ],
+                  ),
+                  Column(
+                    children: <Widget>[
+                      Container(
+                        height: MediaQuery.of(context).size.height - 200,
+                        child: ListView(
+                          children: <Widget>[
+                            for (var item in widget.killerPerks)
+                              CheckboxListTile(
+                                title: Text(item.name, style: TextStyle(color: Colors.white)),
+                                value: item.preference.enabled,
+                                onChanged: (bool value) {
+                                  int selectedKillerPerks = widget.killerPerks.where((perk) => perk.preference.enabled).toList().length;
+                                  if (!value && selectedKillerPerks - 1 < 4) {
+                                    ScaffoldState scaffold = Scaffold.of(context);
+                                    scaffold.removeCurrentSnackBar();
+                                    scaffold.showSnackBar(SnackBar(content: Text('You cannot select less than 4 killer perks')));
+                                    return;
+                                  }
+                                  setState(() {
+                                    item.preference.enabled = value;
+                                    item.savePreference();
+                                  });
+                                },
+                                secondary: IconButton(
+                                  icon: Image.asset('assets/images/killer/${item.iconFilename}', color: Colors.white),
+                                  onPressed: () {
+                                    Navigator.pushNamed(
+                                      context,
+                                      '/details',
+                                      arguments: item
+                                    );
+                                  }
+                                )
+                              ),
+                          ],
+                        ),
                       ),
-                    ),
-                    Expanded(
-                      child: Container(
-                        alignment: Alignment(0, 1),
-                        child: SizedBox(
-                          width: double.infinity,
-                          height: 75,
-                          child: FlatButton(
-                            onPressed: () => onSaveButtonPressed(context),
-                            child: Text(
-                              'Save',
-                              style: TextStyle(fontSize: 22.0),
+                      Expanded(
+                        child: Container(
+                          alignment: Alignment(0, 1),
+                          child: SizedBox(
+                            width: double.infinity,
+                            height: 75,
+                            child: FlatButton(
+                              onPressed: () => onSaveButtonPressed(context),
+                              child: Text(
+                                'Save',
+                                style: TextStyle(fontSize: 22.0),
+                              ),
+                              color: Colors.redAccent,
+                              textColor: Colors.white,
                             ),
-                            color: Colors.redAccent,
-                            textColor: Colors.white,
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ],
-            );
-          }
-        ),
+                    ],
+                  ),
+                ],
+              );
+            }
+          ),
+        );
+        }
       ),
     );
   }

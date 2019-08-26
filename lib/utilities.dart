@@ -1,21 +1,16 @@
 //Built-in
-import 'dart:convert';
 import 'dart:math';
 
 //Third-Party
 import 'package:shared_preferences/shared_preferences.dart';
 
-//First-Party
-import 'widgets/perk.dart';
 
-
-
-Set<int> generateSetOfRandomNumbers(int size, { int min = 0, int max = 100 }) {
+List<int> generateSetOfRandomNumbers(int size, { int min = 0, int max = 100 }) {
   /**
    * Generates a Set of the specified size containing unique integers in the range min (inclusive) to max (exclusive)
    * e.g.:
    *   generateSetOfRandomNumbers(4, min: 2, max: 20) will generate a set of 4 unique numbers, the smallest being 2 and the biggest being 19
-   * 
+   *
    * :param size: int The number of integers that the Set will contain
    * :param min: int The min value for the randomly generated integer (inclusive)
    * :param max: int The max value for the randomly generated integer (exclusive)
@@ -30,28 +25,49 @@ Set<int> generateSetOfRandomNumbers(int size, { int min = 0, int max = 100 }) {
     // This becomes more inefficient the closer size is to (max - min)
     while (!values.add(Random().nextInt(max - min) + min)) {}
   }
+  return values.toList();
+}
+
+List<int> replaceIndexValue(List<int> values, List<int>targetIndexes, { int min = 0, int max = 100 }) {
+  if (max <= values.length) {
+    return values;
+  }
+
+  for (int index in targetIndexes) {
+    if (index < 0 || index > values.length)
+      throw Exception('Index out of bounds');
+
+    while(true) {
+      int val = Random().nextInt(max - min) + min;
+      if(!values.contains(val)) {
+        values[index] = val;
+        break;
+      }
+    }
+  }
+
   return values;
 }
 
-
-//Encodes a list of Perks into Json, then subsequently saves the list into Shared Preferences
-void encodeList(chosen, key) async {
-  List<Perk> perks = chosen;
-  final String perkKey = key;
+Future<dynamic> loadFromSharedPreferences(key) async {
   SharedPreferences sp = await SharedPreferences.getInstance();
-  sp.setString(perkKey, json.encode(perks));
+  return sp.get(key);
 }
 
-//Gets a list of Perks from Shared Preferences using key provided to function call
-Future<List<Perk>> getList(key) async {
+Future<bool> saveToSharedPreferences(key, value) async {
   SharedPreferences sp = await SharedPreferences.getInstance();
-  var stringPreference = sp.get(key);
-  if (stringPreference == null) {
-    return null;
+  switch (value.runtimeType) {
+    case (bool):
+      return sp.setBool(key, value);
+    case (double):
+      return sp.setDouble(key, value);
+    case (int):
+      return sp.setInt(key, value);
+    case (String):
+      return sp.setString(key, value);
+    case (List):
+      return sp.setStringList(key, value);
+    default:
+      return false;
   }
-  List<Perk> perks = [];
-  json
-      .decode(stringPreference)
-      .forEach((map) => perks.add(new Perk.fromJson(map)));
-  return perks;
 }
