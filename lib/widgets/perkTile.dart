@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
-import './perk.dart';
-import './perkIcon.dart';
-
+import 'package:perklight/classes/perk.dart';
+import 'package:perklight/widgets/perkIcon.dart';
 
 class PerkTile extends StatelessWidget {
   PerkTile({@required this.perk, @required this.index, @required this.onChanged});
@@ -28,7 +27,7 @@ class PerkTile extends StatelessWidget {
         InkResponse(
           radius: 105.0,
           onTap: () {
-            onChanged(index, context);
+            onChanged([index], context);
           },
           onLongPress: () {
             Navigator.pushNamed(

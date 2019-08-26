@@ -3,7 +3,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import '../widgets/perk.dart';
+
+import 'package:perklight/classes/perk.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -14,8 +15,8 @@ class SplashScreenState extends State<SplashScreen> {
 
   List<Future> _initSteps = List<Future>();
 
-  List<Perk> _killerPerks = List<Perk>();
-  List<Perk> _survivorPerks = List<Perk>();
+  List<KillerPerk> _killerPerks = List<KillerPerk>();
+  List<SurvivorPerk> _survivorPerks = List<SurvivorPerk>();
 
   _navigateToHomePage(List<dynamic> values) {
     Navigator.pushReplacementNamed(
@@ -32,12 +33,12 @@ class SplashScreenState extends State<SplashScreen> {
     String perkJson = await DefaultAssetBundle.of(context).loadString('assets/data/perks.json');
     Map<String, dynamic> perks = json.decode(perkJson);
     for (Map<String, dynamic> perk in perks['killer']) {
-      Perk newPerk = Perk.fromJson(perk, 'killer');
+      Perk newPerk = KillerPerk.fromJson(perk);
       _killerPerks.add(newPerk);
       await newPerk.loadPreference();
     }
     for (Map<String, dynamic> perk in perks['survivor']) {
-      Perk newPerk = Perk.fromJson(perk, 'survivor');
+      Perk newPerk = SurvivorPerk.fromJson(perk);
       _survivorPerks.add(newPerk);
       await newPerk.loadPreference();
     }

@@ -7,7 +7,7 @@ def main():
     soup = BeautifulSoup(page.text, 'html.parser')
 
     output = {'survivor': {}, 'killer': {}}
-    
+
     killerTable = soup.find_all('table')[35]
     scrapeTable(killerTable, output['killer'])
 
@@ -35,12 +35,12 @@ def writeOutResults(results):
     outputFilePath = 'assets/data/perks.json'
     with open(outputFilePath, 'r', encoding='utf-8') as f:
         rawInput = f.read()
-    
+
     input = json.loads(rawInput)
     for type in ['survivor', 'killer']:
         for perk in input[type]:
             perk['description'] = results[type].get(perk['name'], 'This perk does not currently have a description.')
-    
+
     with open(outputFilePath, 'w', encoding='utf-8') as f:
         f.write(json.dumps(input, indent=4, ensure_ascii=False))
 

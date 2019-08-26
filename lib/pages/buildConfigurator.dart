@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../widgets/perk.dart';
+
+import 'package:perklight/classes/perk.dart';
 
 
 class BuildConfiguration extends StatefulWidget {
