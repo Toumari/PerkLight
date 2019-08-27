@@ -19,11 +19,6 @@ class BuildConfiguration extends StatefulWidget {
 class _BuildConfigurationState extends State<BuildConfiguration> {
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
 
     SystemChrome.setPreferredOrientations([
