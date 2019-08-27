@@ -19,15 +19,6 @@ class BuildConfiguration extends StatefulWidget {
 class _BuildConfigurationState extends State<BuildConfiguration> {
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  void onSaveButtonPressed(BuildContext context) {
-    Navigator.pop(context);
-  }
-
-  @override
   Widget build(BuildContext context) {
 
     SystemChrome.setPreferredOrientations([
