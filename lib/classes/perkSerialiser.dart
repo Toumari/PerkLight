@@ -51,7 +51,7 @@ class PerksSerialiser {
         perkType = PerkType.survivor;
         break;
       case 4:
-        perkType = PerkType.survivor;
+        perkType = PerkType.killer;
         break;
     }
 
