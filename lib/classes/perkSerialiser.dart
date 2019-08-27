@@ -8,10 +8,10 @@ import 'package:perklight/classes/perk.dart';
 class PerksSerialiser {
   static const URL = 'https://perklight.app/build';
 
-  static String encode({ List<int> perksIds, PerkType perkType }) {
+  static String encode({ List<int> perkIds, PerkType perkType }) {
     // Toggle bit 8 using perkType index (only works with 2 types)
     int bitwise = 128 * perkType.index;
-    List<int> uInt8PerkIds = perksIds.map((i) => i ^ bitwise).toList();
+    List<int> uInt8PerkIds = perkIds.map((i) => i ^ bitwise).toList();
 
     // CRC16 Checksum
     Uint16List chksum = Uint16List.fromList([Crc16Usb().convert(uInt8PerkIds)]);
@@ -51,7 +51,7 @@ class PerksSerialiser {
         perkType = PerkType.survivor;
         break;
       case 4:
-        perkType = PerkType.survivor;
+        perkType = PerkType.killer;
         break;
     }
 
@@ -64,8 +64,8 @@ class PerksSerialiser {
     return output;
   }
 
-  static String serialiseUrl({ List<int> perksIds, PerkType perkType }) {
-    String base64 = PerksSerialiser.encode(perksIds: perksIds, perkType: perkType);
+  static String serialiseUrl({ List<int> perkIds, PerkType perkType }) {
+    String base64 = PerksSerialiser.encode(perkIds: perkIds, perkType: perkType);
 
     var template = new UriTemplate("$URL/{buildId}");
     String url = template.expand({'buildId': base64});

@@ -2,6 +2,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:package_info/package_info.dart';
 
 // First-party
 import 'package:perklight/utilities.dart' as Utils;
@@ -13,10 +14,12 @@ import 'package:perklight/classes/perkSerialiser.dart';
 class PerkPage extends StatefulWidget {
   PerkPage(arguments) :
     killerPerks = arguments['killerPerks'],
-    survivorPerks = arguments['survivorPerks'];
+    survivorPerks = arguments['survivorPerks'],
+    packageInfo = arguments['packageInfo'];
 
   final List<KillerPerk> killerPerks;
   final List<SurvivorPerk> survivorPerks;
+  final PackageInfo packageInfo;
 
   @override
   _PerkPageState createState() => _PerkPageState();
@@ -49,8 +52,8 @@ class _PerkPageState extends State<PerkPage> {
   }
 
   void _generateShareCode() {
-    List<int> selectedPerksIds = selectedPerks.map((item) => item.id).toList();
-    buildId = PerksSerialiser.encode(perksIds: selectedPerksIds, perkType: perkMode);
+    List<int> selectedPerkIds = selectedPerks.map((item) => item.id).toList();
+    buildId = PerksSerialiser.encode(perkIds: selectedPerkIds, perkType: perkMode);
 
     print('Build ID: $buildId');
   }
@@ -158,6 +161,11 @@ class _PerkPageState extends State<PerkPage> {
                   },
                 ),
               ),
+              Divider(),
+              ListTile(
+                title: Text('Build Version', style: TextStyle(color: Colors.white)),
+                trailing: Text('${widget.packageInfo.version}+${widget.packageInfo.buildNumber}', style: TextStyle(color: Colors.white)),
+              ),
             ],
           ),
         ),
@@ -166,6 +174,18 @@ class _PerkPageState extends State<PerkPage> {
       appBar: AppBar(
         title: Text('PerkLight'),
         backgroundColor: Color(0xff21213b),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.share),
+            onPressed: () {
+              Navigator.pushNamed(
+                context,
+                '/share',
+                arguments: buildId
+              );
+            },
+          )
+        ],
       ),
       body: SafeArea(
         bottom: false,

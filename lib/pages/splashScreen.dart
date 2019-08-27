@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:package_info/package_info.dart';
 
 import 'package:perklight/classes/perk.dart';
 
@@ -15,6 +16,7 @@ class SplashScreenState extends State<SplashScreen> {
 
   List<Future> _initSteps = List<Future>();
 
+  PackageInfo _packageInfo;
   List<KillerPerk> _killerPerks = List<KillerPerk>();
   List<SurvivorPerk> _survivorPerks = List<SurvivorPerk>();
 
@@ -25,6 +27,7 @@ class SplashScreenState extends State<SplashScreen> {
       arguments: {
         'killerPerks': _killerPerks,
         'survivorPerks': _survivorPerks,
+        'packageInfo': _packageInfo,
       }
     );
   }
@@ -45,10 +48,15 @@ class SplashScreenState extends State<SplashScreen> {
     return true;
   }
 
+  Future _loadPackageInfo() async {
+    _packageInfo = await PackageInfo.fromPlatform();
+  }
+
   @override
   void initState() {
     super.initState();
     _initSteps.add(_loadPerksFromFile());
+    _initSteps.add(_loadPackageInfo());
     Future.wait(_initSteps).then(_navigateToHomePage);
   }
 
