@@ -158,6 +158,33 @@ class _PerkPageState extends State<PerkPage> {
                   },
                 ),
               ),
+              Container(
+                padding: EdgeInsets.all(24.0),
+                color: Color(0xff21213b),
+                child: ListTile(
+                  title: Text(
+                    'Character Profiles',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 22.0,
+                      color: Colors.white,
+                    ),
+                  ),
+                  onTap: () async {
+                    await Navigator.pushNamed(
+                        context,
+                        '/characters',
+                        arguments: {
+                          'killerPerks': widget.killerPerks,
+                          'survivorPerks': widget.survivorPerks
+                        }
+                    );
+                    setState(() {
+                      _filteredRoll();
+                    });
+                  },
+                ),
+              ),
             ],
           ),
         ),
