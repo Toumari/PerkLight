@@ -5,12 +5,14 @@ import 'pages/buildConfigurator.dart';
 import 'pages/perkPage.dart';
 import 'pages/splashScreen.dart';
 import 'pages/perkDetail.dart';
+import 'package:perklight/pages/savedBuildsPage.dart';
 
 Map<String, Function> routeMap = {
   '/': (args) => MaterialPageRoute(builder: (context) => SplashScreen()),
   '/home': (args) => MaterialPageRoute(builder: (context) => PerkPage(args)),
   '/builder': (args) => MaterialPageRoute(builder: (context) => BuildConfiguration(args)),
   '/details': (args) => MaterialPageRoute(builder: (context) => PerkDetail(args)),
+  '/builds/': (args) => MaterialPageRoute(builder: (context) => SavedBuildsPage(args)),
 };
 
 Route<dynamic> generateRoute(RouteSettings settings) {

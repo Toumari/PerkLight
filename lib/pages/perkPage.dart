@@ -13,10 +13,12 @@ import 'package:perklight/classes/perkSerialiser.dart';
 class PerkPage extends StatefulWidget {
   PerkPage(arguments) :
     killerPerks = arguments['killerPerks'],
-    survivorPerks = arguments['survivorPerks'];
+    survivorPerks = arguments['survivorPerks'],
+    savedBuilds = arguments['savedBuilds'];
 
   final List<KillerPerk> killerPerks;
   final List<SurvivorPerk> survivorPerks;
+  final List<String> savedBuilds;
 
   @override
   _PerkPageState createState() => _PerkPageState();
@@ -32,6 +34,7 @@ class _PerkPageState extends State<PerkPage> {
   PerkType perkMode = PerkType.survivor;
 
   String buildId;
+  bool isBuildSaved = false;
 
   List<Perk> rollablePerks;
   List<Perk> selectedPerks;
@@ -51,6 +54,7 @@ class _PerkPageState extends State<PerkPage> {
   void _generateShareCode() {
     List<int> selectedPerksIds = selectedPerks.map((item) => item.id).toList();
     buildId = PerksSerialiser.encode(perksIds: selectedPerksIds, perkType: perkMode);
+    isBuildSaved = widget.savedBuilds.contains(buildId);
 
     print('Build ID: $buildId');
   }
@@ -158,6 +162,29 @@ class _PerkPageState extends State<PerkPage> {
                   },
                 ),
               ),
+              Container(
+                padding: EdgeInsets.all(24.0),
+                color: Color(0xff21213b),
+                child: ListTile(
+                  title: Text(
+                    'Saved Builds',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 22.0,
+                      color: Colors.white,
+                    ),
+                  ),
+                  onTap: () async {
+                    await Navigator.pushNamed(
+                      context,
+                      '/builds/',
+                      arguments: {
+                        'savedBuilds': widget.savedBuilds
+                      }
+                    );
+                  },
+                ),
+              ),
             ],
           ),
         ),
@@ -166,6 +193,22 @@ class _PerkPageState extends State<PerkPage> {
       appBar: AppBar(
         title: Text('PerkLight'),
         backgroundColor: Color(0xff21213b),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(isBuildSaved ? Icons.favorite : Icons.favorite_border),
+            onPressed: () {
+              setState(() {
+                if (isBuildSaved) {
+                  widget.savedBuilds.remove(buildId);
+                }
+                else {
+                  widget.savedBuilds.add(buildId);
+                }
+                isBuildSaved = !isBuildSaved;
+              });
+            },
+          )
+        ],
       ),
       body: SafeArea(
         bottom: false,

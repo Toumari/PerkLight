@@ -25,6 +25,7 @@ class SplashScreenState extends State<SplashScreen> {
       arguments: {
         'killerPerks': _killerPerks,
         'survivorPerks': _survivorPerks,
+        'savedBuilds': List<String>(),
       }
     );
   }
