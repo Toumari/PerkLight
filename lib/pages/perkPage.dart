@@ -196,16 +196,49 @@ class _PerkPageState extends State<PerkPage> {
         actions: <Widget>[
           IconButton(
             icon: Icon(isBuildSaved ? Icons.favorite : Icons.favorite_border),
-            onPressed: () {
-              setState(() {
-                if (isBuildSaved) {
+            onPressed: () async {
+              if (isBuildSaved) {
+                setState(() {
                   widget.savedBuilds.remove(buildId);
-                }
-                else {
+                  isBuildSaved = !isBuildSaved;
+                });
+              }
+              else {
+                final String buildName = await showDialog<String>(
+                  context: context,
+                  barrierDismissible: false, // user must tap button!
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text('Name this build'),
+                      content: SingleChildScrollView(
+                        child: ListBody(
+                          children: <Widget>[
+                            TextField(),
+                          ],
+                        ),
+                      ),
+                      actions: <Widget>[
+                        FlatButton(
+                          child: Text('Cancel'),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                        FlatButton(
+                          child: Text('Save'),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ],
+                    );
+                  }
+                );
+                setState(() {
                   widget.savedBuilds.add(buildId);
-                }
-                isBuildSaved = !isBuildSaved;
-              });
+                  isBuildSaved = !isBuildSaved;
+                });
+              }
             },
           )
         ],
