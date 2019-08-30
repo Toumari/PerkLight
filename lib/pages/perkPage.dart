@@ -175,6 +175,7 @@ class _PerkPageState extends State<PerkPage> {
                     ),
                   ),
                   onTap: () async {
+                    Navigator.pop(context);
                     await Navigator.pushNamed(
                       context,
                       '/builds/',
@@ -182,6 +183,9 @@ class _PerkPageState extends State<PerkPage> {
                         'savedBuilds': widget.savedBuilds
                       }
                     );
+                    setState(() {
+                      isBuildSaved = widget.savedBuilds.contains(buildId);
+                    });
                   },
                 ),
               ),

@@ -57,17 +57,19 @@ class SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Image.asset('assets/images/icon/icon.png', fit: BoxFit.fitWidth),
-          Container(
-            padding: EdgeInsets.only(top: 50),
-            child: CircularProgressIndicator()
-          ),
-        ]
-      )
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Image.asset('assets/images/icon/icon.png', fit: BoxFit.fitWidth),
+            Container(
+              padding: EdgeInsets.only(top: 50),
+              child: CircularProgressIndicator()
+            ),
+          ]
+        ),
+      ),
     );
   }
 }
