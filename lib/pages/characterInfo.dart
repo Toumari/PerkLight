@@ -3,11 +3,9 @@ import 'package:flutter/material.dart';
 class CharacterInfo extends StatefulWidget {
   CharacterInfo(arguments) :
     characterName = arguments['name'],
-    characterDescription = arguments['description'],
     characterIcon = arguments['characterImage'];
   
   final String characterName;
-  final String characterDescription;
   final String characterIcon;
 
 
@@ -33,7 +31,6 @@ class _CharacterInfoState extends State<CharacterInfo> {
                 child: Image.asset(widget.characterIcon, height: 150,),
               ),
               Text(widget.characterName, style: TextStyle(color: Colors.white, fontSize: 32, fontWeight: FontWeight.bold),),
-              Text(widget.characterDescription, style: TextStyle(color: Colors.white, fontSize: 18)),
             ],
           ),
         ),

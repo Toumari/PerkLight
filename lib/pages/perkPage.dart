@@ -7,16 +7,21 @@ import 'package:flutter/services.dart';
 import 'package:perklight/utilities.dart' as Utils;
 
 import 'package:perklight/classes/perk.dart';
+import 'package:perklight/classes/character.dart';
 import 'package:perklight/widgets/perkTile.dart';
 import 'package:perklight/classes/perkSerialiser.dart';
 
 class PerkPage extends StatefulWidget {
   PerkPage(arguments) :
     killerPerks = arguments['killerPerks'],
-    survivorPerks = arguments['survivorPerks'];
+    survivorPerks = arguments['survivorPerks'],
+    survivorCharacterDetails = arguments['survivorCharacterDetails'],
+    killerCharacterDetails = arguments['killerCharacterDetails'];
 
   final List<KillerPerk> killerPerks;
   final List<SurvivorPerk> survivorPerks;
+  final List<Character> survivorCharacterDetails;
+  final List<Character> killerCharacterDetails;
 
   @override
   _PerkPageState createState() => _PerkPageState();
@@ -176,7 +181,9 @@ class _PerkPageState extends State<PerkPage> {
                         '/characters',
                         arguments: {
                           'killerPerks': widget.killerPerks,
-                          'survivorPerks': widget.survivorPerks
+                          'survivorPerks': widget.survivorPerks,
+                          'survivorCharacterDetails' : widget.survivorCharacterDetails,
+                          'killerCharacterDetails' : widget.killerCharacterDetails
                         }
                     );
                     setState(() {

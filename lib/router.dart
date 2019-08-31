@@ -13,7 +13,7 @@ Map<String, Function> routeMap = {
   '/home': (args) => MaterialPageRoute(builder: (context) => PerkPage(args)),
   '/builder': (args) => MaterialPageRoute(builder: (context) => BuildConfiguration(args)),
   '/details': (args) => MaterialPageRoute(builder: (context) => PerkDetail(args)),
-  '/characters': (args) => MaterialPageRoute(builder: (context) => CharacterList() ),
+  '/characters': (args) => MaterialPageRoute(builder: (context) => CharacterList(args) ),
   '/characterInfo': (args) => MaterialPageRoute(builder: (context) => CharacterInfo(args) )
 };
 

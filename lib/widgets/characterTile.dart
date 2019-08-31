@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class CharacterTile extends StatelessWidget {
 
-  CharacterTile({@required this.name, @required this.description, @required this.characterImage});
+  CharacterTile({@required this.name, this.description, @required this.characterImage});
 
   final String name;
   final String description;
@@ -16,8 +16,8 @@ class CharacterTile extends StatelessWidget {
         await Navigator.pushNamed(context, '/characterInfo',
           arguments: {
             'name': name,
-            'description': description,
             'characterImage': characterImage
+
           });
       },
       child: Row(
@@ -34,7 +34,6 @@ class CharacterTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(name, textAlign: TextAlign.left, style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),),
-                Text(description, textAlign: TextAlign.left, overflow: TextOverflow.clip, style: TextStyle(color: Colors.white70, fontSize: 14, fontWeight: FontWeight.w400),)
               ],
             ),
           ),
