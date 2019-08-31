@@ -3,12 +3,12 @@ import '../widgets/characterTile.dart';
 import '../classes/character.dart';
 
 class CharacterList extends StatefulWidget {
-  CharacterList(arguments):
-      survivorDetails = arguments['survivorCharacterDetails'],
-      killerDetails = arguments['killerCharacterDetails'];
+  CharacterList(arguments)
+      : survivorDetails = arguments['survivorCharacterDetails'],
+        killerDetails = arguments['killerCharacterDetails'];
 
-      final List<Character> survivorDetails;
-      final List<Character> killerDetails;
+  final List<Character> survivorDetails;
+  final List<Character> killerDetails;
 
   @override
   _CharacterListState createState() => _CharacterListState();
@@ -34,10 +34,11 @@ class _CharacterListState extends State<CharacterList> {
             Scrollbar(
               child: ListView(
                 children: <Widget>[
-                  for(var item in widget.survivorDetails)
+                  for (var item in widget.survivorDetails)
                     CharacterTile(
-                     name: item.name,
-                     characterImage: item.imagePath,
+                      name: item.name,
+                      characterImage: item.imagePath,
+                      description: item.description,
                     )
                 ],
               ),
@@ -45,10 +46,11 @@ class _CharacterListState extends State<CharacterList> {
             Scrollbar(
               child: ListView(
                 children: <Widget>[
-                  for(var item in widget.killerDetails)
+                  for (var item in widget.killerDetails)
                     CharacterTile(
                       name: item.name,
                       characterImage: item.imagePath,
+                      description: item.description,
                     )
                 ],
               ),
@@ -59,4 +61,3 @@ class _CharacterListState extends State<CharacterList> {
     );
   }
 }
-

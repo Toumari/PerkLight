@@ -16,7 +16,8 @@ class CharacterTile extends StatelessWidget {
         await Navigator.pushNamed(context, '/characterInfo',
           arguments: {
             'name': name,
-            'characterImage': characterImage
+            'characterImage': characterImage,
+            'characterDescription': description
 
           });
       },
@@ -33,7 +34,7 @@ class CharacterTile extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(name, textAlign: TextAlign.left, style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),),
+                Text(name, textAlign: TextAlign.left, style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold),),
               ],
             ),
           ),
