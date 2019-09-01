@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'router.dart' as router;
+import 'package:perklight/router.dart' as router;
+import 'package:perklight/themes/dark.dart';
 
 
 void main() {
@@ -17,6 +18,7 @@ class _PerkLightState extends State<PerkLight> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: darkTheme,
       onGenerateRoute: router.generateRoute,
       initialRoute: '/',
     );

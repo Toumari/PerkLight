@@ -49,8 +49,9 @@ class CharacterTile extends StatelessWidget {
                 ),
               ),
             ),
-            IconButton(
-              icon: Icon(
+            Container(
+              padding: EdgeInsets.all(10.0),
+              child: Icon(
                 Icons.arrow_forward_ios,
                 color: Colors.white,
               ),

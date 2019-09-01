@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
+
 class CharacterInfo extends StatelessWidget {
-  CharacterInfo(arguments)
-      : characterName = arguments['name'],
-        characterIcon = arguments['characterImage'],
-        characterDescription = arguments['characterDescription'];
+  CharacterInfo(arguments) :
+    characterName = arguments['name'],
+    characterIcon = arguments['characterImage'],
+    characterDescription = arguments['characterDescription'];
 
   final String characterName;
   final String characterIcon;
@@ -13,10 +14,8 @@ class CharacterInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xff21213b),
       appBar: AppBar(
         title: Text('Character - $characterName'),
-        backgroundColor: Color(0xff21213b),
       ),
       body: SafeArea(
         child: Center(
@@ -36,9 +35,9 @@ class CharacterInfo extends StatelessWidget {
                     characterName,
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 32,
-                        fontWeight: FontWeight.bold),
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold
+                    ),
                   ),
                   SizedBox(
                     height: 25,
@@ -47,7 +46,6 @@ class CharacterInfo extends StatelessWidget {
                     characterDescription,
                     textAlign: TextAlign.left,
                     style: TextStyle(
-                      color: Colors.white,
                       fontSize: 14,
                     ),
                   ),
