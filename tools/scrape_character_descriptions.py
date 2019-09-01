@@ -38,7 +38,7 @@ for name in SurvivorNameList:
 
 
     characterName = soup.find(id='firstHeading').text
-    finishedString = ''.join(characterDescription)
+    finishedString = ' '.join(characterDescription)
 
     data['survivors'].append({
         'name': characterName,
@@ -63,7 +63,7 @@ for name in KillerNameList:
         current_element = current_element.find_next_sibling()
 
     characterName = soup.find(id='firstHeading').text
-    finishedString = ''.join(characterDescription)
+    finishedString = ' '.join(characterDescription)
 
     data['killers'].append({
         'name': characterName,
@@ -71,13 +71,11 @@ for name in KillerNameList:
         'imagePath': 'assets/images/characters/' + name + '.png'
     })
 
+data['killers'].append({
+    'name': 'Danny "Jed Olsen" Johnson',
+    'description': 'Danny Johnson, known as Jed Olsen by some, grabbed the newspaper from the kitchen counter: it was a week old, but his face was on the front page, grainy and sunken. It was one of those muggy afternoons in Florida when heat and humidity permeated everything in the kitchen, making him sweat while standing still. He slouched in a damp chair to read. This article had better be good—his work in Roseville had been outstanding.',
+    'imagePath': 'assets/images/characters/Danny_Johnson.png'
+})
 
 with open('characters.json','w') as outfile:
     json.dump(data,outfile, indent=4)
-
-    
-
-
-
-
-

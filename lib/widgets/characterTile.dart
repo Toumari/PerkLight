@@ -10,7 +10,8 @@ class CharacterTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
+      radius: 150,
       onTap: () async {
         await Navigator.pushNamed(
           context,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../widgets/characterTile.dart';
 import '../classes/character.dart';
 
-class CharacterList extends StatefulWidget {
+class CharacterList extends StatelessWidget {
   CharacterList(arguments)
       : survivorDetails = arguments['survivorCharacterDetails'],
         killerDetails = arguments['killerCharacterDetails'];
@@ -10,11 +10,6 @@ class CharacterList extends StatefulWidget {
   final List<Character> survivorDetails;
   final List<Character> killerDetails;
 
-  @override
-  _CharacterListState createState() => _CharacterListState();
-}
-
-class _CharacterListState extends State<CharacterList> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -37,7 +32,7 @@ class _CharacterListState extends State<CharacterList> {
               Scrollbar(
                 child: ListView(
                   children: <Widget>[
-                    for (var item in widget.survivorDetails)
+                    for (var item in survivorDetails)
                       CharacterTile(
                         name: item.name,
                         characterImage: item.imagePath,
@@ -49,17 +44,12 @@ class _CharacterListState extends State<CharacterList> {
               Scrollbar(
                 child: ListView(
                   children: <Widget>[
-                    for (var item in widget.killerDetails)
+                    for (var item in killerDetails)
                       CharacterTile(
                         name: item.name,
                         characterImage: item.imagePath,
                         description: item.description,
                       ),
-                    CharacterTile(
-                      name: 'Danny "Jed Olsen" Johnson',
-                      characterImage: 'assets/images/characters/Ghost.png',
-                      description: 'Danny Johnson, known as Jed Olsen by some, grabbed the newspaper from the kitchen counter: it was a week old, but his face was on the front page, grainy and sunken. It was one of those muggy afternoons in Florida when heat and humidity permeated everything in the kitchen, making him sweat while standing still. He slouched in a damp chair to read. This article had better be good—his work in Roseville had been outstanding.',
-                    )
                   ],
                 ),
               ),

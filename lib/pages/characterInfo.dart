@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class CharacterInfo extends StatefulWidget {
+class CharacterInfo extends StatelessWidget {
   CharacterInfo(arguments)
       : characterName = arguments['name'],
         characterIcon = arguments['characterImage'],
@@ -11,16 +11,11 @@ class CharacterInfo extends StatefulWidget {
   final String characterDescription;
 
   @override
-  _CharacterInfoState createState() => _CharacterInfoState();
-}
-
-class _CharacterInfoState extends State<CharacterInfo> {
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xff21213b),
       appBar: AppBar(
-        title: Text('Character Profiles'),
+        title: Text('Character - $characterName'),
         backgroundColor: Color(0xff21213b),
       ),
       body: SafeArea(
@@ -33,12 +28,13 @@ class _CharacterInfoState extends State<CharacterInfo> {
                   Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Image.asset(
-                      widget.characterIcon,
+                      characterIcon,
                       height: 150,
                     ),
                   ),
                   Text(
-                    widget.characterName,
+                    characterName,
+                    textAlign: TextAlign.center,
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 32,
@@ -48,13 +44,12 @@ class _CharacterInfoState extends State<CharacterInfo> {
                     height: 25,
                   ),
                   Text(
-                    widget.characterDescription,
+                    characterDescription,
                     textAlign: TextAlign.left,
                     style: TextStyle(
-                        wordSpacing: 1.2,
-                        color: Colors.white,
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold),
+                      color: Colors.white,
+                      fontSize: 14,
+                    ),
                   ),
                 ],
               ),

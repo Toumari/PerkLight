@@ -19,8 +19,8 @@ class SplashScreenState extends State<SplashScreen> {
 
   List<KillerPerk> _killerPerks = List<KillerPerk>();
   List<SurvivorPerk> _survivorPerks = List<SurvivorPerk>();
-  List<Character> _survivorCharacterPerks = List<Character>();
-  List<Character> _killerCharacterPerks = List<Character>();
+  List<Character> _survivorCharacterDetails = List<Character>();
+  List<Character> _killerCharacterDetails = List<Character>();
 
   _navigateToHomePage(List<dynamic> values) {
     Navigator.pushReplacementNamed(
@@ -29,8 +29,8 @@ class SplashScreenState extends State<SplashScreen> {
       arguments: {
         'killerPerks': _killerPerks,
         'survivorPerks': _survivorPerks,
-        'survivorCharacterDetails': _survivorCharacterPerks,
-        'killerCharacterDetails' : _killerCharacterPerks
+        'survivorCharacterDetails': _survivorCharacterDetails,
+        'killerCharacterDetails' : _killerCharacterDetails
       }
     );
   }
@@ -41,11 +41,11 @@ class SplashScreenState extends State<SplashScreen> {
     Map<String, dynamic> characters = json.decode(characterJson);
     for(Map<String, dynamic> character in characters['survivors']){
       Character newCharacter = Character.fromJson(character);
-      _survivorCharacterPerks.add(newCharacter);
+      _survivorCharacterDetails.add(newCharacter);
     }
     for(Map<String, dynamic> character in characters['killers']){
       Character newCharacter = Character.fromJson(character);
-      _killerCharacterPerks.add(newCharacter);
+      _killerCharacterDetails.add(newCharacter);
     }
   }
 

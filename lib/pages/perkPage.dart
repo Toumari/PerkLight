@@ -186,9 +186,6 @@ class _PerkPageState extends State<PerkPage> {
                           'killerCharacterDetails' : widget.killerCharacterDetails
                         }
                     );
-                    setState(() {
-                      _filteredRoll();
-                    });
                   },
                 ),
               ),
