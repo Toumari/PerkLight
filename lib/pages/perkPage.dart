@@ -183,6 +183,16 @@ class _PerkPageState extends State<PerkPage> {
       appBar: AppBar(
         title: Text('PerkLight'),
       ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () async {
+          setState(() {
+            _rollTileCallback(ALL_TILES, context);
+          });
+        },
+        label: Text('Randomise'),
+        icon: Icon(Icons.casino),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: SafeArea(
         bottom: false,
         child: Builder(
@@ -213,9 +223,12 @@ class _PerkPageState extends State<PerkPage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      Text(
-                        'Survivor',
-                        style: TextStyle(fontSize: 22.0),
+                      Expanded(
+                        child: Text(
+                          'Survivor',
+                          style: TextStyle(fontSize: 22.0),
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                       Transform.scale(
                         scale: 1.5,
@@ -231,32 +244,19 @@ class _PerkPageState extends State<PerkPage> {
                           }
                         ),
                       ),
-                      Text(
-                        'Killer',
-                        style: TextStyle(fontSize: 22.0),
+                      Expanded(
+                        child: Text(
+                          'Killer',
+                          style: TextStyle(fontSize: 22.0),
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                     ],
                   ),
                 ),
                 Container(
-                  alignment: Alignment(0, 1),
-                  child: SizedBox(
-                    width: double.infinity,
-                    height: 75,
-                    child: FlatButton(
-                      onPressed: () async {
-                        setState(() {
-                          _rollTileCallback(ALL_TILES, context);
-                        });
-                      },
-                      child: Text(
-                        'Randomise',
-                        style: TextStyle(fontSize: 22.0),
-                      ),
-                      color: Theme.of(context).accentColor,
-                    ),
-                  ),
-                ),
+                  height: 50.0
+                )
               ]
             );
           }
