@@ -55,6 +55,11 @@ class _CharacterListState extends State<CharacterList> {
                         characterImage: item.imagePath,
                         description: item.description,
                       ),
+                    CharacterTile(
+                      name: 'Danny "Jed Olsen" Johnson',
+                      characterImage: 'assets/images/characters/Ghost.png',
+                      description: 'Danny Johnson, known as Jed Olsen by some, grabbed the newspaper from the kitchen counter: it was a week old, but his face was on the front page, grainy and sunken. It was one of those muggy afternoons in Florida when heat and humidity permeated everything in the kitchen, making him sweat while standing still. He slouched in a damp chair to read. This article had better be good—his work in Roseville had been outstanding.',
+                    )
                   ],
                 ),
               ),
