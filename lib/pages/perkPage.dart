@@ -7,16 +7,21 @@ import 'package:flutter/services.dart';
 import 'package:perklight/utilities.dart' as Utils;
 
 import 'package:perklight/classes/perk.dart';
+import 'package:perklight/classes/character.dart';
 import 'package:perklight/widgets/perkTile.dart';
 import 'package:perklight/classes/perkSerialiser.dart';
 
 class PerkPage extends StatefulWidget {
   PerkPage(arguments) :
     killerPerks = arguments['killerPerks'],
-    survivorPerks = arguments['survivorPerks'];
+    survivorPerks = arguments['survivorPerks'],
+    survivorCharacterDetails = arguments['survivorCharacterDetails'],
+    killerCharacterDetails = arguments['killerCharacterDetails'];
 
   final List<KillerPerk> killerPerks;
   final List<SurvivorPerk> survivorPerks;
+  final List<Character> survivorCharacterDetails;
+  final List<Character> killerCharacterDetails;
 
   @override
   _PerkPageState createState() => _PerkPageState();
@@ -155,6 +160,32 @@ class _PerkPageState extends State<PerkPage> {
                     setState(() {
                       _filteredRoll();
                     });
+                  },
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.all(24.0),
+                color: Color(0xff21213b),
+                child: ListTile(
+                  title: Text(
+                    'Character Profiles',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 22.0,
+                      color: Colors.white,
+                    ),
+                  ),
+                  onTap: () async {
+                    await Navigator.pushNamed(
+                        context,
+                        '/characters',
+                        arguments: {
+                          'killerPerks': widget.killerPerks,
+                          'survivorPerks': widget.survivorPerks,
+                          'survivorCharacterDetails' : widget.survivorCharacterDetails,
+                          'killerCharacterDetails' : widget.killerCharacterDetails
+                        }
+                    );
                   },
                 ),
               ),
