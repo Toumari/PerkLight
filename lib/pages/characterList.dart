@@ -24,38 +24,42 @@ class _CharacterListState extends State<CharacterList> {
         appBar: AppBar(
           title: Text('Character Profiles'),
           backgroundColor: Color(0xff21213b),
-          bottom: TabBar(tabs: [
-            Tab(text: 'Survivor'),
-            Tab(text: 'Killer'),
-          ]),
+          bottom: TabBar(
+            tabs: [
+              Tab(text: 'Survivor'),
+              Tab(text: 'Killer'),
+            ],
+          ),
         ),
         body: SafeArea(
-          child: TabBarView(children: <Widget>[
-            Scrollbar(
-              child: ListView(
-                children: <Widget>[
-                  for (var item in widget.survivorDetails)
-                    CharacterTile(
-                      name: item.name,
-                      characterImage: item.imagePath,
-                      description: item.description,
-                    )
-                ],
+          child: TabBarView(
+            children: <Widget>[
+              Scrollbar(
+                child: ListView(
+                  children: <Widget>[
+                    for (var item in widget.survivorDetails)
+                      CharacterTile(
+                        name: item.name,
+                        characterImage: item.imagePath,
+                        description: item.description,
+                      ),
+                  ],
+                ),
               ),
-            ),
-            Scrollbar(
-              child: ListView(
-                children: <Widget>[
-                  for (var item in widget.killerDetails)
-                    CharacterTile(
-                      name: item.name,
-                      characterImage: item.imagePath,
-                      description: item.description,
-                    )
-                ],
+              Scrollbar(
+                child: ListView(
+                  children: <Widget>[
+                    for (var item in widget.killerDetails)
+                      CharacterTile(
+                        name: item.name,
+                        characterImage: item.imagePath,
+                        description: item.description,
+                      ),
+                  ],
+                ),
               ),
-            ),
-          ]),
+            ],
+          ),
         ),
       ),
     );

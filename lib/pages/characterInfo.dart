@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class CharacterInfo extends StatefulWidget {
-  CharacterInfo(arguments):
-        characterName = arguments['name'],
+  CharacterInfo(arguments)
+      : characterName = arguments['name'],
         characterIcon = arguments['characterImage'],
         characterDescription = arguments['characterDescription'];
 
@@ -51,7 +51,7 @@ class _CharacterInfoState extends State<CharacterInfo> {
                     widget.characterDescription,
                     textAlign: TextAlign.left,
                     style: TextStyle(
-                      wordSpacing: 1.2,
+                        wordSpacing: 1.2,
                         color: Colors.white,
                         fontSize: 14,
                         fontWeight: FontWeight.bold),
