@@ -35,7 +35,6 @@ class SplashScreenState extends State<SplashScreen> {
     );
   }
 
-
   Future _loadCharactersFromFile() async {
     String characterJson = await DefaultAssetBundle.of(context).loadString('assets/data/characters.json');
     Map<String, dynamic> characters = json.decode(characterJson);
@@ -62,7 +61,6 @@ class SplashScreenState extends State<SplashScreen> {
       _survivorPerks.add(newPerk);
       await newPerk.loadPreference();
     }
-    return true;
   }
 
   @override
@@ -77,16 +75,25 @@ class SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Image.asset('assets/images/icon/icon.png', fit: BoxFit.fitWidth),
-          Container(
-            padding: EdgeInsets.only(top: 50),
-            child: CircularProgressIndicator()
-          ),
-        ]
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Image.asset(
+              'assets/images/icon/icon.png',
+              fit: BoxFit.fitWidth
+            ),
+            Container(
+              padding: EdgeInsets.only(top: 50),
+              child: SizedBox(
+                width: MediaQuery.of(context).size.shortestSide * 0.2,
+                height: MediaQuery.of(context).size.shortestSide * 0.2,
+                child: CircularProgressIndicator()
+              )
+            ),
+          ]
+        )
       )
     );
   }

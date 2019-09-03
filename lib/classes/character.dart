@@ -1,8 +1,3 @@
-import 'dart:convert';
-import 'package:flutter/foundation.dart';
-
-import 'package:perklight/utilities.dart';
-
 class Character {
   final String name;
   final String description;

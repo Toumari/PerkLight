@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-import 'pages/buildConfigurator.dart';
-import 'pages/perkPage.dart';
-import 'pages/splashScreen.dart';
-import 'pages/perkDetail.dart';
-import 'pages/characterList.dart';
-import 'pages/characterInfo.dart';
+import 'package:perklight/pages/buildConfigurator.dart';
+import 'package:perklight/pages/perkPage.dart';
+import 'package:perklight/pages/splashScreen.dart';
+import 'package:perklight/pages/perkDetail.dart';
+import 'package:perklight/pages/characterList.dart';
+import 'package:perklight/pages/characterInfo.dart';
 
 Map<String, Function> routeMap = {
   '/': (args) => MaterialPageRoute(builder: (context) => SplashScreen()),
