@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import '../classes/item.dart';
-import 'package:perklight/widgets/itemTile.dart';
 import 'package:perklight/widgets/characterTile.dart';
-
 
 class ItemList extends StatelessWidget {
   ItemList(arguments) :
