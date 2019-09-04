@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 import 'package:perklight/classes/perk.dart';
+import 'package:perklight/classes/character.dart';
+
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -17,6 +19,8 @@ class SplashScreenState extends State<SplashScreen> {
 
   List<KillerPerk> _killerPerks = List<KillerPerk>();
   List<SurvivorPerk> _survivorPerks = List<SurvivorPerk>();
+  List<Character> _survivorCharacterDetails = List<Character>();
+  List<Character> _killerCharacterDetails = List<Character>();
 
   _navigateToHomePage(List<dynamic> values) {
     Navigator.pushReplacementNamed(
@@ -25,8 +29,23 @@ class SplashScreenState extends State<SplashScreen> {
       arguments: {
         'killerPerks': _killerPerks,
         'survivorPerks': _survivorPerks,
+        'survivorCharacterDetails': _survivorCharacterDetails,
+        'killerCharacterDetails' : _killerCharacterDetails
       }
     );
+  }
+
+  Future _loadCharactersFromFile() async {
+    String characterJson = await DefaultAssetBundle.of(context).loadString('assets/data/characters.json');
+    Map<String, dynamic> characters = json.decode(characterJson);
+    for(Map<String, dynamic> character in characters['survivors']){
+      Character newCharacter = Character.fromJson(character);
+      _survivorCharacterDetails.add(newCharacter);
+    }
+    for(Map<String, dynamic> character in characters['killers']){
+      Character newCharacter = Character.fromJson(character);
+      _killerCharacterDetails.add(newCharacter);
+    }
   }
 
   Future _loadPerksFromFile() async {
@@ -42,13 +61,13 @@ class SplashScreenState extends State<SplashScreen> {
       _survivorPerks.add(newPerk);
       await newPerk.loadPreference();
     }
-    return true;
   }
 
   @override
   void initState() {
     super.initState();
     _initSteps.add(_loadPerksFromFile());
+    _initSteps.add(_loadCharactersFromFile());
     Future.wait(_initSteps).then(_navigateToHomePage);
   }
 
@@ -56,16 +75,25 @@ class SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Image.asset('assets/images/icon/icon.png', fit: BoxFit.fitWidth),
-          Container(
-            padding: EdgeInsets.only(top: 50),
-            child: CircularProgressIndicator()
-          ),
-        ]
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Image.asset(
+              'assets/images/icon/icon.png',
+              fit: BoxFit.fitWidth
+            ),
+            Container(
+              padding: EdgeInsets.only(top: 50),
+              child: SizedBox(
+                width: MediaQuery.of(context).size.shortestSide * 0.2,
+                height: MediaQuery.of(context).size.shortestSide * 0.2,
+                child: CircularProgressIndicator()
+              )
+            ),
+          ]
+        )
       )
     );
   }

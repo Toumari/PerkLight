@@ -16,10 +16,8 @@ class _PerkDetailState extends State<PerkDetail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xff21213b),
       appBar: AppBar(
-        backgroundColor: Color(0xff21213b),
-        title: Text("Perk - ${widget.perk.name}", style: TextStyle(color: Colors.white)),
+        title: Text("Perk - ${widget.perk.name}"),
       ),
       body: Scrollbar(
         child: SingleChildScrollView(
@@ -28,10 +26,22 @@ class _PerkDetailState extends State<PerkDetail> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              Container(margin: EdgeInsets.only(bottom: 15.0), child: PerkIcon(widget.perk.iconPath, 200.0)),
-              Text(widget.perk.name, style: TextStyle(color: Colors.white, fontSize: 26, fontWeight: FontWeight.bold), textAlign: TextAlign.center),
+              Container(
+                margin: EdgeInsets.only(bottom: 15.0),
+                child: PerkIcon(widget.perk.iconPath, 200.0)
+              ),
+              Text(
+                widget.perk.name,
+                style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center
+              ),
               SizedBox(height: 15),
-              Text(widget.perk.description, overflow: TextOverflow.visible, style: TextStyle(color: Colors.white, fontSize: 18), textAlign: TextAlign.left)
+              Text(
+                widget.perk.description,
+                overflow: TextOverflow.visible,
+                style: TextStyle(fontSize: 18),
+                textAlign: TextAlign.left
+              ),
             ],
           ),
         ),
