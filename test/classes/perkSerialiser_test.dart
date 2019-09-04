@@ -17,14 +17,48 @@ void main() {
     [0x01, 0x01, 0x01, 0x01],
     [0x70, 0x70, 0x70, 0x70],
     [0x7F, 0x7F, 0x7F, 0x7F],
+  ];
+
+  const invalidRangeLists = [
+    [-255, -255, -255, -255],
     [0x80, 0x80, 0x80, 0x80],
     [0xFF, 0xFF, 0xFF, 0xFF],
+    [0xFF, 0x02, 0x03, 0x04],
+    [0x01, 0x01, 0x80, 0x01],
   ];
 
-  const invalidLists = [
+  const invalidListSizes = [
+    <int>[],
+    [0x80],
+    [0xFF, 0xFF],
+    [0xFF, 0xFF, 0xFF, 0xFF, 0xFF],
+    [0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF],
   ];
 
-  group('Known valid', () {
+  const validStrings = [
+    'gICAgLeT',
+    'cHBwcMDk',
+    'AQIDBF7U',
+    '8PDw8Iis',
+  ];
+
+  const invalidLengthStrings = [
+    '8BpfrIiszMz6',
+  ];
+
+  const invalidChecksum = [
+    'gPCAgCeT',
+    'cQBwFMDk',
+    'ACIDBF7U',
+    '8Brw8Iis',
+  ];
+
+  const invalidType = [
+    'DPwK-rpY',
+    '8Ez6Ks5z',
+  ];
+
+  group('valid input', () {
     group('encode', () {
       for(PerkType type in PerkType.values) {
         for(List<int> value in validLists) {
@@ -105,5 +139,58 @@ void main() {
 
     });
 
+  });
+
+  group('invalid range input', () {
+    group('encode', () {
+      for(List<int> value in invalidRangeLists) {
+        test('$value raises range exception', () {
+          expect(() => PerksSerialiser.encode(perksIds: value, perkType: PerkType.survivor), throwsRangeError);
+        });
+      }
+    });
+
+  });
+
+  group('invalid size input', () {
+    group('encode', () {
+      for(List<int> value in invalidListSizes) {
+        test('$value raises range exception', () {
+          expect(() => PerksSerialiser.encode(perksIds: value, perkType: PerkType.survivor), throwsRangeError);
+        });
+      }
+    });
+  });
+
+  group('valid decode', () {
+    for(String value in validStrings) {
+      test('$value valid decode', () {
+        expect(() => PerksSerialiser.decode(value), returnsNormally);
+      });
+    }
+  });
+
+  group('invalid input length', () {
+    for(String value in invalidLengthStrings) {
+      test('$value invalid length', () {
+        expect(() => PerksSerialiser.decode(value), throwsRangeError);
+      });
+    }
+  });
+
+  group('invalid input checksum', () {
+    for(String value in invalidChecksum) {
+      test('$value invalid checksum', () {
+        expect(() => PerksSerialiser.decode(value), throwsA(allOf(isException, predicate((e) => e.message == 'Checksum invalid'))));
+      });
+    }
+  });
+
+  group('invalid input type', () {
+    for(String value in invalidType) {
+      test('$value invalid type', () {
+        expect(() => PerksSerialiser.decode(value), throwsA(allOf(isException, predicate((e) => e.message == 'Invalid type decode'))));
+      });
+    }
   });
 }
