@@ -18,7 +18,7 @@ class PerkPage extends StatefulWidget {
     killerCharacterDetails = arguments['killerCharacterDetails'],
     firecrackerItemDetails = arguments['firecrackerItemDetails'],
     flashlightItemDetails = arguments['flashlightItemDetails'],
-    keyItemDetails = arguments['flashlightItemDetails'],
+    keyItemDetails = arguments['keyItemDetails'],
     mapItemDetails = arguments['mapItemDetails'],
     medkitItemDetails = arguments['medkitItemDetails'],
     toolboxItemDetails = arguments['toolboxItemDetails'];
@@ -185,6 +185,32 @@ class _PerkPageState extends State<PerkPage> {
                         'survivorPerks': widget.survivorPerks,
                         'survivorCharacterDetails' : widget.survivorCharacterDetails,
                         'killerCharacterDetails' : widget.killerCharacterDetails
+                      }
+                    );
+                  },
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.all(24.0),
+                child: ListTile(
+                  title: Text(
+                    'Item Library',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 22.0,
+                    ),
+                  ),
+                  onTap: () async {
+                    await Navigator.pushNamed(
+                      context,
+                      '/items',
+                      arguments: {
+                        'firecracker': widget.firecrackerItemDetails,
+                        'flashlight': widget.flashlightItemDetails,
+                        'key' : widget.keyItemDetails,
+                        'map' : widget.mapItemDetails,
+                        'medkit' : widget.medkitItemDetails,
+                        'toolbox' : widget.toolboxItemDetails
                       }
                     );
                   },

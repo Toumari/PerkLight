@@ -7,6 +7,7 @@ import 'package:perklight/pages/splashScreen.dart';
 import 'package:perklight/pages/perkDetail.dart';
 import 'package:perklight/pages/characterList.dart';
 import 'package:perklight/pages/characterInfo.dart';
+import 'package:perklight/pages/itemList.dart';
 
 Map<String, Function> routeMap = {
   '/': (args) => MaterialPageRoute(builder: (context) => SplashScreen()),
@@ -14,7 +15,8 @@ Map<String, Function> routeMap = {
   '/builder': (args) => MaterialPageRoute(builder: (context) => BuildConfiguration(args)),
   '/details': (args) => MaterialPageRoute(builder: (context) => PerkDetail(args)),
   '/characters': (args) => MaterialPageRoute(builder: (context) => CharacterList(args) ),
-  '/characterInfo': (args) => MaterialPageRoute(builder: (context) => CharacterInfo(args) )
+  '/characterInfo': (args) => MaterialPageRoute(builder: (context) => CharacterInfo(args) ),
+  '/items' : (args) => MaterialPageRoute(builder: (context) => ItemList(args))
 };
 
 Route<dynamic> generateRoute(RouteSettings settings) {
