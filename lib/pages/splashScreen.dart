@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 
 import 'package:perklight/classes/perk.dart';
 import 'package:perklight/classes/character.dart';
+import 'package:perklight/classes/item.dart';
 
 
 class SplashScreen extends StatefulWidget {
@@ -21,6 +22,12 @@ class SplashScreenState extends State<SplashScreen> {
   List<SurvivorPerk> _survivorPerks = List<SurvivorPerk>();
   List<Character> _survivorCharacterDetails = List<Character>();
   List<Character> _killerCharacterDetails = List<Character>();
+  List<Item> _firecrackerItemDetails = List<Item>();
+  List<Item> _flashlightItemDetails = List<Item>();
+  List<Item> _keyItemDetails = List<Item>();
+  List<Item> _mapItemDetails = List<Item>();
+  List<Item> _medkitItemDetails = List<Item>();
+  List<Item> _toolboxItemDetails = List<Item>();
 
   _navigateToHomePage(List<dynamic> values) {
     Navigator.pushReplacementNamed(
@@ -30,7 +37,13 @@ class SplashScreenState extends State<SplashScreen> {
         'killerPerks': _killerPerks,
         'survivorPerks': _survivorPerks,
         'survivorCharacterDetails': _survivorCharacterDetails,
-        'killerCharacterDetails' : _killerCharacterDetails
+        'killerCharacterDetails' : _killerCharacterDetails,
+        'firecrackerItemDetails' : _firecrackerItemDetails,
+        'flashlightItemDetails' : _flashlightItemDetails,
+        'keyItemDetails' : _keyItemDetails,
+        'mapItemDetails' : _mapItemDetails,
+        'medkitItemDetails' : _medkitItemDetails,
+        'toolboxItemDetails' : _toolboxItemDetails
       }
     );
   }
@@ -47,6 +60,38 @@ class SplashScreenState extends State<SplashScreen> {
       _killerCharacterDetails.add(newCharacter);
     }
   }
+
+  Future _loadItemsFromFile() async {
+    String itemJson = await DefaultAssetBundle.of(context).loadString('assets/data/items.json');
+    Map<String, dynamic> items = json.decode(itemJson);
+    for(Map<String, dynamic> item in items['firecracker']) {
+      Item newItem = Item.fromJson(item);
+      _firecrackerItemDetails.add(newItem);
+    }
+    for(Map<String, dynamic> item in items['flashlight']) {
+      Item newItem = Item.fromJson(item);
+      _flashlightItemDetails.add(newItem);
+    }
+    for(Map<String, dynamic> item in items['key']) {
+      Item newItem = Item.fromJson(item);
+      _keyItemDetails.add(newItem);
+    }
+    for(Map<String, dynamic> item in items['map']) {
+      Item newItem = Item.fromJson(item);
+      _mapItemDetails.add(newItem);
+    }
+    for(Map<String, dynamic> item in items['medkit']) {
+      Item newItem = Item.fromJson(item);
+      _medkitItemDetails.add(newItem);
+    }
+    for(Map<String, dynamic> item in items['toolbox']) {
+      Item newItem = Item.fromJson(item);
+      _toolboxItemDetails.add(newItem);
+    }
+
+  }
+
+
 
   Future _loadPerksFromFile() async {
     String perkJson = await DefaultAssetBundle.of(context).loadString('assets/data/perks.json');
@@ -68,6 +113,7 @@ class SplashScreenState extends State<SplashScreen> {
     super.initState();
     _initSteps.add(_loadPerksFromFile());
     _initSteps.add(_loadCharactersFromFile());
+    _initSteps.add(_loadItemsFromFile());
     Future.wait(_initSteps).then(_navigateToHomePage);
   }
 
