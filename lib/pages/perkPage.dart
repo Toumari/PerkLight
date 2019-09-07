@@ -184,7 +184,7 @@ class _PerkPageState extends State<PerkPage> {
         title: Text('PerkLight'),
       ),
       floatingActionButton: Padding(
-        padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.height / 100) * 5,
+        padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.05),
         child: Transform.scale(
           scale: 1.2,
           child: FloatingActionButton.extended(
@@ -261,7 +261,7 @@ class _PerkPageState extends State<PerkPage> {
                   ),
                 ),
                 Container(
-                  height: MediaQuery.of(context).size.height / 100 * 13
+                  height: MediaQuery.of(context).size.height * 0.13
                 )
               ]
             );
