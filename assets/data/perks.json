@@ -424,7 +424,7 @@
             "id": 71,
             "name": "Second Wind",
             "description": "You have learnt to avoid awkward situations with parents. Part of you still thinks your best option is to run away and hope things will take care of themselves.\nWhen you have healed other Survivors for the equivalent of one Health State , Second Wind activates.\nWhile Second Wind is activated, the next time you are unhooked or unhook yourself, you are affected by the Broken  Status Effect. \nAfter a total duration of 34/32/30 seconds, Second Wind automatically heals you from Injured  to the Healthy State . \nSecond Wind deactivates once you are completely healed or if you are put into the Dying State  before Second Wind successfully triggers.\nYou will lose the Broken Status Effect once Second Wind deactivates.\nSecond Wind does not activate if you are already afflicted by the Broken Status Effect.\n\"Yeah, that's a no.\" — Steve Harrington",
-            "iconFileName": "71.png"
+            "iconFilename": "71.png"
         }
     ],
     "killer": [
