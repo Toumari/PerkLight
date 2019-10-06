@@ -106,6 +106,10 @@ class SplashScreenState extends State<SplashScreen> {
       _survivorPerks.add(newPerk);
       await newPerk.loadPreference();
     }
+
+    // Sort Perks by Name
+    _killerPerks.sort((a, b) => a.name.compareTo(b.name));
+    _survivorPerks.sort((a ,b) => a.name.compareTo(b.name));
   }
 
   @override

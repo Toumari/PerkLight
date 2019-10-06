@@ -87,7 +87,7 @@
         {
             "id": 15,
             "name": "Dark Sense",
-            "description": "Unlocks potential in one's Aura-reading abilities.\nEach time you complete a Generator , the Killer's Aura is revealed to you for 5 seconds.\nWhen the last Generator is powered, the Killer's Aura is revealed to you for 5/7/10 seconds.\n\"Take it from an old-timer: Slow down, don't rush and try not to worry so much! The best way to beat him is to know how he thinks.\" — Murf, The Lost Tapes",
+            "description": "Unlocks potential in one's Aura-reading abilities.\nEach time a Generator  is completed, the Killer's Aura is revealed to you for 5 seconds.\nWhen the last Generator is powered, the Killer's Aura is revealed to you for 5/7/10 seconds.\n\"Take it from an old-timer: Slow down, don't rush and try not to worry so much! The best way to beat him is to know how he thinks.\" — Murf, The Lost Tapes",
             "iconFilename": "15.png"
         },
         {
@@ -147,7 +147,7 @@
         {
             "id": 25,
             "name": "Head On",
-            "description": "When your mind is set, there better be no one standing in your way.\nWhile standing in a Locker  for 3 seconds, Head On activates.\nWhile Head On is activated, performing a rushed action to leave a Locker stuns the Killer for 3 seconds if they are standing within range.\nCauses the Exhausted  Status Effect for 60/50/40 seconds.\nHead On cannot be used while Exhausted.\nYou do not recover from Exhaustion while running.\n\"People are remembered for the challenges they overcome. You can run away and forget what you're capable of or you can face your fears and remind the world of who you are.\" — Jane Romero",
+            "description": "When your mind is set, there better be no one standing in your way.\nWhile standing in a Locker  for 3 seconds, Head On activates.\nWhile Head On is activated, performing a rushed action to leave a Locker stuns the Killer for 3 seconds if they are standing within range.\nCauses the Exhausted  Status Effect for 60/50/40 seconds if the stun was successful.\nYou do not recover from Exhaustion while running.\nHead On cannot be used while Exhausted or when you have accrued Stillness Crows .\n\"People are remembered for the challenges they overcome. You can run away and forget what you're capable of or you can face your fears and remind the world of who you are.\" — Jane Romero",
             "iconFilename": "25.png"
         },
         {
@@ -177,7 +177,7 @@
         {
             "id": 30,
             "name": "Left Behind",
-            "description": "You'll get the job done... No matter the cost.\nIf you are the last Survivor remaining in the Trial, for each Generator  that needs to be completed, gain a 55/65/75 % bonus to Repair speed.\n\"I'm not horseshittin' around. I'm doing this alone!\" — Bill Overbeck",
+            "description": "You'll get the job done... No matter the cost.\nWhen you are the last Survivor remaining in the Trial, the Aura  of the Hatch  is revealed to you within a range of 24/28/32 metres.\n\"I'm not horseshittin' around. I'm doing this alone!\" — Bill Overbeck",
             "iconFilename": "30.png"
         },
         {
@@ -389,6 +389,42 @@
             "name": "Windows of Opportunity",
             "description": "Unlocks potential in one's Aura-reading ability.\nAuras of Pallets  and vaults are revealed to you when within a range of 20 metres.\nWindows of Opportunity has a cool-down of 30/25/20 seconds when vaulting or dropping a Pallet during a Chase.\n\"Rise and shine, work hard, carve out your name,Take aim, pull the trigger, hit the bulls eye for fame,Know the value of faith, an' family, and don't you complain,Open wide, your windows of opportunity\"— Kate Denson's \"Windows of Opportunity\"",
             "iconFilename": "65.png"
+        },
+        {
+            "id": 66,
+            "name": "Babysitter",
+            "description": "While you have a reputation for being self-centred, you risk it all to help those in need.\nWhen you unhook a Survivor, the unhooked Survivor leaves no Scratch Marks or Blood Trail for the next 4/6/8 seconds.\nBoth you and the Killer see each other's Aura  for 4 seconds.\n\"I promised to keep you shitheads safe, and that's exactly what I plan on doing.\" — Steve Harrington",
+            "iconFilename": "66.png"
+        },
+        {
+            "id": 67,
+            "name": "Better Together",
+            "description": "You seek justice and uncover the truth no matter what obstacle stands in your way.\nThe Aura  of the Generator you are currently repairing is revealed to all other Survivors located within 32 metres.\nIf the Killer downs a Survivor while you are repairing a Generator , you see the Auras off all other Survivors for 8/9/10 seconds.\n\"Let's burn that lab to the ground.\" — Nancy Wheeler",
+            "iconFilename": "67.png"
+        },
+        {
+            "id": 68,
+            "name": "Camaraderie",
+            "description": "Life has taught you the importance of friendship which has given you strength.\nWhile you are on the Hook  in the Struggle Phase, Camaraderie activates.\nIf another Survivor is within 16 metres of your Hook while Camaraderie is activated, the Struggle Phase timer is paused for 26/30/34 seconds.\n\"So, remember once you get in there... pretend like you don't care. There you go, you're learning my friend. You're learning.\" — Steve Harrington",
+            "iconFilename": "68.png"
+        },
+        {
+            "id": 69,
+            "name": "Fixated",
+            "description": "When you have a goal in mind, there's no turning back; better to ask forgiveness than permission.\nYou can see your own Scratch Marks at all times.\nWhile uninjured, you walk 10/15/20 % faster.\n\"I wanna finish what we started. I want to kill it.\" — Nancy Wheeler",
+            "iconFilename": "69.png"
+        },
+        {
+            "id": 70,
+            "name": "Inner Strength",
+            "description": "You look inwards and trust your instincts when you feel lost and alone.\nEach time you cleanse a Totem , Inner Strength activates.\nWhile Inner Strength is activated, hiding inside a Locker  for 10/9/8 seconds while Injured  automatically heals you to the Healthy State .\nInner Strength does not activate if you are afflicted by the Broken  Status Effect.\n\"All this time I've been trying so hard to pretend like everything's fine, but it's not.\" — Nancy Wheeler",
+            "iconFilename": "70.png"
+        },
+        {
+            "id": 71,
+            "name": "Second Wind",
+            "description": "You have learnt to avoid awkward situations with parents. Part of you still thinks your best option is to run away and hope things will take care of themselves.\nWhen you have healed other Survivors for the equivalent of one Health State , Second Wind activates.\nWhile Second Wind is activated, the next time you are unhooked or unhook yourself, you are affected by the Broken  Status Effect. \nAfter a total duration of 34/32/30 seconds, Second Wind automatically heals you from Injured  to the Healthy State . \nSecond Wind deactivates once you are completely healed or if you are put into the Dying State  before Second Wind successfully triggers.\nYou will lose the Broken Status Effect once Second Wind deactivates.\nSecond Wind does not activate if you are already afflicted by the Broken Status Effect.\n\"Yeah, that's a no.\" — Steve Harrington",
+            "iconFilename": "71.png"
         }
     ],
     "killer": [
@@ -485,7 +521,7 @@
         {
             "id": 16,
             "name": "Dying Light",
-            "description": "You become obsessed with one Survivor.\nYour Obsession's altruistic action speed is increased by 38/44/50 %.\nOnce the Obsession  is killed or sacrificed, every other Survivor gets a penalty of 19/22/25 % to Repair, Healing and Sabotage speed.\nThe Killer can only be obsessed with one Survivor at a time.\n\"This isn't a man...\" — Dr. Sam Loomis",
+            "description": "You become obsessed with one Survivor.\nYour Obsession  gains a 33 % Action Speed bonus to unhooking and healing other Survivors.\nEach time you hook a Survivor that is not the Obsession and the Obsession is alive, gain a Token.\nIf the Obsession is alive, all others Survivors get a 2/2.5/3 % stack-able penalty to Repair, Healing, and Sabotage speed for each Token.\nThe Killer can only be obsessed with one Survivor at a time.\n\"This isn't a man...\" — Dr. Sam Loomis",
             "iconFilename": "16.png"
         },
         {
@@ -509,7 +545,7 @@
         {
             "id": 20,
             "name": "Furtive Chase",
-            "description": "You become obsessed with one Survivor.\nYou lurk in the shadows, eliminating your victims one by one.\nWhen your Obsession  is hooked, Furtive Chase receives a Token, up to a maximum of 2/3/4 Tokens.\nEach Token decreases your Terror Radius by 4 metres while in a Chase.\nWhen a Survivor rescues the Obsession from a Hook, the rescuer becomes the Obsession. You lose all Tokens if the Obsession is sacrificed or killed. \nThe Killer can only be obsessed with one Survivor at a time.\n\"You have no idea what I have planned for you. It'll be in the news for weeks. I'll make sure of that.\" — The Ghost Face",
+            "description": "You become obsessed with one Survivor.\nYou lurk in the shadows, eliminating your victims one by one.\nWhen your Obsession  is hooked, Furtive Chase receives a Token, up to a maximum of 2/3/4 Tokens.\nEach Token decreases your Terror Radius by 4 metres while in a Chase.\nWhen a Survivor rescues the Obsession from a Hook, the rescuer becomes the Obsession. You lose all Tokens if the Obsession is sacrificed or killed.\nThe Killer can only be obsessed with one Survivor at a time.\n\"You have no idea what I have planned for you. It'll be in the news for weeks. I'll make sure of that.\" — The Ghost Face",
             "iconFilename": "20.png"
         },
         {
@@ -587,7 +623,7 @@
         {
             "id": 33,
             "name": "Iron Maiden",
-            "description": "You open Lockers  30/40/50 % faster. \nSurvivors who exit Lockers suffer from the Exposed  Status Effect for 15 seconds and their location is revealed for 3 seconds.\n\"This is no place for cowards.\" — The Legion",
+            "description": "You open Lockers  30/40/50 % faster.\nSurvivors who exit Lockers suffer from the Exposed  Status Effect for 15 seconds and their location is revealed for 3 seconds.\n\"This is no place for cowards.\" — The Legion",
             "iconFilename": "33.png"
         },
         {
@@ -677,7 +713,7 @@
         {
             "id": 48,
             "name": "Shadowborn",
-            "description": "You have a keen vision in the darkness of the night.\nYour Field of View is increased by 8/12/15 °.\nField of View gains do not stack.\n\"Shining in the darkest dark, his eyes pierce the night and sting your soul.\"",
+            "description": "You have a keen vision in the darkness of the night.\nYour Field of View is increased by 9/12/15 °.\nField of View gains do not stack.\n\"Shining in the darkest dark, his eyes pierce the night and sting your soul.\"",
             "iconFilename": "48.png"
         },
         {
@@ -751,6 +787,24 @@
             "name": "Whispers",
             "description": "You have a rudimentary understanding of The Entity 's voice.\nSporadically hear The Entity's Whisper when standing within a 48/40/32 metres of a Survivor.\n\"It's unclear as to the motivations of The Fog, but it is undeniable that it often takes the beast's side.\" — Unknown, Notebook",
             "iconFilename": "60.png"
+        },
+        {
+            "id": 61,
+            "name": "Cruel Limits",
+            "description": "Your ties to the otherworldly manifest when your prey attempts to get away.\nEach time a Generator  is repaired, all Windows  and vault locations within a radius of 24 metres from the completed Generator are blocked for all Survivors for the next 20/25/30 seconds.\n\"The specimen seems to be able to affect the state of nearby objects, as if they existed in some other form within a dimension alternate to our own.\" — Hawkins National Laboratory",
+            "iconFilename": "61.png"
+        },
+        {
+            "id": 62,
+            "name": "Surge",
+            "description": "Your eerie presence charges the air and interferes with technology.\nPutting a Survivor into the Dying State  with a Basic Attack causes all Generators  within a radius of 32 metres to instantly explode and regress.\nSurge applies an additional regression of 8 %.\nSurge can only be triggered once every 60/50/40 seconds.\n\"The creature appears to have some unknown influence over electricity and nearby electronics.\" — Hawkins National Laboratory",
+            "iconFilename": "62.png"
+        },
+        {
+            "id": 63,
+            "name": "Mindbreaker",
+            "description": "Your distressing presence drains and weakens your prey.\nWhile repairing Generators  with less than 50 % Repair progression, Survivors are afflicted by the Exhausted  Status Effect.\nAny existing Exhaustion Status Effect timers are paused while the Survivor is repairing a Generator. After ending the Repair action, the Survivor is afflicted by the Exhausted Status Effect for 1/2/3 second(s).\n\"The specimen can evoke feelings of dread and fatigue in nearby individuals.\" — Hawkins National Laboratory",
+            "iconFilename": "63.png"
         }
     ]
 }
