@@ -1,0 +1,119 @@
+{
+    "firecracker": [
+        {
+            "name": "Winter Party Starter",
+            "description": "A small, highly-explosive dinner table decoration. Detonates into loud bangs and intense light flashes. Can be used as a distraction, as a blinding device or to celebrate.",
+            "imagePath": "assets/images/items/Winter_Party_Starter.png"
+        },
+        {
+            "name": "Chinese Firecracker",
+            "description": "A row of small explosive devices wrapped in heavy paper casing. Detonates into loud bangs and intense light flashes. Can be used as a distraction, as a blinding device or to celebrate.",
+            "imagePath": "assets/images/items/Chinese_Firecracker.png"
+        },
+        {
+            "name": "Third Year Party Starter",
+            "description": "A small, highly-explosive dinner table decoration. Detonates into loud bangs and intense light flashes, and playful confetti. Can be used as a distraction, as a blinding device or to celebrate our three years together. \"Happy Anniversary! Here's to our three years together!\"   The Dead by Daylight Team",
+            "imagePath": "assets/images/items/Third_Year_Party_Starter.png"
+        }
+    ],
+    "flashlight": [
+        {
+            "name": "Flashlight (Item)",
+            "description": "A standard Flashlight. Can be used to light your way in the darkness. \"Most of the battery life was wastefully used by the previous owner.\"",
+            "imagePath": "assets/images/items/Flashlight_(Item).png"
+        },
+        {
+            "name": "Sport Flashlight",
+            "description": "A very portable Flashlight with a good grip. Its efficient technology produces a powerful light while consuming less power. Slightly decreases the Flashlight's battery consumption. Slightly increases the Flashlight's accuracy.",
+            "imagePath": "assets/images/items/Sport_Flashlight.png"
+        },
+        {
+            "name": "Utility Flashlight",
+            "description": "A sturdy but heavy Flashlight that packs a lot of power. Slightly reduces accuracy. Moderately increases the Flashlight Beam's visual brightness. Moderately increases the Flashlight's blindness duration.",
+            "imagePath": "assets/images/items/Utility_Flashlight.png"
+        }
+    ],
+    "key": [
+        {
+            "name": "Broken Key",
+            "description": "The bow and shank of a key, vibrating with power. The Broken Key's power cannot be triggered by itself. Various objects can be attached to its jump ring, which channels the Broken Key's power into various effects. Requires Add-ons  for any abilities.",
+            "imagePath": "assets/images/items/Broken_Key.png"
+        },
+        {
+            "name": "Dull Key",
+            "description": "A bent and dull Key that once held great power. The Dull Key's power cannot be triggered by itself. Various objects can be attached to its jump ring, which channels the Dull Key's remaining power into various effects. Can be consumed to open the Hatch .",
+            "imagePath": "assets/images/items/Dull_Key.png"
+        },
+        {
+            "name": "Skeleton Key",
+            "description": "A tarnished and crooked Key, vibrating with ominous power. The Skeleton Key's power cannot be triggered by itself. Various objects can be attached to its jump ring, which channels the Skeleton Key's power into various effects. Can be consumed to open the Hatch .",
+            "imagePath": "assets/images/items/Skeleton_Key.png"
+        }
+    ],
+    "map": [
+        {
+            "name": "Map (Item)",
+            "description": "An old piece of parchment made out of a skin-like material. Is rolled and sealed with an uncoloured leather string. Holding and channelling the Map unlocks great potential in one's Aura-reading ability which slowly burns the Map. Generators' Auras which you have already encountered are revealed to you for as long as the Map has charges left. Starts with 1 Generator  tracked. Unlocks ability to track Generators within a range of 8 metres.",
+            "imagePath": "assets/images/items/Map_(Item).png"
+        },
+        {
+            "name": "Rainbow Map",
+            "description": "A piece of parchment made out of oddly fresh skin. Blood on its edge has yet to dry. It is rolled and sealed with multiple coloured ropes and cords. Holding and channelling the Map unlocks a great potential in one's Aura-reading ability which slowly burns up the Map. Objects with Auras which you have already encountered are revealed to you for as long as the Map has charges left. Starts with 3 Objects tracked. Unlocks the ability to track Generators  within a range of 8 metres. Unlocks the ability to track Hooks  within a range of 8 metres. Unlocks the ability to track Exit Gates  within a range of 8 metres. Unlocks the ability to track the Hatch  within a range of 8 metres. \"It disheartens me. All this unspeakable knowledge and gruelling effort and yet nothing tangible, nothing usable to get out of this nightmare.\"   Vigo's Journal",
+            "imagePath": "assets/images/items/Rainbow_Map.png"
+        }
+    ],
+    "medkit": [
+        {
+            "name": "Camping Aid Kit",
+            "description": "A rudimentary Aid Kit which can save lives in emergencies, even if it's lacking some of its supplies. Moderately increases the speed at which you heal other Survivors. Unlocks the Self-Healing action. \"Barely has enough material for a decent patch-up.\"",
+            "imagePath": "assets/images/items/Camping_Aid_Kit.png"
+        },
+        {
+            "name": "First Aid Kit",
+            "description": "A standard First Aid Kit with all the necessary equipment for treating common to more serious injuries. Considerably increases the speed at which you heal other Survivors. Unlocks the Self-Healing action.",
+            "imagePath": "assets/images/items/First_Aid_Kit.png"
+        },
+        {
+            "name": "Emergency Med-Kit",
+            "description": "A sturdy and well organized Med-Kit equipped with top condition emergency supplies. Tremendously increases the speed at which you heal other Survivors. Moderately decreases the Healing Charge consumption. Unlocks the Self-Healing action. \"There is a cure for almost everything...but not for this.\"",
+            "imagePath": "assets/images/items/Emergency_Med-Kit.png"
+        },
+        {
+            "name": "Ranger Med-Kit",
+            "description": "A large metal box containing medical supplies aimed at emergency rescues in hard to reach, often isolated locations. Considerably increases the speed at which you heal others. Moderately increases Skill Check success zones. Moderately increases Skill Check bonus zones. Unlocks the Self-Healing action. \"A small engraved label can be found glued to the back panel: VK.ID-3994723.\"",
+            "imagePath": "assets/images/items/Ranger_Med-Kit.png"
+        }
+    ],
+    "toolbox": [
+        {
+            "name": "Worn-Out Tools",
+            "description": "A metal box containing out of condition tools that could break at any moment. Even without training, can be used to repair or break various mechanical components. Moderately increases Repair speed. Slightly decreases Skill Check success zones. Unlocks the Sabotage action. \"You call these tools? ... Really?\"",
+            "imagePath": "assets/images/items/Worn-Out_Tools.png"
+        },
+        {
+            "name": "Toolbox (Item)",
+            "description": "A metal box containing a set of basic tools. Even without training, can be used to repair or break various mechanical components. Moderately increases Repair speed. Unlocks the Sabotage action. \"It is unclear as to where these tools come from. Were they brought in by one of us or did they belong to one of the monsters?\"",
+            "imagePath": "assets/images/items/Toolbox_(Item).png"
+        },
+        {
+            "name": "Mechanic's Toolbox",
+            "description": "A metal box with specialised mechanics tools. Even without training, can be used to repair or break various mechanical components. Considerably increases Repair speed. Moderately reduces Sabotage speed. Unlocks the Sabotage action.",
+            "imagePath": "assets/images/items/Mechanic%27s_Toolbox.png"
+        },
+        {
+            "name": "Commodious Toolbox",
+            "description": "A large metal box containing basic tool and extra mechanical parts. Even without training, can be used to repair or break various mechanical components. Moderately increases Repair speed. Unlocks the Sabotage action.",
+            "imagePath": "assets/images/items/Commodious_Toolbox.png"
+        },
+        {
+            "name": "Engineer's Toolbox",
+            "description": "A metal box with highly specialised tools meant for engineering. Most of the tools can be used by neophytes to make quick repairs or break various mechanical components. Tremendously increases Repair speed. \"I've created tools beyond compare and stood paralysed as they were stolen from me. These are but a poor replica, spat out by The Fog.\"   Vigo's Journal",
+            "imagePath": "assets/images/items/Engineer%27s_Toolbox.png"
+        },
+        {
+            "name": "Alex's Toolbox",
+            "description": "A metal box containing mainly saws and vice grips of varying sizes but also other tools. Even though the content of this Toolbox is clearly aimed at destructive deeds, it can be used to repair various mechanical components as well. Slightly increases Repair speed. Moderately increases Sabotage speed. \"Most of the tools are identified as 'owned by Alex'.\"",
+            "imagePath": "assets/images/items/Alex%27s_Toolbox.png"
+        }
+    ]
+}

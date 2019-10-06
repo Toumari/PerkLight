@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 
 import 'package:perklight/classes/perk.dart';
 import 'package:perklight/classes/character.dart';
+import 'package:perklight/classes/item.dart';
 import 'package:perklight/classes/perkSerialiser.dart';
 import 'package:perklight/utilities.dart' as Utils;
 import 'package:perklight/widgets/perkTile.dart';
@@ -14,12 +15,25 @@ class PerkPage extends StatefulWidget {
     killerPerks = arguments['killerPerks'],
     survivorPerks = arguments['survivorPerks'],
     survivorCharacterDetails = arguments['survivorCharacterDetails'],
-    killerCharacterDetails = arguments['killerCharacterDetails'];
+    killerCharacterDetails = arguments['killerCharacterDetails'],
+    firecrackerItemDetails = arguments['firecrackerItemDetails'],
+    flashlightItemDetails = arguments['flashlightItemDetails'],
+    keyItemDetails = arguments['keyItemDetails'],
+    mapItemDetails = arguments['mapItemDetails'],
+    medkitItemDetails = arguments['medkitItemDetails'],
+    toolboxItemDetails = arguments['toolboxItemDetails'];
+
 
   final List<KillerPerk> killerPerks;
   final List<SurvivorPerk> survivorPerks;
   final List<Character> survivorCharacterDetails;
   final List<Character> killerCharacterDetails;
+  final List<Item> firecrackerItemDetails;
+  final List<Item> flashlightItemDetails;
+  final List<Item> keyItemDetails;
+  final List<Item> mapItemDetails;
+  final List<Item> medkitItemDetails;
+  final List<Item> toolboxItemDetails;
 
   @override
   _PerkPageState createState() => _PerkPageState();
@@ -171,6 +185,32 @@ class _PerkPageState extends State<PerkPage> {
                         'survivorPerks': widget.survivorPerks,
                         'survivorCharacterDetails' : widget.survivorCharacterDetails,
                         'killerCharacterDetails' : widget.killerCharacterDetails
+                      }
+                    );
+                  },
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.all(24.0),
+                child: ListTile(
+                  title: Text(
+                    'Item Library',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 22.0,
+                    ),
+                  ),
+                  onTap: () async {
+                    await Navigator.pushNamed(
+                      context,
+                      '/items',
+                      arguments: {
+                        'firecracker': widget.firecrackerItemDetails,
+                        'flashlight': widget.flashlightItemDetails,
+                        'key' : widget.keyItemDetails,
+                        'map' : widget.mapItemDetails,
+                        'medkit' : widget.medkitItemDetails,
+                        'toolbox' : widget.toolboxItemDetails
                       }
                     );
                   },

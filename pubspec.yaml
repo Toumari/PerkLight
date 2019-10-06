@@ -56,6 +56,7 @@ flutter:
     - assets/data/
     - assets/images/
     - assets/images/icon/
+    - assets/images/items/
     - assets/images/killer/
     - assets/images/survivor/
     - assets/images/characters/
