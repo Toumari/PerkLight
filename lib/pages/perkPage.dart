@@ -223,14 +223,20 @@ class _PerkPageState extends State<PerkPage> {
       appBar: AppBar(
         title: Text('PerkLight'),
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () async {
-          setState(() {
-            _rollTileCallback(ALL_TILES, context);
-          });
-        },
-        label: Text('Randomise'),
-        icon: Icon(Icons.casino),
+      floatingActionButton: Padding(
+        padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.05),
+        child: Transform.scale(
+          scale: 1.2,
+          child: FloatingActionButton.extended(
+            onPressed: () async {
+              setState(() {
+                _rollTileCallback(ALL_TILES, context);
+              });
+            },
+            label: Text('Randomise'),
+            icon: Icon(Icons.casino),
+          ),
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: SafeArea(
@@ -295,7 +301,7 @@ class _PerkPageState extends State<PerkPage> {
                   ),
                 ),
                 Container(
-                  height: 50.0
+                  height: MediaQuery.of(context).size.height * 0.13
                 )
               ]
             );
