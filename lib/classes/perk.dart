@@ -38,7 +38,7 @@ class Perk {
   }
 
   String get iconPath {
-    return 'assets/images/${describeEnum(type)}/$iconFilename';
+    return 'assets/images/perks/$iconFilename';
   }
 }
 
