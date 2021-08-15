@@ -4,6 +4,7 @@ import 'package:perklight/widgets/characterTile.dart';
 
 class ItemList extends StatelessWidget {
   ItemList(arguments) :
+      craftableItems = arguments['craftables'],
       firecrackerItems = arguments['firecrackers'],
       flashlightItems = arguments['flashlights'],
       keyItems = arguments['keys'],
@@ -11,6 +12,7 @@ class ItemList extends StatelessWidget {
       medkitItems = arguments['medkits'],
       toolboxItems = arguments['toolboxes'];
 
+  final List<Item> craftableItems;
   final List<Item> firecrackerItems;
   final List<Item> flashlightItems;
   final List<Item> keyItems;
@@ -28,13 +30,13 @@ class ItemList extends StatelessWidget {
         child: ListView(
           shrinkWrap: true,
           children: <Widget>[
-            for( List<Item> itemList in [flashlightItems,keyItems,mapItems,medkitItems,toolboxItems])
-            for (Item item in itemList)
-              CharacterTile(
-                name: item.name,
-                characterImage: item.iconPath,
-                description: item.description,
-              ),
+            for (List<Item> itemList in [craftableItems,firecrackerItems,flashlightItems,keyItems,mapItems,medkitItems,toolboxItems])
+              for (Item item in itemList)
+                CharacterTile(
+                  name: item.name,
+                  characterImage: item.iconPath,
+                  description: item.description,
+                ),
           ],
         ),
       ),

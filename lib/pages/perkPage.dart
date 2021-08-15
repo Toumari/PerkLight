@@ -16,6 +16,7 @@ class PerkPage extends StatefulWidget {
     survivorPerks = arguments['survivorPerks'],
     survivorCharacterDetails = arguments['survivorCharacterDetails'],
     killerCharacterDetails = arguments['killerCharacterDetails'],
+    craftableItemDetails = arguments['craftableItemDetails'],
     firecrackerItemDetails = arguments['firecrackerItemDetails'],
     flashlightItemDetails = arguments['flashlightItemDetails'],
     keyItemDetails = arguments['keyItemDetails'],
@@ -28,6 +29,7 @@ class PerkPage extends StatefulWidget {
   final List<SurvivorPerk> survivorPerks;
   final List<Character> survivorCharacterDetails;
   final List<Character> killerCharacterDetails;
+  final List<Item> craftableItemDetails;
   final List<Item> firecrackerItemDetails;
   final List<Item> flashlightItemDetails;
   final List<Item> keyItemDetails;
@@ -205,6 +207,7 @@ class _PerkPageState extends State<PerkPage> {
                       context,
                       '/items',
                       arguments: {
+                        'craftables': widget.craftableItemDetails,
                         'firecrackers': widget.firecrackerItemDetails,
                         'flashlights': widget.flashlightItemDetails,
                         'keys' : widget.keyItemDetails,

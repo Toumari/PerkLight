@@ -22,6 +22,7 @@ class SplashScreenState extends State<SplashScreen> {
   List<SurvivorPerk> _survivorPerks = <SurvivorPerk>[];
   List<Character> _survivorCharacterDetails = <Character>[];
   List<Character> _killerCharacterDetails = <Character>[];
+  List<Item> _craftableItemDetails = <Item>[];
   List<Item> _firecrackerItemDetails = <Item>[];
   List<Item> _flashlightItemDetails = <Item>[];
   List<Item> _keyItemDetails = <Item>[];
@@ -38,6 +39,7 @@ class SplashScreenState extends State<SplashScreen> {
         'survivorPerks': _survivorPerks,
         'survivorCharacterDetails': _survivorCharacterDetails,
         'killerCharacterDetails' : _killerCharacterDetails,
+        'craftableItemDetails' : _craftableItemDetails,
         'firecrackerItemDetails' : _firecrackerItemDetails,
         'flashlightItemDetails' : _flashlightItemDetails,
         'keyItemDetails' : _keyItemDetails,
@@ -64,6 +66,10 @@ class SplashScreenState extends State<SplashScreen> {
   Future _loadItemsFromFile() async {
     String itemJson = await DefaultAssetBundle.of(context).loadString('assets/data/items.json');
     Map<String, dynamic> items = json.decode(itemJson);
+    for(Map<String, dynamic> item in items['craftable & limited items']) {
+      Item newItem = Item.fromJson(item);
+      _craftableItemDetails.add(newItem);
+    }
     for(Map<String, dynamic> item in items['firecrackers']) {
       Item newItem = Item.fromJson(item);
       _firecrackerItemDetails.add(newItem);

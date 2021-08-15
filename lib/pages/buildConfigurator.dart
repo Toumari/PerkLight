@@ -88,7 +88,7 @@ class _BuildConfigurationState extends State<BuildConfiguration> {
                               });
                             },
                             secondary: IconButton(
-                              icon: Image.asset('assets/images/survivor/${item.iconFilename}'),
+                              icon: Image.asset(item.iconPath),
                               onPressed: () {
                                 Navigator.pushNamed(
                                   context,
@@ -120,7 +120,7 @@ class _BuildConfigurationState extends State<BuildConfiguration> {
                               });
                             },
                             secondary: IconButton(
-                              icon: Image.asset('assets/images/killer/${item.iconFilename}'),
+                              icon: Image.asset(item.iconPath),
                               onPressed: () {
                                 Navigator.pushNamed(
                                   context,
