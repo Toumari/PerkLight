@@ -5,7 +5,8 @@ import 'package:perklight/themes/dark.dart';
 
 
 void main() {
-  return runApp(PerkLight());
+  PerkLight app = PerkLight();
+  runApp(app);
 }
 
 class PerkLight extends StatefulWidget {
@@ -14,10 +15,10 @@ class PerkLight extends StatefulWidget {
 }
 
 class _PerkLightState extends State<PerkLight> {
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'PerkLight',
       theme: darkTheme,
       onGenerateRoute: router.generateRoute,
       initialRoute: '/',

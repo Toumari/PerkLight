@@ -8,34 +8,35 @@ import 'package:perklight/classes/perk.dart';
 class PerksSerialiser {
   static const URL = 'https://perklight.app/build';
 
-  static String encode({ List<int> perksIds, PerkType perkType }) {
-    // Check list is not too long
-    if(perksIds.length != 4) {
-      throw RangeError('Items should be 4 elements');
-    }
+  static String encode({ List<String> perksIds, PerkType perkType }) {
+    // // Check list is not too long
+    // if(perksIds.length != 4) {
+    //   throw RangeError('Items should be 4 elements');
+    // }
 
-    // Check each index is in range
-    for(int item in perksIds) {
-      if(item < 0 || item > 127) {
-        throw RangeError('Item index out of range');
-      }
-    }
+    // // Check each index is in range
+    // for(String item in perksIds) {
+    //   if(item < 0 || item > 127) {
+    //     throw RangeError('Item index out of range');
+    //   }
+    // }
 
-    // Toggle bit 8 using perkType index (only works with 2 types)
-    int bitwise = 128 * perkType.index;
-    List<int> uInt8PerkIds = perksIds.map((i) => i ^ bitwise).toList();
+    // // Toggle bit 8 using perkType index (only works with 2 types)
+    // int bitwise = 128 * perkType.index;
+    // List<int> uInt8PerkIds = perksIds.map((i) => i ^ bitwise).toList();
 
-    // CRC16 Checksum
-    Uint16List chksum = Uint16List.fromList([Crc16Usb().convert(uInt8PerkIds)]);
-    List<int> uInt8Chksum = Uint8List.view(chksum.buffer);
+    // // CRC16 Checksum
+    // Uint16List chksum = Uint16List.fromList([Crc16Usb().convert(uInt8PerkIds)]);
+    // List<int> uInt8Chksum = Uint8List.view(chksum.buffer);
 
-    // Concat bytes and output Base64 URL string
-    List<int> uInt8Bytes = [...uInt8PerkIds, ...uInt8Chksum];
+    // // Concat bytes and output Base64 URL string
+    // List<int> uInt8Bytes = [...uInt8PerkIds, ...uInt8Chksum];
 
-    // Create Bas64 URL string
-    String output = base64UrlEncode(uInt8Bytes);
+    // // Create Bas64 URL string
+    // String output = base64UrlEncode(uInt8Bytes);
 
-    return output;
+    // return output;
+    return '';
   }
 
   static Map<String, dynamic> decode(String perks) {
@@ -84,7 +85,7 @@ class PerksSerialiser {
     return output;
   }
 
-  static String serialiseUrl({ List<int> perksIds, PerkType perkType }) {
+  static String serialiseUrl({ List<String> perksIds, PerkType perkType }) {
     String base64 = PerksSerialiser.encode(perksIds: perksIds, perkType: perkType);
 
     var template = new UriTemplate("$URL/{buildId}");

@@ -9,7 +9,7 @@ enum PerkType {
 }
 
 class Perk {
-  final int id;
+  final String id;
   final String name;
   final String description;
   final String iconFilename;
@@ -22,7 +22,7 @@ class Perk {
     preferenceKey = '${describeEnum(type)}_perk_preference_$id';
 
   Perk.fromJson(Map<String, dynamic> m, this.type) :
-    id = m['id'] ?? -1,
+    id = m['id'] ?? '-1',
     name = m['name'] ?? 'Unknown Perk',
     description = m['description'] ?? 'This perk doesn\'t currently have a description assigned to it',
     iconFilename = m['iconFilename'],
@@ -30,7 +30,7 @@ class Perk {
 
   Future loadPreference() async {
     String _json = await loadFromSharedPreferences(preferenceKey);
-    preference = PerkPreference.fromJson(json.decode(_json ?? '{"id":$id}'));
+    preference = PerkPreference.fromJson(json.decode(_json ?? '{"id":"$id"}'));
   }
 
   Future savePreference() async {
@@ -43,12 +43,12 @@ class Perk {
 }
 
 class KillerPerk extends Perk {
-  KillerPerk(int id, String name, String description, String iconFilename) : super(id, name, description, iconFilename, PerkType.killer);
+  KillerPerk(String id, String name, String description, String iconFilename) : super(id, name, description, iconFilename, PerkType.killer);
   KillerPerk.fromJson(Map<String, dynamic> m) : super.fromJson(m, PerkType.killer);
 }
 
 class SurvivorPerk extends Perk {
-  SurvivorPerk(int id, String name, String description, String iconFilename) : super(id, name, description, iconFilename, PerkType.killer);
+  SurvivorPerk(String id, String name, String description, String iconFilename) : super(id, name, description, iconFilename, PerkType.killer);
   SurvivorPerk.fromJson(Map<String, dynamic> m) : super.fromJson(m, PerkType.survivor);
 }
 

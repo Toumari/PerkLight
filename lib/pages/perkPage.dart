@@ -66,7 +66,7 @@ class _PerkPageState extends State<PerkPage> {
   }
 
   void _generateShareCode() {
-    List<int> selectedPerksIds = selectedPerks.map((item) => item.id).toList();
+    List<String> selectedPerksIds = selectedPerks.map((item) => item.id).toList();
     buildId = PerksSerialiser.encode(perksIds: selectedPerksIds, perkType: perkMode);
   }
 
@@ -205,12 +205,12 @@ class _PerkPageState extends State<PerkPage> {
                       context,
                       '/items',
                       arguments: {
-                        'firecracker': widget.firecrackerItemDetails,
-                        'flashlight': widget.flashlightItemDetails,
-                        'key' : widget.keyItemDetails,
-                        'map' : widget.mapItemDetails,
-                        'medkit' : widget.medkitItemDetails,
-                        'toolbox' : widget.toolboxItemDetails
+                        'firecrackers': widget.firecrackerItemDetails,
+                        'flashlights': widget.flashlightItemDetails,
+                        'keys' : widget.keyItemDetails,
+                        'maps' : widget.mapItemDetails,
+                        'medkits' : widget.medkitItemDetails,
+                        'toolboxes' : widget.toolboxItemDetails
                       }
                     );
                   },

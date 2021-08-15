@@ -3,7 +3,7 @@ class Character {
   final String description;
   final String imagePath;
 
-  Character({this.name, this.description, this.imagePath});
+  Character({this.name = '', this.description = '', this.imagePath = ''});
 
   Character.fromJson(Map<String, dynamic> m)
       : name = m['name'],

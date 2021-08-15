@@ -16,18 +16,18 @@ class SplashScreen extends StatefulWidget {
 
 class SplashScreenState extends State<SplashScreen> {
 
-  List<Future> _initSteps = List<Future>();
+  List<Future> _initSteps = <Future>[];
 
-  List<KillerPerk> _killerPerks = List<KillerPerk>();
-  List<SurvivorPerk> _survivorPerks = List<SurvivorPerk>();
-  List<Character> _survivorCharacterDetails = List<Character>();
-  List<Character> _killerCharacterDetails = List<Character>();
-  List<Item> _firecrackerItemDetails = List<Item>();
-  List<Item> _flashlightItemDetails = List<Item>();
-  List<Item> _keyItemDetails = List<Item>();
-  List<Item> _mapItemDetails = List<Item>();
-  List<Item> _medkitItemDetails = List<Item>();
-  List<Item> _toolboxItemDetails = List<Item>();
+  List<KillerPerk> _killerPerks = <KillerPerk>[];
+  List<SurvivorPerk> _survivorPerks = <SurvivorPerk>[];
+  List<Character> _survivorCharacterDetails = <Character>[];
+  List<Character> _killerCharacterDetails = <Character>[];
+  List<Item> _firecrackerItemDetails = <Item>[];
+  List<Item> _flashlightItemDetails = <Item>[];
+  List<Item> _keyItemDetails = <Item>[];
+  List<Item> _mapItemDetails = <Item>[];
+  List<Item> _medkitItemDetails = <Item>[];
+  List<Item> _toolboxItemDetails = <Item>[];
 
   _navigateToHomePage(List<dynamic> values) {
     Navigator.pushReplacementNamed(
@@ -64,27 +64,27 @@ class SplashScreenState extends State<SplashScreen> {
   Future _loadItemsFromFile() async {
     String itemJson = await DefaultAssetBundle.of(context).loadString('assets/data/items.json');
     Map<String, dynamic> items = json.decode(itemJson);
-    for(Map<String, dynamic> item in items['firecracker']) {
+    for(Map<String, dynamic> item in items['firecrackers']) {
       Item newItem = Item.fromJson(item);
       _firecrackerItemDetails.add(newItem);
     }
-    for(Map<String, dynamic> item in items['flashlight']) {
+    for(Map<String, dynamic> item in items['flashlights']) {
       Item newItem = Item.fromJson(item);
       _flashlightItemDetails.add(newItem);
     }
-    for(Map<String, dynamic> item in items['key']) {
+    for(Map<String, dynamic> item in items['keys']) {
       Item newItem = Item.fromJson(item);
       _keyItemDetails.add(newItem);
     }
-    for(Map<String, dynamic> item in items['map']) {
+    for(Map<String, dynamic> item in items['maps']) {
       Item newItem = Item.fromJson(item);
       _mapItemDetails.add(newItem);
     }
-    for(Map<String, dynamic> item in items['medkit']) {
+    for(Map<String, dynamic> item in items['medkits']) {
       Item newItem = Item.fromJson(item);
       _medkitItemDetails.add(newItem);
     }
-    for(Map<String, dynamic> item in items['toolbox']) {
+    for(Map<String, dynamic> item in items['toolboxes']) {
       Item newItem = Item.fromJson(item);
       _toolboxItemDetails.add(newItem);
     }

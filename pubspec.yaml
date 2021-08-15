@@ -19,7 +19,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_launcher_icons: "^0.7.2"
+  flutter_launcher_icons: "^0.9.1"
   shared_preferences: ^0.5.3+4
   crclib: ^1.0.1
   uri: ^0.11.3+1
@@ -57,8 +57,7 @@ flutter:
     - assets/images/
     - assets/images/icon/
     - assets/images/items/
-    - assets/images/killer/
-    - assets/images/survivor/
+    - assets/images/perks/
     - assets/images/characters/
 
   # An image asset can refer to one or more resolution-specific "variants", see
