@@ -3,16 +3,15 @@ import json
 import logging
 import os
 import re
-import shutil
 import sys
 
 from bs4 import BeautifulSoup
 import requests
 
+from logger import logger
 
-logger = logging.getLogger(__name__)
-logger.addHandler(logging.StreamHandler(sys.stdout))
-logger.setLevel(logging.INFO)
+
+logger.name = __file__
 
 
 class DBDPerksScraper():
@@ -52,7 +51,7 @@ class DBDPerksScraper():
 
             data.append({
                 'id': id,
-                'icon_url': icon_url,
+                'iconUrl': icon_url,
                 'name': name,
                 'description': desc
             })
@@ -61,8 +60,9 @@ class DBDPerksScraper():
 
 def _write_out_results(results):
     cwd = os.path.dirname(os.path.realpath(__file__))
-    output_file_path = os.path.realpath(f'{cwd}\\..\\assets\\data\\perks.json')
-    with open(output_file_path, 'w', encoding='utf-8', newline='\n') as f:
+    json_path = os.path.realpath(f'{cwd}\\..\\assets\\data\\perks.json')
+    with open(json_path, 'w', encoding='utf-8', newline='\n') as f:
+        logger.info(f'writing out perk to "{json_path}"')
         f.write(json.dumps(results, indent=2, ensure_ascii=False))
 
 
