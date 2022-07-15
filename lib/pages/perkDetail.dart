@@ -17,7 +17,7 @@ class _PerkDetailState extends State<PerkDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Perk - ${widget.perk.name}"),
+        title: Text('${widget.perk.name}'.toUpperCase()),
       ),
       body: Scrollbar(
         child: SingleChildScrollView(

@@ -1,315 +1,189 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:perklight/classes/perk.dart';
 import 'package:perklight/classes/character.dart';
 import 'package:perklight/classes/item.dart';
 import 'package:perklight/classes/perkSerialiser.dart';
 import 'package:perklight/utilities.dart' as Utils;
-import 'package:perklight/widgets/perkTile.dart';
+import 'package:perklight/widgets/buildDisplay.dart';
+import 'package:perklight/widgets/navigationDrawer.dart';
 
 
 class PerkPage extends StatefulWidget {
-  PerkPage(arguments) :
-    killerPerks = arguments['killerPerks'],
-    survivorPerks = arguments['survivorPerks'],
-    survivorCharacterDetails = arguments['survivorCharacterDetails'],
-    killerCharacterDetails = arguments['killerCharacterDetails'],
-    craftableItemDetails = arguments['craftableItemDetails'],
-    firecrackerItemDetails = arguments['firecrackerItemDetails'],
-    flashlightItemDetails = arguments['flashlightItemDetails'],
-    keyItemDetails = arguments['keyItemDetails'],
-    mapItemDetails = arguments['mapItemDetails'],
-    medkitItemDetails = arguments['medkitItemDetails'],
-    toolboxItemDetails = arguments['toolboxItemDetails'];
-
 
   final List<KillerPerk> killerPerks;
   final List<SurvivorPerk> survivorPerks;
-  final List<Character> survivorCharacterDetails;
   final List<Character> killerCharacterDetails;
-  final List<Item> craftableItemDetails;
-  final List<Item> firecrackerItemDetails;
-  final List<Item> flashlightItemDetails;
+  final List<Character> survivorCharacterDetails;
   final List<Item> keyItemDetails;
   final List<Item> mapItemDetails;
   final List<Item> medkitItemDetails;
   final List<Item> toolboxItemDetails;
+  final List<Item> craftableItemDetails;
+  final List<Item> flashlightItemDetails;
+  final List<Item> firecrackerItemDetails;
+
+  PerkPage(arguments) :
+    killerPerks = arguments['killerPerks'],
+    survivorPerks = arguments['survivorPerks'],
+    killerCharacterDetails = arguments['killerCharacterDetails'],
+    survivorCharacterDetails = arguments['survivorCharacterDetails'],
+    keyItemDetails = arguments['keyItemDetails'],
+    mapItemDetails = arguments['mapItemDetails'],
+    medkitItemDetails = arguments['medkitItemDetails'],
+    toolboxItemDetails = arguments['toolboxItemDetails'],
+    craftableItemDetails = arguments['craftableItemDetails'],
+    flashlightItemDetails = arguments['flashlightItemDetails'],
+    firecrackerItemDetails = arguments['firecrackerItemDetails'];
 
   @override
   _PerkPageState createState() => _PerkPageState();
 }
 
+
 class _PerkPageState extends State<PerkPage> {
   static const numPerksToSelect = 4;
   static const ALL_TILES = [0, 1, 2, 3];
 
+  Image backgroundImage;
+
   bool perkModeSwitch = false;
 
-  List<int> randomlySelectedPerks;
+  List<int> randomlySelectedPerks1;
+  List<int> randomlySelectedPerks2;
   PerkType perkMode = PerkType.survivor;
 
   String buildId;
 
   List<Perk> rollablePerks;
-  List<Perk> selectedPerks;
+
+  // Perks currently selected and displayed in the UI
+  List<Perk> selectedPerksSurvivor;
+  List<Perk> selectedPerksKiller;
 
   @override
   void initState() {
     super.initState();
-
-    _filteredRoll();
+    filteredRoll();
+    backgroundImage = Image.asset('assets/images/background.jpg');
   }
 
-  void _filteredRoll([ List<int> indexes = ALL_TILES ]) {
-    _filterRollable();
-    _rollPerks(indexes);
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    precacheImage(backgroundImage.image, context);
   }
 
-  void _generateShareCode() {
-    List<String> selectedPerksIds = selectedPerks.map((item) => item.id).toList();
+  void filteredRoll([List<int> indexes = ALL_TILES]) {
+    filterRollable();
+    rollPerks(indexes);
+  }
+
+  void generateShareCode() {
+    List<String> selectedPerksIds = selectedPerksSurvivor.map((item) => item.id).toList();
     buildId = PerksSerialiser.encode(perksIds: selectedPerksIds, perkType: perkMode);
   }
 
-  void _filterRollable() {
-    List<Perk> listToFilter;
+  void filterRollable() {
+    List<Perk> listToFilter = perkMode == PerkType.killer
+      ? widget.killerPerks
+      : widget.survivorPerks;
 
-    switch (perkMode) {
-      case PerkType.killer:
-        listToFilter = widget.killerPerks;
-        break;
-      case PerkType.survivor:
-        listToFilter = widget.survivorPerks;
-        break;
-    }
-
-    rollablePerks = listToFilter.where((perk) {
-      return perk.preference.enabled;
-    }).toList();
-
-    randomlySelectedPerks = Utils.generateSetOfRandomNumbers(numPerksToSelect, max: rollablePerks.length);
+    rollablePerks = listToFilter.where((perk) => perk.preference.enabled).toList();
+    randomlySelectedPerks1 = Utils.generateSetOfRandomNumbers(numPerksToSelect, max: rollablePerks.length);
+    randomlySelectedPerks2 = Utils.generateSetOfRandomNumbers(numPerksToSelect, max: rollablePerks.length);
   }
 
-  void _rollPerks([ List<int> indexes = ALL_TILES ]) {
-    randomlySelectedPerks = Utils.replaceIndexValue(randomlySelectedPerks, indexes, max: rollablePerks.length);
-    selectedPerks = randomlySelectedPerks.map((item) => rollablePerks[item]).toList();
-
-    _generateShareCode();
+  void rollPerks([List<int> indexes = ALL_TILES]) {
+    randomlySelectedPerks1 = Utils.replaceIndexValue(randomlySelectedPerks1, indexes, max: rollablePerks.length);
+    randomlySelectedPerks2 = Utils.replaceIndexValue(randomlySelectedPerks2, indexes, max: rollablePerks.length);
+    selectedPerksSurvivor = randomlySelectedPerks1.map((item) => rollablePerks[item]).toList();
+    selectedPerksKiller = randomlySelectedPerks2.map((item) => rollablePerks[item]).toList();
+    generateShareCode();
   }
 
-  void _rollTileCallback(List<int> indexes, BuildContext context) {
-    // Check if randomlySelectedPerks is less than or equal to rollablePerks
+  void rollTileCallback(List<int> indexes, BuildContext context) {
     if (rollablePerks.length <= numPerksToSelect) {
       String mode = describeEnum(perkMode);
       String message = 'You cannot reroll with only 4 $mode perks selected';
 
-      ScaffoldState scaffold = Scaffold.of(context);
-      scaffold.removeCurrentSnackBar();
-      scaffold.showSnackBar(SnackBar(content: Text(message)));
+      ScaffoldMessengerState scaffoldMessenger = ScaffoldMessenger.of(context);
+      scaffoldMessenger.removeCurrentSnackBar();
+      scaffoldMessenger.showSnackBar(SnackBar(content: Text(message)));
 
       return;
     }
 
     setState(() {
-      _rollPerks(indexes);
+      rollPerks(indexes);
     });
   }
 
   @override
   Widget build(BuildContext context) {
 
+    AppLocalizations l10n = AppLocalizations.of(context);
+
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
 
-    return Scaffold(
-      drawer: Drawer(
-        child: Container(
-          child: ListView(
-            children: <Widget>[
-              Container(
-                child: DrawerHeader(
-                  child: Center(
-                    child: Text(
-                      'PerkLight',
-                      style: TextStyle(
-                        fontSize: 40.0,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.all(24.0),
-                child: ListTile(
-                  title: Text(
-                    'Perk Configuration',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 22.0,
-                    ),
-                  ),
-                  onTap: () async {
-                    await Navigator.pushNamed(
-                      context,
-                      '/builder',
-                      arguments: {
-                        'killerPerks': widget.killerPerks,
-                        'survivorPerks': widget.survivorPerks
-                      }
-                    );
-                    setState(() {
-                      _filteredRoll();
-                    });
-                  },
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.all(24.0),
-                child: ListTile(
-                  title: Text(
-                    'Character Profiles',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 22.0,
-                    ),
-                  ),
-                  onTap: () async {
-                    await Navigator.pushNamed(
-                      context,
-                      '/characters',
-                      arguments: {
-                        'killerPerks': widget.killerPerks,
-                        'survivorPerks': widget.survivorPerks,
-                        'survivorCharacterDetails' : widget.survivorCharacterDetails,
-                        'killerCharacterDetails' : widget.killerCharacterDetails
-                      }
-                    );
-                  },
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.all(24.0),
-                child: ListTile(
-                  title: Text(
-                    'Item Library',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 22.0,
-                    ),
-                  ),
-                  onTap: () async {
-                    await Navigator.pushNamed(
-                      context,
-                      '/items',
-                      arguments: {
-                        'craftables': widget.craftableItemDetails,
-                        'firecrackers': widget.firecrackerItemDetails,
-                        'flashlights': widget.flashlightItemDetails,
-                        'keys' : widget.keyItemDetails,
-                        'maps' : widget.mapItemDetails,
-                        'medkits' : widget.medkitItemDetails,
-                        'toolboxes' : widget.toolboxItemDetails
-                      }
-                    );
-                  },
-                ),
-              ),
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        drawer: NavigationDrawer(),
+        appBar: AppBar(
+          title: Text(l10n.pageTitleBuild.toUpperCase()),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.star_border),
+              onPressed: () {},
+            ),
+            IconButton(
+              icon: Icon(Icons.share),
+              onPressed: () {},
+            ),
+          ],
+          bottom: TabBar(
+            tabs: [
+              Tab(text: l10n.survivor),
+              Tab(text: l10n.killer),
             ],
           ),
         ),
-      ),
-      appBar: AppBar(
-        title: Text('PerkLight'),
-      ),
-      floatingActionButton: Padding(
-        padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.05),
-        child: Transform.scale(
-          scale: 1.2,
-          child: FloatingActionButton.extended(
-            onPressed: () async {
-              setState(() {
-                _rollTileCallback(ALL_TILES, context);
-              });
-            },
-            label: Text('Randomise'),
-            icon: Icon(Icons.casino),
+        floatingActionButton: FloatingActionButton.extended(
+          onPressed: () async {
+            setState(() {
+              rollTileCallback(ALL_TILES, context);
+            });
+          },
+          label: Text(l10n.randomise),
+          icon: Icon(Icons.casino),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        body: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              colorFilter: ColorFilter.mode(
+                Color.fromARGB(Color.getAlphaFromOpacity(0.7), 0, 0, 0),
+                BlendMode.color
+              ),
+              fit: BoxFit.cover,
+              image: backgroundImage.image,
+            ),
+          ),
+          child: TabBarView(
+            children: [
+              BuildDisplay(rollTileCallback: rollTileCallback, selectedPerks: selectedPerksSurvivor),
+              BuildDisplay(rollTileCallback: rollTileCallback, selectedPerks: selectedPerksKiller),
+            ],
           ),
         ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      body: SafeArea(
-        bottom: false,
-        child: Builder(
-          builder: (BuildContext context) {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Container(height: 24.0),
-                Expanded(
-                  child: GridView.count(
-                    mainAxisSpacing: 20.0,
-                    crossAxisCount: 2,
-                    shrinkWrap: true,
-                    children: <Widget>[
-                      for (int i = 0; i < randomlySelectedPerks.length; ++i)
-                        Container(
-                          child: PerkTile(
-                            perk: selectedPerks[i],
-                            index: i,
-                            onChanged: _rollTileCallback
-                          )
-                        )
-                    ],
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 24.0, bottom: 24.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      Expanded(
-                        child: Text(
-                          'Survivor',
-                          style: TextStyle(fontSize: 22.0),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      Transform.scale(
-                        scale: 1.5,
-                        child: Switch(
-                          value: perkModeSwitch,
-                          onChanged: (value) async {
-                            setState(() {
-                              perkModeSwitch = value;
-
-                              perkMode = !perkModeSwitch ? PerkType.survivor : PerkType.killer;
-                              _filteredRoll();
-                            });
-                          }
-                        ),
-                      ),
-                      Expanded(
-                        child: Text(
-                          'Killer',
-                          style: TextStyle(fontSize: 22.0),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.13
-                )
-              ]
-            );
-          }
-        )
       ),
     );
   }

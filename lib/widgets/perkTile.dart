@@ -13,19 +13,12 @@ class PerkTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: <Widget>[
-        Container(
-          margin: EdgeInsets.only(bottom: 5.0),
-          child: Text(
-            perk.name,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.white, fontSize: 14.0),
-          ),
-        ),
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
         InkResponse(
-          radius: 105.0,
+          radius: 80.0,
+          // splashColor: Theme.of(context).accentColor,
+          splashFactory: InkRipple.splashFactory,
           onTap: () {
             onChanged([index], context);
           },

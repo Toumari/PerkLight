@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:perklight/classes/perk.dart';
 
 
@@ -20,6 +21,9 @@ class _BuildConfigurationState extends State<BuildConfiguration> {
 
   @override
   Widget build(BuildContext context) {
+
+    AppLocalizations l10n = AppLocalizations.of(context);
+    ScaffoldMessengerState scaffoldMessenger = ScaffoldMessenger.of(context);
 
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
@@ -58,18 +62,18 @@ class _BuildConfigurationState extends State<BuildConfiguration> {
               ],
               bottom: TabBar(
                 tabs: [
-                  Tab(text: 'Survivor'),
-                  Tab(text: 'Killer'),
+                  Tab(text: l10n.survivor),
+                  Tab(text: l10n.killer),
                 ]
               ),
-              title: Text('Perk Configuration'),
+              title: Text(l10n.pageTitlePerks.toUpperCase()),
             ),
             body: Builder(
               builder: (BuildContext context) {
                 return TabBarView(
-                  children: <Widget>[
+                  children: [
                     ListView(
-                      children: <Widget>[
+                      children: [
                         for(var item in widget.survivorPerks)
                           CheckboxListTile(
                             title: Text(item.name),
@@ -77,9 +81,8 @@ class _BuildConfigurationState extends State<BuildConfiguration> {
                             onChanged: (bool value) {
                               int selectedSurvivorPerks = widget.survivorPerks.where((perk) => perk.preference.enabled).toList().length;
                               if (!value && selectedSurvivorPerks - 1 < 4) {
-                                ScaffoldState scaffold = Scaffold.of(context);
-                                scaffold.removeCurrentSnackBar();
-                                scaffold.showSnackBar(SnackBar(content: Text('You cannot select less than 4 survivor perks')));
+                                scaffoldMessenger.removeCurrentSnackBar();
+                                scaffoldMessenger.showSnackBar(SnackBar(content: Text('You cannot select less than 4 survivor perks')));
                                 return;
                               }
                               setState(() {
@@ -101,7 +104,7 @@ class _BuildConfigurationState extends State<BuildConfiguration> {
                       ],
                     ),
                     ListView(
-                      children: <Widget>[
+                      children: [
                         for (var item in widget.killerPerks)
                           CheckboxListTile(
                             title: Text(item.name),
@@ -109,9 +112,8 @@ class _BuildConfigurationState extends State<BuildConfiguration> {
                             onChanged: (bool value) {
                               int selectedKillerPerks = widget.killerPerks.where((perk) => perk.preference.enabled).toList().length;
                               if (!value && selectedKillerPerks - 1 < 4) {
-                                ScaffoldState scaffold = Scaffold.of(context);
-                                scaffold.removeCurrentSnackBar();
-                                scaffold.showSnackBar(SnackBar(content: Text('You cannot select less than 4 killer perks')));
+                                scaffoldMessenger.removeCurrentSnackBar();
+                                scaffoldMessenger.showSnackBar(SnackBar(content: Text('You cannot select less than 4 killer perks')));
                                 return;
                               }
                               setState(() {

@@ -15,7 +15,7 @@ class CharacterInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('$characterName'),
+        title: Text('$characterName'.toUpperCase()),
       ),
       body: SafeArea(
         child: Center(

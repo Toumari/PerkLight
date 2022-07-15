@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import '../classes/item.dart';
+
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:perklight/classes/item.dart';
 import 'package:perklight/widgets/characterTile.dart';
 
 class ItemList extends StatelessWidget {
@@ -22,9 +24,12 @@ class ItemList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    AppLocalizations l10n = AppLocalizations.of(context);
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Item Library'),
+        title: Text(l10n.pageTitleItems.toUpperCase()),
         ),
       body: SafeArea(
         child: ListView(

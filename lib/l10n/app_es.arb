@@ -1,0 +1,13 @@
+{
+    "randomise": "Aleatorizar",
+    "killer": "Asesino",
+    "survivor": "Superviviente",
+    "errorTooFewPerksSurvivor": "No puedes seleccionar menos que 4 ventajas de superviviente",
+    "errorTooFewPerksKiller": "No puedes seleccionar menos que 4 ventajas de asesino",
+    "pageTitleSavedBuilds": "Guías guardadas",
+    "pageTitlePerks": "Ventajas",
+    "pageTitleCharacters": "Caracteres",
+    "pageTitleItems": "Elementos",
+    "pageTitleAbout": "Acerca de",
+    "pageTitleBuild": "Guía"
+}

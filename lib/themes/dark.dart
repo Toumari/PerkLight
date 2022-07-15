@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 
-final Color _primaryColor = Color(0xff21213b);
-final Color _accentColor = Colors.redAccent;
+// Color _primaryColor = Color(0xff21213b);
+ Color _primaryColor = Color.fromARGB(255, 32, 32, 32);
+// Color _accentColor = Colors.redAccent;
+Color _accentColor = Colors.red[600];
+// Color _accentColor = Colors.redAccent[700];
+
+Color _secondaryColor = Color(0xff242e37);
 
 final ThemeData darkTheme = ThemeData(
   brightness: Brightness.dark,
@@ -9,11 +14,17 @@ final ThemeData darkTheme = ThemeData(
   primaryColorBrightness: Brightness.dark,
   accentColor: _accentColor,
   accentColorBrightness: Brightness.light,
-  canvasColor: Color(0xff21213b),
-  scaffoldBackgroundColor: Color(0xff21213b),
+  canvasColor: _secondaryColor,
+  scaffoldBackgroundColor: _primaryColor,
   buttonColor: _accentColor,
   toggleableActiveColor: _accentColor,
   floatingActionButtonTheme: FloatingActionButtonThemeData(
     foregroundColor: Colors.white
   ),
+  appBarTheme: AppBarTheme(
+    backgroundColor: _secondaryColor,
+    titleTextStyle: TextStyle(
+      fontWeight: FontWeight.w100,
+    )
+  )
 );

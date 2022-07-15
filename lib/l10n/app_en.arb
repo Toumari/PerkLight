@@ -1,0 +1,13 @@
+{
+    "randomise": "Randomise",
+    "killer": "Killer",
+    "survivor": "Survivor",
+    "errorTooFewPerksSurvivor": "You cannot select less than 4 survivor perks",
+    "errorTooFewPerksKiller": "You cannot select less than 4 killer perks",
+    "pageTitleSavedBuilds": "Saved Builds",
+    "pageTitlePerks": "Perks",
+    "pageTitleCharacters": "Characters",
+    "pageTitleItems": "Items",
+    "pageTitleAbout": "About",
+    "pageTitleBuild": "Build"
+}

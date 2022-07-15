@@ -9,12 +9,13 @@ class PerkIcon extends StatelessWidget {
   final double iconSize;
   final double boxSize;
 
-  final Color boxColor = Colors.white12;
-  final Color boxBorderColor = Colors.black54;
-  final double boxBorderWidth = 10.0;
-
   @override
   Widget build(BuildContext context) {
+    final Color boxColor1 = Theme.of(context).accentColor;
+    final Color boxColor2 = HSVColor.fromColor(boxColor1).withValue(0.3).toColor();
+    final Color boxBorderColor = Color.fromARGB(Color.getAlphaFromOpacity(1), 0, 0, 0);
+    final double boxBorderWidth = 0.9 / 15 * iconSize;
+
     return Center(
       child: Stack(
         children: <Widget> [
@@ -30,11 +31,12 @@ class PerkIcon extends StatelessWidget {
                 width: boxSize,
                 height: boxSize,
                 decoration: BoxDecoration(
+                  gradient: LinearGradient(colors: [ boxColor1, boxColor2 ]),
                   border: Border.all(
                     color: boxBorderColor,
-                    width: boxBorderWidth
+                    width: boxBorderWidth,
                   ),
-                  color: boxColor
+                  color: boxColor1
                 ),
               ),
             ),
@@ -43,7 +45,7 @@ class PerkIcon extends StatelessWidget {
             iconPath,
             height: iconSize,
             width: iconSize,
-            fit: BoxFit.fill
+            fit: BoxFit.fill,
           ),
         ]
       ),

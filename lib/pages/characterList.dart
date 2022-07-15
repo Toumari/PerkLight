@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:perklight/widgets/characterTile.dart';
 import 'package:perklight/classes/character.dart';
 
@@ -14,15 +15,17 @@ class CharacterList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppLocalizations l10n = AppLocalizations.of(context);
+
     return DefaultTabController(
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Character Profiles'),
+          title: Text(l10n.pageTitleCharacters.toUpperCase()),
           bottom: TabBar(
             tabs: [
-              Tab(text: 'Survivor'),
-              Tab(text: 'Killer'),
+              Tab(text: l10n.survivor),
+              Tab(text: l10n.killer),
             ],
           ),
         ),
