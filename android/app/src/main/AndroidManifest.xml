@@ -2,7 +2,6 @@
     package="toumari.perklight">
 
     <application
-        android:name="io.flutter.app.${applicationName}"
         android:label="PerkLight"
         android:icon="@mipmap/launcher_icon">
         <meta-data
