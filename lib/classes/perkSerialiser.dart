@@ -9,6 +9,18 @@ class PerksSerialiser {
   static const URL = 'https://perklight.app/build';
 
   static String encode({ List<int> perksIds, PerkType perkType }) {
+    // Check list is not too long
+    if(perksIds.length != 4) {
+      throw RangeError('Items should be 4 elements');
+    }
+
+    // Check each index is in range
+    for(int item in perksIds) {
+      if(item < 0 || item > 127) {
+        throw RangeError('Item index out of range');
+      }
+    }
+
     // Toggle bit 8 using perkType index (only works with 2 types)
     int bitwise = 128 * perkType.index;
     List<int> uInt8PerkIds = perksIds.map((i) => i ^ bitwise).toList();
@@ -29,7 +41,10 @@ class PerksSerialiser {
   static Map<String, dynamic> decode(String perks) {
     // Decode Bas64 string
     Uint8List uInt8Bytes = base64Decode(perks);
-    assert(uInt8Bytes.length == 6);
+
+    if(uInt8Bytes.length != 6) {
+      throw RangeError('Decoded length not 6 bytes');
+    }
 
     // Split
     Uint8List uInt8PerkIds = uInt8Bytes.sublist(0, 4);
@@ -38,11 +53,16 @@ class PerksSerialiser {
     // CRC16 Checksum assertion
     Uint16List uInt16Chksum = uInt8Chksum.buffer.asUint16List();
     int chksum = Crc16Usb().convert(uInt8PerkIds);
-    assert(chksum == uInt16Chksum[0]);
+
+    if(chksum != uInt16Chksum[0]) {
+      throw Exception('Checksum invalid');
+    }
 
     // Calculate perkType from 8th bit and ensure all bytes are the same
     int sum = uInt8PerkIds.reduce((total, next) => total + (next & 128)) ~/ 128;
-    assert(sum == 0 || sum == 4);
+    if( !(sum == 0 || sum == 4) ) {
+      throw Exception('Invalid type decode');
+    }
 
     // Set perkType
     PerkType perkType;
@@ -51,7 +71,7 @@ class PerksSerialiser {
         perkType = PerkType.survivor;
         break;
       case 4:
-        perkType = PerkType.survivor;
+        perkType = PerkType.killer;
         break;
     }
 

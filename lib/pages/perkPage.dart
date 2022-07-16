@@ -1,22 +1,39 @@
-// Third-party
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-// First-party
-import 'package:perklight/utilities.dart' as Utils;
-
 import 'package:perklight/classes/perk.dart';
-import 'package:perklight/widgets/perkTile.dart';
+import 'package:perklight/classes/character.dart';
+import 'package:perklight/classes/item.dart';
 import 'package:perklight/classes/perkSerialiser.dart';
+import 'package:perklight/utilities.dart' as Utils;
+import 'package:perklight/widgets/perkTile.dart';
+
 
 class PerkPage extends StatefulWidget {
   PerkPage(arguments) :
     killerPerks = arguments['killerPerks'],
-    survivorPerks = arguments['survivorPerks'];
+    survivorPerks = arguments['survivorPerks'],
+    survivorCharacterDetails = arguments['survivorCharacterDetails'],
+    killerCharacterDetails = arguments['killerCharacterDetails'],
+    firecrackerItemDetails = arguments['firecrackerItemDetails'],
+    flashlightItemDetails = arguments['flashlightItemDetails'],
+    keyItemDetails = arguments['keyItemDetails'],
+    mapItemDetails = arguments['mapItemDetails'],
+    medkitItemDetails = arguments['medkitItemDetails'],
+    toolboxItemDetails = arguments['toolboxItemDetails'];
+
 
   final List<KillerPerk> killerPerks;
   final List<SurvivorPerk> survivorPerks;
+  final List<Character> survivorCharacterDetails;
+  final List<Character> killerCharacterDetails;
+  final List<Item> firecrackerItemDetails;
+  final List<Item> flashlightItemDetails;
+  final List<Item> keyItemDetails;
+  final List<Item> mapItemDetails;
+  final List<Item> medkitItemDetails;
+  final List<Item> toolboxItemDetails;
 
   @override
   _PerkPageState createState() => _PerkPageState();
@@ -51,8 +68,6 @@ class _PerkPageState extends State<PerkPage> {
   void _generateShareCode() {
     List<int> selectedPerksIds = selectedPerks.map((item) => item.id).toList();
     buildId = PerksSerialiser.encode(perksIds: selectedPerksIds, perkType: perkMode);
-
-    print('Build ID: $buildId');
   }
 
   void _filterRollable() {
@@ -110,13 +125,9 @@ class _PerkPageState extends State<PerkPage> {
     return Scaffold(
       drawer: Drawer(
         child: Container(
-          color: Color(0xff21213b),
           child: ListView(
             children: <Widget>[
               Container(
-                decoration: BoxDecoration(
-                  border: Border(bottom: BorderSide(width: 1.0, color: Colors.white))
-                ),
                 child: DrawerHeader(
                   child: Center(
                     child: Text(
@@ -128,19 +139,16 @@ class _PerkPageState extends State<PerkPage> {
                       ),
                     ),
                   ),
-                  decoration: BoxDecoration(color: Color(0xff21213b)),
                 ),
               ),
               Container(
                 padding: EdgeInsets.all(24.0),
-                color: Color(0xff21213b),
                 child: ListTile(
                   title: Text(
                     'Perk Configuration',
                     style: TextStyle(
                       fontWeight: FontWeight.w700,
                       fontSize: 22.0,
-                      color: Colors.white,
                     ),
                   ),
                   onTap: () async {
@@ -158,15 +166,79 @@ class _PerkPageState extends State<PerkPage> {
                   },
                 ),
               ),
+              Container(
+                padding: EdgeInsets.all(24.0),
+                child: ListTile(
+                  title: Text(
+                    'Character Profiles',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 22.0,
+                    ),
+                  ),
+                  onTap: () async {
+                    await Navigator.pushNamed(
+                      context,
+                      '/characters',
+                      arguments: {
+                        'killerPerks': widget.killerPerks,
+                        'survivorPerks': widget.survivorPerks,
+                        'survivorCharacterDetails' : widget.survivorCharacterDetails,
+                        'killerCharacterDetails' : widget.killerCharacterDetails
+                      }
+                    );
+                  },
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.all(24.0),
+                child: ListTile(
+                  title: Text(
+                    'Item Library',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 22.0,
+                    ),
+                  ),
+                  onTap: () async {
+                    await Navigator.pushNamed(
+                      context,
+                      '/items',
+                      arguments: {
+                        'firecracker': widget.firecrackerItemDetails,
+                        'flashlight': widget.flashlightItemDetails,
+                        'key' : widget.keyItemDetails,
+                        'map' : widget.mapItemDetails,
+                        'medkit' : widget.medkitItemDetails,
+                        'toolbox' : widget.toolboxItemDetails
+                      }
+                    );
+                  },
+                ),
+              ),
             ],
           ),
         ),
       ),
-      backgroundColor: Color(0xff21213b),
       appBar: AppBar(
         title: Text('PerkLight'),
-        backgroundColor: Color(0xff21213b),
       ),
+      floatingActionButton: Padding(
+        padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.05),
+        child: Transform.scale(
+          scale: 1.2,
+          child: FloatingActionButton.extended(
+            onPressed: () async {
+              setState(() {
+                _rollTileCallback(ALL_TILES, context);
+              });
+            },
+            label: Text('Randomise'),
+            icon: Icon(Icons.casino),
+          ),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: SafeArea(
         bottom: false,
         child: Builder(
@@ -184,9 +256,9 @@ class _PerkPageState extends State<PerkPage> {
                       for (int i = 0; i < randomlySelectedPerks.length; ++i)
                         Container(
                           child: PerkTile(
-                          perk: selectedPerks[i],
-                          index: i,
-                          onChanged: _rollTileCallback
+                            perk: selectedPerks[i],
+                            index: i,
+                            onChanged: _rollTileCallback
                           )
                         )
                     ],
@@ -197,9 +269,12 @@ class _PerkPageState extends State<PerkPage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      Text(
-                        'Survivor',
-                        style: TextStyle(fontSize: 22.0, color: Colors.white),
+                      Expanded(
+                        child: Text(
+                          'Survivor',
+                          style: TextStyle(fontSize: 22.0),
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                       Transform.scale(
                         scale: 1.5,
@@ -212,38 +287,22 @@ class _PerkPageState extends State<PerkPage> {
                               perkMode = !perkModeSwitch ? PerkType.survivor : PerkType.killer;
                               _filteredRoll();
                             });
-                          },
-                          activeTrackColor: Colors.redAccent,
-                          activeColor: Colors.black,
+                          }
                         ),
                       ),
-                      Text(
-                        'Killer',
-                        style: TextStyle(fontSize: 22.0, color: Colors.white),
+                      Expanded(
+                        child: Text(
+                          'Killer',
+                          style: TextStyle(fontSize: 22.0),
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                     ],
                   ),
                 ),
                 Container(
-                  alignment: Alignment(0, 1),
-                  child: SizedBox(
-                    width: double.infinity,
-                    height: 75,
-                    child: FlatButton(
-                      onPressed: () async {
-                        setState(() {
-                          _rollTileCallback(ALL_TILES, context);
-                        });
-                      },
-                      child: Text(
-                        'Randomise',
-                        style: TextStyle(fontSize: 22.0),
-                      ),
-                      color: Colors.redAccent,
-                      textColor: Colors.white,
-                    ),
-                  ),
-                ),
+                  height: MediaQuery.of(context).size.height * 0.13
+                )
               ]
             );
           }
