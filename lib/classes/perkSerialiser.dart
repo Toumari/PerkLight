@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:typed_data';
-import 'package:crclib/crclib.dart';
+import 'package:crclib/catalog.dart';
 import 'package:uri/uri.dart';
 
 import 'package:perklight/classes/perk.dart';
@@ -8,15 +8,15 @@ import 'package:perklight/classes/perk.dart';
 class PerksSerialiser {
   static const URL = 'https://perklight.app/build';
 
-  static String encode({ List<int> perksIds, PerkType perkType }) {
+  static String encode({List<int> perksIds, PerkType perkType}) {
     // Check list is not too long
-    if(perksIds.length != 4) {
+    if (perksIds.length != 4) {
       throw RangeError('Items should be 4 elements');
     }
 
     // Check each index is in range
-    for(int item in perksIds) {
-      if(item < 0 || item > 127) {
+    for (int item in perksIds) {
+      if (item < 0 || item > 127) {
         throw RangeError('Item index out of range');
       }
     }
@@ -26,7 +26,8 @@ class PerksSerialiser {
     List<int> uInt8PerkIds = perksIds.map((i) => i ^ bitwise).toList();
 
     // CRC16 Checksum
-    Uint16List chksum = Uint16List.fromList([Crc16Usb().convert(uInt8PerkIds)]);
+    Uint16List chksum =
+        Uint16List.fromList([Crc16Usb().convert(uInt8PerkIds).hashCode]);
     List<int> uInt8Chksum = Uint8List.view(chksum.buffer);
 
     // Concat bytes and output Base64 URL string
@@ -42,7 +43,7 @@ class PerksSerialiser {
     // Decode Bas64 string
     Uint8List uInt8Bytes = base64Decode(perks);
 
-    if(uInt8Bytes.length != 6) {
+    if (uInt8Bytes.length != 6) {
       throw RangeError('Decoded length not 6 bytes');
     }
 
@@ -52,21 +53,21 @@ class PerksSerialiser {
 
     // CRC16 Checksum assertion
     Uint16List uInt16Chksum = uInt8Chksum.buffer.asUint16List();
-    int chksum = Crc16Usb().convert(uInt8PerkIds);
+    int chksum = Crc16Usb().convert(uInt8PerkIds).hashCode;
 
-    if(chksum != uInt16Chksum[0]) {
+    if (chksum != uInt16Chksum[0]) {
       throw Exception('Checksum invalid');
     }
 
     // Calculate perkType from 8th bit and ensure all bytes are the same
     int sum = uInt8PerkIds.reduce((total, next) => total + (next & 128)) ~/ 128;
-    if( !(sum == 0 || sum == 4) ) {
+    if (!(sum == 0 || sum == 4)) {
       throw Exception('Invalid type decode');
     }
 
     // Set perkType
     PerkType perkType;
-    switch(sum) {
+    switch (sum) {
       case 0:
         perkType = PerkType.survivor;
         break;
@@ -84,8 +85,9 @@ class PerksSerialiser {
     return output;
   }
 
-  static String serialiseUrl({ List<int> perksIds, PerkType perkType }) {
-    String base64 = PerksSerialiser.encode(perksIds: perksIds, perkType: perkType);
+  static String serialiseUrl({List<int> perksIds, PerkType perkType}) {
+    String base64 =
+        PerksSerialiser.encode(perksIds: perksIds, perkType: perkType);
 
     var template = new UriTemplate("$URL/{buildId}");
     String url = template.expand({'buildId': base64});
@@ -94,7 +96,7 @@ class PerksSerialiser {
   }
 
   static Map<String, dynamic> deserialiseUrl(String url) {
-    if(!url.startsWith(URL)) {
+    if (!url.startsWith(URL)) {
       throw Exception('Not valid URL');
     }
 
