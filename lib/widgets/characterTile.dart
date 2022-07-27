@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CharacterTile extends StatelessWidget {
-  CharacterTile(
-      {@required this.name, this.description, @required this.characterImage});
+  CharacterTile({@required this.name, this.description, @required this.characterImage});
 
   final String name;
   final String description;
@@ -16,11 +15,7 @@ class CharacterTile extends StatelessWidget {
         await Navigator.pushNamed(
           context,
           '/characterInfo',
-          arguments: {
-            'name': name,
-            'characterImage': characterImage,
-            'characterDescription': description
-          },
+          arguments: {'name': name, 'characterImage': characterImage, 'characterDescription': description},
         );
       },
       child: Padding(
@@ -42,10 +37,7 @@ class CharacterTile extends StatelessWidget {
                 child: Text(
                   name,
                   textAlign: TextAlign.left,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold),
+                  style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold),
                 ),
               ),
             ),

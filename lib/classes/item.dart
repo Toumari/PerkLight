@@ -5,8 +5,8 @@ class Item {
 
   Item({this.name, this.description, this.imagePath});
 
-  Item.fromJson(Map<String, dynamic> m):
-      name = m['name'],
-      description = m['description'],
-      imagePath = m['imagePath'];
+  Item.fromJson(Map<String, dynamic> m)
+      : name = m['name'],
+        description = m['description'],
+        imagePath = m['imagePath'];
 }

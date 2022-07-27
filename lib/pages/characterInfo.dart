@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 
-
 class CharacterInfo extends StatelessWidget {
-  CharacterInfo(arguments) :
-    characterName = arguments['name'],
-    characterIcon = arguments['characterImage'],
-    characterDescription = arguments['characterDescription'];
+  CharacterInfo(arguments)
+      : characterName = arguments['name'],
+        characterIcon = arguments['characterImage'],
+        characterDescription = arguments['characterDescription'];
 
   final String characterName;
   final String characterIcon;
@@ -34,10 +33,7 @@ class CharacterInfo extends StatelessWidget {
                   Text(
                     characterName,
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold
-                    ),
+                    style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(
                     height: 25,

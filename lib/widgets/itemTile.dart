@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ItemTile extends StatelessWidget {
-  ItemTile(
-    {@required this.name, this.description, @required this.imagePath});
+  ItemTile({@required this.name, this.description, @required this.imagePath});
 
   final String name;
   final String description;
@@ -16,11 +15,7 @@ class ItemTile extends StatelessWidget {
         await Navigator.pushNamed(
           context,
           '/itemInfo',
-          arguments: {
-            'name': name,
-            'ItemImage': imagePath,
-            'ItemDescription': description
-          },
+          arguments: {'name': name, 'ItemImage': imagePath, 'ItemDescription': description},
         );
       },
       child: Padding(
@@ -42,10 +37,7 @@ class ItemTile extends StatelessWidget {
                 child: Text(
                   name,
                   textAlign: TextAlign.left,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold),
+                  style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold),
                 ),
               ),
             ),

@@ -12,33 +12,26 @@ class PerkTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Container(
-          margin: EdgeInsets.only(bottom: 5.0),
-          child: Text(
-            perk.name,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.white, fontSize: 14.0),
-          ),
+    return Column(children: <Widget>[
+      Container(
+        margin: EdgeInsets.only(bottom: 5.0),
+        child: Text(
+          perk.name,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          textAlign: TextAlign.center,
+          style: TextStyle(color: Colors.white, fontSize: 14.0),
         ),
-        InkResponse(
+      ),
+      InkResponse(
           radius: 105.0,
           onTap: () {
             onChanged([index], context);
           },
           onLongPress: () {
-            Navigator.pushNamed(
-              context,
-              '/details',
-              arguments: perk
-            );
+            Navigator.pushNamed(context, '/details', arguments: perk);
           },
-          child: PerkIcon(perk.iconPath, 150.0)
-        ),
-      ]
-    );
+          child: PerkIcon(perk.iconPath, 150.0)),
+    ]);
   }
 }
