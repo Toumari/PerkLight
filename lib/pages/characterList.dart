@@ -3,11 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:perklight/widgets/characterTile.dart';
 import 'package:perklight/classes/character.dart';
 
-
 class CharacterList extends StatelessWidget {
-  CharacterList(arguments) :
-    survivorDetails = arguments['survivorCharacterDetails'],
-    killerDetails = arguments['killerCharacterDetails'];
+  CharacterList(arguments)
+      : survivorDetails = arguments['survivorCharacterDetails'],
+        killerDetails = arguments['killerCharacterDetails'];
 
   final List<Character> survivorDetails;
   final List<Character> killerDetails;
@@ -30,18 +29,18 @@ class CharacterList extends StatelessWidget {
           child: TabBarView(
             children: <Widget>[
               for (List<Character> characterList in [survivorDetails, killerDetails])
-                  Scrollbar(
-                    child: ListView(
-                      children: <Widget>[
-                        for (Character character in characterList)
-                          CharacterTile(
-                            name: character.name,
-                            characterImage: character.imagePath,
-                            description: character.description,
-                          ),
-                      ],
-                    ),
+                Scrollbar(
+                  child: ListView(
+                    children: <Widget>[
+                      for (Character character in characterList)
+                        CharacterTile(
+                          name: character.name,
+                          characterImage: character.imagePath,
+                          description: character.description,
+                        ),
+                    ],
                   ),
+                ),
             ],
           ),
         ),

@@ -13,7 +13,5 @@ final ThemeData darkTheme = ThemeData(
   scaffoldBackgroundColor: Color(0xff21213b),
   buttonColor: _accentColor,
   toggleableActiveColor: _accentColor,
-  floatingActionButtonTheme: FloatingActionButtonThemeData(
-    foregroundColor: Colors.white
-  ),
+  floatingActionButtonTheme: FloatingActionButtonThemeData(foregroundColor: Colors.white),
 );
