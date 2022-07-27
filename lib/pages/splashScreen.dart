@@ -43,8 +43,7 @@ class SplashScreenState extends State<SplashScreen> {
   }
 
   Future _loadCharactersFromFile() async {
-    String characterJson = await DefaultAssetBundle.of(context)
-        .loadString('assets/data/characters.json');
+    String characterJson = await DefaultAssetBundle.of(context).loadString('assets/data/characters.json');
     Map<String, dynamic> characters = json.decode(characterJson);
     for (Map<String, dynamic> character in characters['survivors']) {
       Character newCharacter = Character.fromJson(character);
@@ -57,8 +56,7 @@ class SplashScreenState extends State<SplashScreen> {
   }
 
   Future _loadItemsFromFile() async {
-    String itemJson = await DefaultAssetBundle.of(context)
-        .loadString('assets/data/items.json');
+    String itemJson = await DefaultAssetBundle.of(context).loadString('assets/data/items.json');
     Map<String, dynamic> items = json.decode(itemJson);
     for (Map<String, dynamic> item in items['firecracker']) {
       Item newItem = Item.fromJson(item);
@@ -87,8 +85,7 @@ class SplashScreenState extends State<SplashScreen> {
   }
 
   Future _loadPerksFromFile() async {
-    String perkJson = await DefaultAssetBundle.of(context)
-        .loadString('assets/data/perks.json');
+    String perkJson = await DefaultAssetBundle.of(context).loadString('assets/data/perks.json');
     Map<String, dynamic> perks = json.decode(perkJson);
     for (Map<String, dynamic> perk in perks['killer']) {
       Perk newPerk = KillerPerk.fromJson(perk);

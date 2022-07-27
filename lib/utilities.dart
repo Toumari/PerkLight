@@ -2,11 +2,9 @@ import 'dart:math';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 /// Generates a List of the specified [size] containing unique integers in the range [min] (inclusive) to [max] (exclusive).
-List<int> generateSetOfRandomNumbers(int size, { int min = 0, int max = 100 }) {
-  if (size > (max - min))
-    throw Exception('size is greater than (max - min) which will cause an infinite loop');
+List<int> generateSetOfRandomNumbers(int size, {int min = 0, int max = 100}) {
+  if (size > (max - min)) throw Exception('size is greater than (max - min) which will cause an infinite loop');
 
   Set<int> values = new Set();
   for (int i = 0; i < size; i++) {
@@ -16,18 +14,17 @@ List<int> generateSetOfRandomNumbers(int size, { int min = 0, int max = 100 }) {
   return values.toList();
 }
 
-List<int> replaceIndexValue(List<int> values, List<int>targetIndexes, { int min = 0, int max = 100 }) {
+List<int> replaceIndexValue(List<int> values, List<int> targetIndexes, {int min = 0, int max = 100}) {
   if (max <= values.length) {
     return values;
   }
 
   for (int index in targetIndexes) {
-    if (index < 0 || index > values.length)
-      throw Exception('Index out of bounds');
+    if (index < 0 || index > values.length) throw Exception('Index out of bounds');
 
-    while(true) {
+    while (true) {
       int val = Random().nextInt(max - min) + min;
-      if(!values.contains(val)) {
+      if (!values.contains(val)) {
         values[index] = val;
         break;
       }

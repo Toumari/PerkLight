@@ -26,8 +26,7 @@ class PerksSerialiser {
     List<int> uInt8PerkIds = perksIds.map((i) => i ^ bitwise).toList();
 
     // CRC16 Checksum
-    Uint16List chksum =
-        Uint16List.fromList([Crc16Usb().convert(uInt8PerkIds).hashCode]);
+    Uint16List chksum = Uint16List.fromList([Crc16Usb().convert(uInt8PerkIds).hashCode]);
     List<int> uInt8Chksum = Uint8List.view(chksum.buffer);
 
     // Concat bytes and output Base64 URL string
@@ -86,8 +85,7 @@ class PerksSerialiser {
   }
 
   static String serialiseUrl({List<int> perksIds, PerkType perkType}) {
-    String base64 =
-        PerksSerialiser.encode(perksIds: perksIds, perkType: perkType);
+    String base64 = PerksSerialiser.encode(perksIds: perksIds, perkType: perkType);
 
     var template = new UriTemplate("$URL/{buildId}");
     String url = template.expand({'buildId': base64});

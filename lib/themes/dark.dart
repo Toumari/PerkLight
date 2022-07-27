@@ -19,6 +19,5 @@ final ColorScheme perkLightColorScheme = ColorScheme(
 final ThemeData darkTheme = ThemeData(
     canvasColor: perkLightColorScheme.background,
     toggleableActiveColor: perkLightColorScheme.secondary,
-    floatingActionButtonTheme:
-        FloatingActionButtonThemeData(foregroundColor: Colors.white),
+    floatingActionButtonTheme: FloatingActionButtonThemeData(foregroundColor: Colors.white),
     colorScheme: perkLightColorScheme);

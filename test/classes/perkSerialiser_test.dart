@@ -62,8 +62,7 @@ void main() {
     group('encode', () {
       for (PerkType type in PerkType.values) {
         for (List<int> value in validLists) {
-          String output =
-              PerksSerialiser.encode(perksIds: value, perkType: type);
+          String output = PerksSerialiser.encode(perksIds: value, perkType: type);
           Uint8List buffer = base64Decode(output);
 
           group('$value => $output as $type', () {
@@ -79,26 +78,21 @@ void main() {
               Uint8List decodedChksum = buffer.sublist(4);
 
               Uint16List actual = decodedChksum.buffer.asUint16List();
-              Uint16List chksum = Uint16List.fromList(
-                  [Crc16Usb().convert(decodedList).hashCode]);
+              Uint16List chksum = Uint16List.fromList([Crc16Usb().convert(decodedList).hashCode]);
 
               expect(actual, equals(chksum));
             });
 
             test('type bit count is valid', () {
               Uint8List decodedList = buffer.sublist(0, 4);
-              int actual =
-                  decodedList.reduce((total, next) => total + (next & 128)) ~/
-                      128;
+              int actual = decodedList.reduce((total, next) => total + (next & 128)) ~/ 128;
 
               expect(actual, anyOf(equals(0), equals(4)));
             });
 
             test('type is valid', () {
               Uint8List decodedList = buffer.sublist(0, 4);
-              int sum =
-                  decodedList.reduce((total, next) => total + (next & 128)) ~/
-                      128;
+              int sum = decodedList.reduce((total, next) => total + (next & 128)) ~/ 128;
 
               PerkType actual;
               switch (sum) {
@@ -125,8 +119,7 @@ void main() {
     group('decode', () {
       for (PerkType type in PerkType.values) {
         for (List<int> value in validLists) {
-          String build =
-              PerksSerialiser.encode(perksIds: value, perkType: type);
+          String build = PerksSerialiser.encode(perksIds: value, perkType: type);
 
           group('$build => $value as $type', () {
             var output = PerksSerialiser.decode(build);
@@ -148,10 +141,7 @@ void main() {
     group('encode', () {
       for (List<int> value in invalidRangeLists) {
         test('$value raises range exception', () {
-          expect(
-              () => PerksSerialiser.encode(
-                  perksIds: value, perkType: PerkType.survivor),
-              throwsRangeError);
+          expect(() => PerksSerialiser.encode(perksIds: value, perkType: PerkType.survivor), throwsRangeError);
         });
       }
     });
@@ -161,10 +151,7 @@ void main() {
     group('encode', () {
       for (List<int> value in invalidListSizes) {
         test('$value raises range exception', () {
-          expect(
-              () => PerksSerialiser.encode(
-                  perksIds: value, perkType: PerkType.survivor),
-              throwsRangeError);
+          expect(() => PerksSerialiser.encode(perksIds: value, perkType: PerkType.survivor), throwsRangeError);
         });
       }
     });
@@ -189,10 +176,8 @@ void main() {
   group('invalid input checksum', () {
     for (String value in invalidChecksum) {
       test('$value invalid checksum', () {
-        expect(
-            () => PerksSerialiser.decode(value),
-            throwsA(allOf(isException,
-                predicate((e) => e.message == 'Checksum invalid'))));
+        expect(() => PerksSerialiser.decode(value),
+            throwsA(allOf(isException, predicate((e) => e.message == 'Checksum invalid'))));
       });
     }
   });
@@ -200,10 +185,8 @@ void main() {
   group('invalid input type', () {
     for (String value in invalidType) {
       test('$value invalid type', () {
-        expect(
-            () => PerksSerialiser.decode(value),
-            throwsA(allOf(isException,
-                predicate((e) => e.message == 'Invalid type decode'))));
+        expect(() => PerksSerialiser.decode(value),
+            throwsA(allOf(isException, predicate((e) => e.message == 'Invalid type decode'))));
       });
     }
   });
