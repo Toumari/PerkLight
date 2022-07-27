@@ -32,16 +32,19 @@ class NavigationDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
         child: Column(children: [
-      const DrawerHeader(child: Text('PerkLight')),
+      DrawerHeader(
+          child: Container(alignment: Alignment.center, child: Text('PerkLight', style: TextStyle(fontSize: 30.0)))),
       Expanded(
           child: ListView(padding: EdgeInsets.zero, children: [
         ListTile(
+            leading: Icon(Icons.check_box_outlined),
             title: Text('Perk Configuration'),
             onTap: () async {
               await Navigator.pushNamed(context, '/builder',
                   arguments: {'killerPerks': this.killerPerks, 'survivorPerks': this.survivorPerks});
             }),
         ListTile(
+            leading: Icon(Icons.account_box),
             title: Text('Character Profiles'),
             onTap: () async {
               await Navigator.pushNamed(context, '/characters', arguments: {
@@ -50,6 +53,7 @@ class NavigationDrawer extends StatelessWidget {
               });
             }),
         ListTile(
+            leading: Icon(Icons.flashlight_on),
             title: Text('Item Library'),
             onTap: () async {
               await Navigator.pushNamed(context, '/items', arguments: {
