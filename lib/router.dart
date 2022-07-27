@@ -14,14 +14,12 @@ Map<String, Function> routeMap = {
 };
 
 Route<dynamic> generateRoute(RouteSettings settings) {
-
-  Function routeFunc = routeMap[settings.name] ?? (args) {
-    return MaterialPageRoute(builder: (context) {
-      return Container(
-        child: Text('Invalid Route "${settings.name}"')
-      );
-    });
-  };
+  Function routeFunc = routeMap[settings.name] ??
+      (args) {
+        return MaterialPageRoute(builder: (context) {
+          return Container(child: Text('Invalid Route "${settings.name}"'));
+        });
+      };
 
   return routeFunc(settings.arguments);
 }

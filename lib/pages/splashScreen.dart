@@ -12,21 +12,16 @@ class SplashScreen extends StatefulWidget {
 }
 
 class SplashScreenState extends State<SplashScreen> {
-
   List<Future> _initSteps = List<Future>();
 
   List<KillerPerk> _killerPerks = List<KillerPerk>();
   List<SurvivorPerk> _survivorPerks = List<SurvivorPerk>();
 
   _navigateToHomePage(List<dynamic> values) {
-    Navigator.pushReplacementNamed(
-      context,
-      '/home',
-      arguments: {
-        'killerPerks': _killerPerks,
-        'survivorPerks': _survivorPerks,
-      }
-    );
+    Navigator.pushReplacementNamed(context, '/home', arguments: {
+      'killerPerks': _killerPerks,
+      'survivorPerks': _survivorPerks,
+    });
   }
 
   Future _loadPerksFromFile() async {
@@ -55,18 +50,13 @@ class SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Image.asset('assets/images/icon/icon.png', fit: BoxFit.fitWidth),
-          Container(
-            padding: EdgeInsets.only(top: 50),
-            child: CircularProgressIndicator()
-          ),
-        ]
-      )
-    );
+        backgroundColor: Colors.white,
+        body: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Image.asset('assets/images/icon/icon.png', fit: BoxFit.fitWidth),
+              Container(padding: EdgeInsets.only(top: 50), child: CircularProgressIndicator()),
+            ]));
   }
 }

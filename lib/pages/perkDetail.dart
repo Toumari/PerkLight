@@ -29,9 +29,14 @@ class _PerkDetailState extends State<PerkDetail> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Container(margin: EdgeInsets.only(bottom: 15.0), child: PerkIcon(widget.perk.iconPath, 200.0)),
-              Text(widget.perk.name, style: TextStyle(color: Colors.white, fontSize: 26, fontWeight: FontWeight.bold), textAlign: TextAlign.center),
+              Text(widget.perk.name,
+                  style: TextStyle(color: Colors.white, fontSize: 26, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center),
               SizedBox(height: 15),
-              Text(widget.perk.description, overflow: TextOverflow.visible, style: TextStyle(color: Colors.white, fontSize: 18), textAlign: TextAlign.left)
+              Text(widget.perk.description,
+                  overflow: TextOverflow.visible,
+                  style: TextStyle(color: Colors.white, fontSize: 18),
+                  textAlign: TextAlign.left)
             ],
           ),
         ),
