@@ -43,7 +43,12 @@ class PerkIcon extends StatelessWidget {
                 alignment: Alignment.center,
                 maxWidth: imageWidth,
                 maxHeight: imageWidth,
-                child: Image.asset(iconPath, fit: BoxFit.contain),
+                child: Image.asset(
+                  iconPath,
+                  fit: BoxFit.contain,
+                  width: imageWidth,
+                  height: imageWidth,
+                ),
               ),
             ),
           ],
