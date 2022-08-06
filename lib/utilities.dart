@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/material.dart';
 
 /// Generates a List of the specified [size] containing unique integers in the range [min] (inclusive) to [max] (exclusive).
 List<int> generateSetOfRandomNumbers(int size, {int min = 0, int max = 100}) {
@@ -55,4 +56,10 @@ Future<bool> saveToSharedPreferences(key, value) async {
     default:
       return false;
   }
+}
+
+Color darkenColor(Color input, double amount) {
+  final hsl = HSLColor.fromColor(input);
+  final hslDarker = hsl.withLightness((hsl.lightness - amount).clamp(0.0, 1.0));
+  return hslDarker.toColor();
 }

@@ -7,8 +7,8 @@ import 'package:perklight/classes/character.dart';
 import 'package:perklight/classes/item.dart';
 import 'package:perklight/classes/perkSerialiser.dart';
 import 'package:perklight/utilities.dart' as Utils;
-import 'package:perklight/widgets/perkTile.dart';
 import 'package:perklight/widgets/navigationDrawer.dart';
+import 'package:perklight/widgets/perkCluster.dart';
 
 class PerkPage extends StatefulWidget {
   PerkPage(arguments)
@@ -133,79 +133,65 @@ class _PerkPageState extends State<PerkPage> {
         'medkitItemDetails': widget.medkitItemDetails,
         'toolboxItemDetails': widget.toolboxItemDetails
       }),
-      appBar: AppBar(
-        title: Text('PerkLight'),
-      ),
+      appBar: AppBar(title: Text('PerkLight')),
       floatingActionButton: Padding(
         padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.05),
-        child: Transform.scale(
-          scale: 1.2,
-          child: FloatingActionButton.extended(
-            onPressed: () async {
-              setState(() {
-                _rollTileCallback(ALL_TILES, context);
-              });
-            },
-            label: Text('Randomise'),
-            icon: Icon(Icons.casino),
-          ),
+        child: FloatingActionButton.extended(
+          onPressed: () async {
+            setState(() {
+              _rollTileCallback(ALL_TILES, context);
+            });
+          },
+          label: Text('Randomise'),
+          icon: Icon(Icons.casino),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: SafeArea(
-          bottom: false,
-          child: Builder(builder: (BuildContext context) {
-            return Column(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[
-              Container(height: 24.0),
-              Expanded(
-                child: GridView.count(
-                  mainAxisSpacing: 20.0,
-                  crossAxisCount: 2,
-                  shrinkWrap: true,
-                  children: <Widget>[
-                    for (int i = 0; i < randomlySelectedPerks.length; ++i)
-                      Container(child: PerkTile(perk: selectedPerks[i], index: i, onChanged: _rollTileCallback))
-                  ],
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(top: 24.0, bottom: 24.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    Expanded(
-                      child: Text(
-                        'Survivor',
-                        style: TextStyle(fontSize: 22.0),
-                        textAlign: TextAlign.center,
-                      ),
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+            Container(
+              padding: EdgeInsets.fromLTRB(24.0, 24.0, 24.0, 10.0),
+              child: PerkCluster(selectedPerks, _rollTileCallback),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 24.0, bottom: 24.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Expanded(
+                    child: Text(
+                      'Survivor',
+                      style: TextStyle(fontSize: 22.0),
+                      textAlign: TextAlign.center,
                     ),
-                    Transform.scale(
-                      scale: 1.5,
-                      child: Switch(
-                          value: perkModeSwitch,
-                          onChanged: (value) async {
-                            setState(() {
-                              perkModeSwitch = value;
+                  ),
+                  Transform.scale(
+                    scale: 1.5,
+                    child: Switch(
+                        value: perkModeSwitch,
+                        onChanged: (value) async {
+                          setState(() {
+                            perkModeSwitch = value;
 
-                              perkMode = !perkModeSwitch ? PerkType.survivor : PerkType.killer;
-                              _filteredRoll();
-                            });
-                          }),
+                            perkMode = !perkModeSwitch ? PerkType.survivor : PerkType.killer;
+                            _filteredRoll();
+                          });
+                        }),
+                  ),
+                  Expanded(
+                    child: Text(
+                      'Killer',
+                      style: TextStyle(fontSize: 22.0),
+                      textAlign: TextAlign.center,
                     ),
-                    Expanded(
-                      child: Text(
-                        'Killer',
-                        style: TextStyle(fontSize: 22.0),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              Container(height: MediaQuery.of(context).size.height * 0.13)
-            ]);
-          })),
+            ),
+          ])),
     );
   }
 }

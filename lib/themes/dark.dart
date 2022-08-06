@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 final ColorScheme perkLightColorScheme = ColorScheme(
-  primary: Color(0xff21213b),
-  primaryVariant: Color(0xff21213b),
+  primary: Color(0xff212132),
+  primaryVariant: Color(0xff212132),
   secondary: Colors.redAccent,
   secondaryVariant: Colors.redAccent,
-  surface: Color(0xff21213b),
-  background: Color(0xff21213b),
+  surface: Color(0xff212132),
+  background: Color(0xff212132),
   error: Colors.redAccent,
   onPrimary: Colors.white,
   onSecondary: Colors.black,

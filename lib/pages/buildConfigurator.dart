@@ -73,7 +73,8 @@ class _BuildConfigurationState extends State<BuildConfiguration> {
                               ScaffoldMessengerState scaffold = ScaffoldMessenger.of(context);
                               scaffold.removeCurrentSnackBar();
                               scaffold.showSnackBar(
-                                  SnackBar(content: Text('You cannot select less than 4 survivor perks')));
+                                SnackBar(content: Text('You cannot select less than 4 survivor perks')),
+                              );
                               return;
                             }
                             setState(() {
@@ -82,7 +83,11 @@ class _BuildConfigurationState extends State<BuildConfiguration> {
                             });
                           },
                           secondary: IconButton(
-                              icon: Image.asset('assets/images/survivor/${item.iconFilename}'),
+                              icon: Image.asset(
+                                'assets/images/survivor/${item.iconFilename}',
+                                cacheWidth: 64,
+                                cacheHeight: 64,
+                              ),
                               onPressed: () {
                                 Navigator.pushNamed(context, '/details', arguments: item);
                               })),
@@ -100,8 +105,9 @@ class _BuildConfigurationState extends State<BuildConfiguration> {
                             if (!value && selectedKillerPerks - 1 < 4) {
                               ScaffoldMessengerState scaffold = ScaffoldMessenger.of(context);
                               scaffold.removeCurrentSnackBar();
-                              scaffold
-                                  .showSnackBar(SnackBar(content: Text('You cannot select less than 4 killer perks')));
+                              scaffold.showSnackBar(
+                                SnackBar(content: Text('You cannot select less than 4 killer perks')),
+                              );
                               return;
                             }
                             setState(() {
@@ -110,7 +116,11 @@ class _BuildConfigurationState extends State<BuildConfiguration> {
                             });
                           },
                           secondary: IconButton(
-                              icon: Image.asset('assets/images/killer/${item.iconFilename}'),
+                              icon: Image.asset(
+                                'assets/images/killer/${item.iconFilename}',
+                                cacheWidth: 64,
+                                cacheHeight: 64,
+                              ),
                               onPressed: () {
                                 Navigator.pushNamed(context, '/details', arguments: item);
                               })),
