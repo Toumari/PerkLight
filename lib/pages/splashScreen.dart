@@ -14,18 +14,18 @@ class SplashScreen extends StatefulWidget {
 }
 
 class SplashScreenState extends State<SplashScreen> {
-  List<Future> _initSteps = List<Future>();
+  List<Future> _initSteps = [];
 
-  List<KillerPerk> _killerPerks = List<KillerPerk>();
-  List<SurvivorPerk> _survivorPerks = List<SurvivorPerk>();
-  List<Character> _survivorCharacterDetails = List<Character>();
-  List<Character> _killerCharacterDetails = List<Character>();
-  List<Item> _firecrackerItemDetails = List<Item>();
-  List<Item> _flashlightItemDetails = List<Item>();
-  List<Item> _keyItemDetails = List<Item>();
-  List<Item> _mapItemDetails = List<Item>();
-  List<Item> _medkitItemDetails = List<Item>();
-  List<Item> _toolboxItemDetails = List<Item>();
+  List<KillerPerk> _killerPerks = [];
+  List<SurvivorPerk> _survivorPerks = [];
+  List<Character> _survivorCharacterDetails = [];
+  List<Character> _killerCharacterDetails = [];
+  List<Item> _firecrackerItemDetails = [];
+  List<Item> _flashlightItemDetails = [];
+  List<Item> _keyItemDetails = [];
+  List<Item> _mapItemDetails = [];
+  List<Item> _medkitItemDetails = [];
+  List<Item> _toolboxItemDetails = [];
 
   _navigateToHomePage(List<dynamic> values) {
     Navigator.pushReplacementNamed(context, '/home', arguments: {

@@ -2,6 +2,7 @@
     package="toumari.perklight">
 
     <application
+        android:name="lib.main.PerkLight"
         android:label="PerkLight"
         android:icon="@mipmap/launcher_icon">
         <meta-data
@@ -14,9 +15,6 @@
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:hardwareAccelerated="true"
             android:windowSoftInputMode="adjustResize">
-            <meta-data
-                android:name="io.flutter.embedding.android.SplashScreenDrawable"
-                android:resource="@drawable/launch_background" />
             <meta-data
                 android:name="io.flutter.embedding.android.NormalTheme"
                 android:resource="@style/NormalTheme" />
