@@ -8,6 +8,7 @@ import 'package:perklight/classes/item.dart';
 import 'package:perklight/classes/perkSerialiser.dart';
 import 'package:perklight/utilities.dart' as Utils;
 import 'package:perklight/widgets/perkTile.dart';
+import 'package:perklight/widgets/navigationDrawer.dart';
 
 class PerkPage extends StatefulWidget {
   PerkPage(arguments)
@@ -120,85 +121,18 @@ class _PerkPageState extends State<PerkPage> {
     ]);
 
     return Scaffold(
-      drawer: Drawer(
-        child: Container(
-          child: ListView(
-            children: <Widget>[
-              Container(
-                child: DrawerHeader(
-                  child: Center(
-                    child: Text(
-                      'PerkLight',
-                      style: TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold, color: Colors.white),
-                    ),
-                  ),
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.all(24.0),
-                child: ListTile(
-                  title: Text(
-                    'Perk Configuration',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 22.0,
-                    ),
-                  ),
-                  onTap: () async {
-                    await Navigator.pushNamed(context, '/builder',
-                        arguments: {'killerPerks': widget.killerPerks, 'survivorPerks': widget.survivorPerks});
-                    setState(() {
-                      _filteredRoll();
-                    });
-                  },
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.all(24.0),
-                child: ListTile(
-                  title: Text(
-                    'Character Profiles',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 22.0,
-                    ),
-                  ),
-                  onTap: () async {
-                    await Navigator.pushNamed(context, '/characters', arguments: {
-                      'killerPerks': widget.killerPerks,
-                      'survivorPerks': widget.survivorPerks,
-                      'survivorCharacterDetails': widget.survivorCharacterDetails,
-                      'killerCharacterDetails': widget.killerCharacterDetails
-                    });
-                  },
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.all(24.0),
-                child: ListTile(
-                  title: Text(
-                    'Item Library',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 22.0,
-                    ),
-                  ),
-                  onTap: () async {
-                    await Navigator.pushNamed(context, '/items', arguments: {
-                      'firecracker': widget.firecrackerItemDetails,
-                      'flashlight': widget.flashlightItemDetails,
-                      'key': widget.keyItemDetails,
-                      'map': widget.mapItemDetails,
-                      'medkit': widget.medkitItemDetails,
-                      'toolbox': widget.toolboxItemDetails
-                    });
-                  },
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+      drawer: NavigationDrawer({
+        'killerPerks': widget.killerPerks,
+        'survivorPerks': widget.survivorPerks,
+        'survivorCharacterDetails': widget.survivorCharacterDetails,
+        'killerCharacterDetails': widget.killerCharacterDetails,
+        'firecrackerItemDetails': widget.firecrackerItemDetails,
+        'flashlightItemDetails': widget.flashlightItemDetails,
+        'keyItemDetails': widget.keyItemDetails,
+        'mapItemDetails': widget.mapItemDetails,
+        'medkitItemDetails': widget.medkitItemDetails,
+        'toolboxItemDetails': widget.toolboxItemDetails
+      }),
       appBar: AppBar(
         title: Text('PerkLight'),
       ),
